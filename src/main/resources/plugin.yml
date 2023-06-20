@@ -1,0 +1,15 @@
+name: KatzcraftTimer
+version: '1.7.2'
+main: de.enderkatze.katzcrafttimer.Main
+api-version: 1.19
+authors: [EnderKatze]
+description: A simple but functional timer!
+website: https://castmax1311.github.io/katzcraft-studios-website/
+commands:
+  timer:
+    usage: /<command>
+    description: timer command
+    aliases: [katzcrafttimer]
+    permission: katzcrafttimer.timer
+
+softdepend: [PlaceholderAPI]
