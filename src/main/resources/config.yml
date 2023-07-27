@@ -8,8 +8,7 @@ saveTime: true
 pauseOnRestart: false
 
 # Prefix Configuration
-
-# Will be shown as ["Prefix"]
+# Will be shown as [prefix]
 prefix: "§5§lKatzcraftTimer"
 
 # Will be the Hologram title if no other is specified
@@ -20,23 +19,3 @@ errorColor: "RED"
 successColor: "GREEN"
 timerColor: "DARK_PURPLE"
 hologramTimerColor: "WHITE"
-
-# Message Configuration
-
-usage: "Usage: https://www.spigotmc.org/resources/katzcrafttimer.104380/"
-
-alreadyRunning: "Timer is already running!"
-started: "Timer started!"
-
-alreadyPaused: "Timer is already paused!"
-paused: "Timer paused!"
-
-reset: "Timer reset!"
-
-# Will be showed as timeNotValid: reason
-timeNotValid: "Time not valid:"
-noValue: "No value!"
-notANumber: "Isn't a number!"
-
-actionbarPausedMessage: "Timer paused"
-actionbarTimeOverMessage: "Time is over!"

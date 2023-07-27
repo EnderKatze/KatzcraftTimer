@@ -1,5 +1,6 @@
-package de.enderkatze.katzcrafttimer;
+package de.enderkatze.katzcrafttimer.Utility;
 
+import de.enderkatze.katzcrafttimer.Main;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -44,10 +45,19 @@ public class TimerExpansion extends PlaceholderExpansion {
             case "current":
                 return String.valueOf(Main.getInstance().getTimer().getTime());
 
+            case "time":
+                return Main.getInstance().getTimer().getTimeString();
+
             case "actionbar_visible":
-                return "";
+                return String.valueOf(Main.getInstance().getToggledActionbarPlayers().contains(p));
+
+            case "running":
+                return String.valueOf(Main.getInstance().getTimer().isRunning());
+
+            case "backwards":
+                return String.valueOf(Main.getInstance().getTimer().isBackwards());
         }
 
-        return "";
+        return null;
     }
 }

@@ -1,6 +1,6 @@
 package de.enderkatze.katzcrafttimer.commands;
 
-import de.enderkatze.katzcrafttimer.Objects.Hologram;
+import de.enderkatze.easylanguages.EasyLanguages;
 import de.enderkatze.katzcrafttimer.Main;
 import de.enderkatze.katzcrafttimer.Utils;
 import de.enderkatze.katzcrafttimer.timer.Timer;
@@ -25,20 +25,20 @@ public class TimerCommand implements CommandExecutor, TabCompleter {
     String errorColor = Main.getInstance().getConfig().getString("errorColor");
 
 
-    String usageMessage = Main.getInstance().getConfig().getString("usage");
+    String usageMessage = EasyLanguages.GetServerLanguage(Main.getInstance()).getString("usage");
 
-    String alreadyRunningMessage = Main.getInstance().getConfig().getString("alreadyRunning");
-    String startedMessage = Main.getInstance().getConfig().getString("started");
+    String alreadyRunningMessage = EasyLanguages.GetServerLanguage(Main.getInstance()).getString("alreadyRunning");
+    String startedMessage = EasyLanguages.GetServerLanguage(Main.getInstance()).getString("started");
 
-    String alreadyPausedMessage = Main.getInstance().getConfig().getString("alreadyPaused");
-    String pausedMessage = Main.getInstance().getConfig().getString("paused");
+    String alreadyPausedMessage = EasyLanguages.GetServerLanguage(Main.getInstance()).getString("alreadyPaused");
+    String pausedMessage = EasyLanguages.GetServerLanguage(Main.getInstance()).getString("paused");
 
-    String resetMessage = Main.getInstance().getConfig().getString("reset");
+    String resetMessage = EasyLanguages.GetServerLanguage(Main.getInstance()).getString("reset");
 
-    String notNumberMessage = Main.getInstance().getConfig().getString("timeNotValid")
-            + " " + Main.getInstance().getConfig().getString("notANumber");
-    String noneMessage = Main.getInstance().getConfig().getString("timeNotValid")
-            + " " + Main.getInstance().getConfig().getString("noValue");
+    String notNumberMessage = EasyLanguages.GetServerLanguage(Main.getInstance()).getString("timeNotValid")
+            + " " + EasyLanguages.GetServerLanguage(Main.getInstance()).getString("notANumber");
+    String noneMessage = EasyLanguages.GetServerLanguage(Main.getInstance()).getString("timeNotValid")
+            + " " + EasyLanguages.GetServerLanguage(Main.getInstance()).getString("noValue");
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -83,6 +83,14 @@ public class TimerCommand implements CommandExecutor, TabCompleter {
                 }
                 break;
             }
+            case "reload": {
+
+                Main.getInstance().reloadConfig();
+
+                sender.sendMessage(Main.getInstance().getPrefix() + EasyLanguages.GetServerLanguage(Main.getInstance()).getString("reload"));
+                break;
+            }
+
             case "reset": {
                 Timer timer = Main.getInstance().getTimer();
 
@@ -93,7 +101,9 @@ public class TimerCommand implements CommandExecutor, TabCompleter {
                 if(sender instanceof Player) {
                     Player player = (Player) sender;
                     player.playSound(player, Sound.ENTITY_ZOMBIE_HURT, 100, 1);
+
                 }
+
                 break;
             }
             case "hologram": {
@@ -143,7 +153,7 @@ public class TimerCommand implements CommandExecutor, TabCompleter {
                         timer.setTime(Integer.parseInt(args[1]));
                         timer.setBackwards(true);
                         timer.setRunning(true);
-                        sender.sendMessage(Prefix + ChatColor.GREEN + "Started Countdown!");
+                        sender.sendMessage(Prefix + ChatColor.GREEN + EasyLanguages.GetServerLanguage(Main.getInstance()).getString("countdownStarted"));
                     } catch (NumberFormatException e) {
                         sender.sendMessage(Prefix + ChatColor.valueOf(errorColor) + notNumberMessage);
                         if(sender instanceof Player) {
@@ -155,17 +165,62 @@ public class TimerCommand implements CommandExecutor, TabCompleter {
                 break;
             }
 
-            case "toggle_display": {
+            case "set_display": {
 
-                Timer timer = Main.getInstance().getTimer();
-
-                try {
-
-                    timer.setDisplayActionbar(!timer.isDisplayActionbar());
-                } catch (NumberFormatException e) {
-
-                    sender.sendMessage(Prefix + "You need to enter a boolean");
+                if(args.length < 3) {
+                    sender.sendMessage(Main.getInstance().getPrefix() + Main.getInstance().getConfig().getString("noValue"));
                 }
+
+                else if(Objects.equals(args[2], "false")) {
+
+                    List<Player> players = Main.getInstance().getToggledActionbarPlayers();
+
+                    if (Objects.equals(args[1], "@a")) {
+
+                        try {
+
+                            players.addAll(Bukkit.getOnlinePlayers());
+
+                        } catch (NumberFormatException e) {
+
+                            sender.sendMessage(Prefix + EasyLanguages.GetServerLanguage(Main.getInstance()).getString("invalidArgument"));
+                        }
+                    } else {
+
+                        try {
+                            players.add(Bukkit.getPlayer(args[1]));
+                        } catch (NumberFormatException e) {
+                            sender.sendMessage(Prefix + EasyLanguages.GetServerLanguage(Main.getInstance()).getString("invalidArgument"));
+                        }
+                    }
+
+                    Main.getInstance().setToggledActionbarPlayers(players);
+                } else if(Objects.equals(args[2], "true")) {
+
+                    List<Player> players = Main.getInstance().getToggledActionbarPlayers();
+
+                    if(Objects.equals(args[1], "@a")) {
+
+                        players.clear();
+                    }
+
+                    else {
+                        try {
+                            players.remove(Bukkit.getPlayer(args[1]));
+                        } catch (Exception e) {
+                            sender.sendMessage(Prefix + EasyLanguages.GetServerLanguage(Main.getInstance()).getString("playerNotFound"));
+                        }
+                    }
+
+                    Main.getInstance().setToggledActionbarPlayers(players);
+                }
+
+                else {
+
+                    sender.sendMessage(Main.getInstance().getPrefix() + EasyLanguages.GetServerLanguage(Main.getInstance()).getString("playerNotFound"));
+                }
+
+
                 break;
             }
 
@@ -199,7 +254,7 @@ public class TimerCommand implements CommandExecutor, TabCompleter {
                             try {
 
                                 timer.setTime(timer.getTime() + Integer.parseInt(args[2]));
-                                sender.sendMessage(Prefix + Integer.toString(Math.abs(Integer.parseInt(args[2]))) + " was added to Time");
+                                sender.sendMessage(Prefix + EasyLanguages.GetServerLanguage(Main.getInstance()).getString("addedTime") + Integer.toString(Math.abs(Integer.parseInt(args[2]))));
                             } catch (NumberFormatException e) {
                                 sender.sendMessage(Prefix + ChatColor.valueOf(errorColor) + notNumberMessage);
 
@@ -214,7 +269,7 @@ public class TimerCommand implements CommandExecutor, TabCompleter {
                             try {
 
                                 timer.setTime(timer.getTime() - Integer.parseInt(args[2]));
-                                sender.sendMessage(Prefix + Integer.toString(Math.abs(Integer.parseInt(args[2]))) + " was removed from Time");
+                                sender.sendMessage(Prefix + EasyLanguages.GetServerLanguage(Main.getInstance()).getString("removedTime") + Integer.toString(Math.abs(Integer.parseInt(args[2]))));
                             } catch (NumberFormatException e) {
                                 sender.sendMessage(Prefix + ChatColor.valueOf(errorColor) + notNumberMessage);
 
@@ -244,23 +299,38 @@ public class TimerCommand implements CommandExecutor, TabCompleter {
         if(args.length == 0) return list;
 
         if(args.length == 1) {
-            list.clear();
 
             list.add("resume");
             list.add("pause");
             list.add("reset");
             list.add("time");
             list.add("countdown");
-            list.add("toggle_display");
+            list.add("set_display");
             list.add("hologram");
+            list.add("reload");
 
         } else if (args.length == 2) {
-            list.clear();
 
             if(Objects.equals(args[0], "time")) {
                 list.add("set");
                 list.add("add");
                 list.add("remove");
+            }
+            else if(Objects.equals(args[0], "set_display")) {
+
+                list.add("@a");
+
+                for (Player player : Bukkit.getOnlinePlayers() ) {
+
+                    list.add(player.getName());
+                }
+            }
+        } else if (args.length == 3) {
+
+            if(Objects.equals(args[0], "set_display")) {
+
+                list.add("true");
+                list.add("false");
             }
         }
 

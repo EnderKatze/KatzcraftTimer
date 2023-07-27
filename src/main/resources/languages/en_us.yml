@@ -1,0 +1,32 @@
+usage: "Usage: https://www.spigotmc.org/resources/katzcrafttimer.104380/"
+
+alreadyRunning: "Timer is already running!"
+started: "Timer started!"
+countdownStarted: "Countdown started!"
+
+alreadyPaused: "Timer is already paused!"
+paused: "Timer paused!"
+timeOver: "Time's up!"
+addedTime: "Added seconds: "
+removedTime: "Removed seconds: "
+
+reload: "Reloaded!"
+
+reset: "Timer reset!"
+
+# Will be showed as timeNotValid: reason
+timeNotValid: "Time not valid:"
+
+noValue: "No value!"
+notANumber: "Isn't a number!"
+
+invalidArgument: "You need to enter valid values!"
+playerNotFound: "That player doesn't exist"
+
+actionbarPausedMessage: "Timer paused"
+actionbarTimeOverMessage: "Time is over!"
+
+updateChecker:
+  noUpdate: "No updates available"
+  update: "There's a new update available"
+  unableToCheck: "Unable to check for updates: "

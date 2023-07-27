@@ -1,5 +1,5 @@
 name: KatzcraftTimer
-version: '1.7.2'
+version: '1.9'
 main: de.enderkatze.katzcrafttimer.Main
 api-version: 1.19
 authors: [EnderKatze]
@@ -13,3 +13,4 @@ commands:
     permission: katzcrafttimer.timer
 
 softdepend: [PlaceholderAPI]
+depend: [EasyLanguages]

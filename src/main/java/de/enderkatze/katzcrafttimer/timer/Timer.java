@@ -1,5 +1,6 @@
 package de.enderkatze.katzcrafttimer.timer;
 
+import de.enderkatze.easylanguages.EasyLanguages;
 import de.enderkatze.katzcrafttimer.Main;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -8,10 +9,12 @@ import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Score;
+import org.bukkit.scoreboard.Scoreboard;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -135,50 +138,80 @@ public class Timer {
         }
     }
 
-    public void sendActionBar() {
-        if(this.displayActionbar) {
-            for (Player player : Bukkit.getOnlinePlayers()) {
-                if(!isRunning()) {
-                    player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(
-                            ChatColor.valueOf(Main.getInstance().getConfig().getString("timerColor")).toString() +
-                                    ChatColor.BOLD + Main.getInstance().getConfig().getString(
-                                            "actionbarPausedMessage")));
-                } else if(getTime() == 0 && isBackwards()) {
-                    player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(
-                            ChatColor.valueOf(Main.getInstance().getConfig().getString("timerColor")).toString() +
-                                    ChatColor.BOLD + Main.getInstance().getConfig().getString(
-                                    "actionbarTimeOverMessage")));
-                    player.sendMessage(Main.getInstance().getPrefix() + ChatColor.RED + "Time's up!");
-                    player.playSound(player, Sound.ENTITY_ZOMBIE_HURT, 100, 1);
-                    setBackwards(false);
-                    setRunning(false);
+    void UpdateScoreboard(Player player) {
 
-                } else {
+        Scoreboard scoreboard = player.getScoreboard();
 
-                    seconds = getTime() % 60;
-                    minutes = (getTime()/60) % 60;
-                    hours = getTime()/60/60;
+        for(Objective objective: scoreboard.getObjectives()) {
 
-                    String secondsStr = String.valueOf(seconds);
-                    String minutesStr = String.valueOf(minutes);
-                    String hoursStr = String.valueOf(hours);
+            for(String entry: objective.getScoreboard().getEntries()) {
 
-                    if(seconds < 10) {
-                        secondsStr = "0" + String.valueOf(seconds);
-                    }
-                    if(minutes < 10) {
-                        minutesStr = "0" + String.valueOf(minutes);
-                    }
-                    if(hours < 10) {
-                        hoursStr = "0" + String.valueOf(hours);
-                    }
-
-                    player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(
-                            ChatColor.valueOf(Main.getInstance().getConfig().getString("timerColor")).toString() +
-                                    ChatColor.BOLD + hoursStr + ":" + minutesStr + ":" + secondsStr));
-                }
+                Score score = objective.getScore(entry);
             }
         }
+    }
+
+    public String getTimeString() {
+
+        String timeString = "";
+
+        seconds = getTime() % 60;
+        minutes = (getTime() / 60) % 60;
+        hours = getTime() / 60 / 60;
+
+        String secondsStr = String.valueOf(seconds);
+        String minutesStr = String.valueOf(minutes);
+        String hoursStr = String.valueOf(hours);
+
+        if (seconds < 10) {
+            secondsStr = "0" + String.valueOf(seconds);
+        }
+        if (minutes < 10) {
+            minutesStr = "0" + String.valueOf(minutes);
+        }
+        if (hours < 10) {
+            hoursStr = "0" + String.valueOf(hours);
+        }
+
+        timeString = hoursStr + ":" + minutesStr + ":" + secondsStr;
+
+        return timeString;
+    }
+
+    public void sendActionBar() {
+
+            for (Player player : Bukkit.getOnlinePlayers()) {
+
+                UpdateScoreboard(player);
+
+                if(!Main.getInstance().getToggledActionbarPlayers().contains(player)) {
+                    if (!isRunning()) {
+
+                        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(
+                                ChatColor.valueOf(Main.getInstance().getConfig().getString("timerColor")).toString() +
+                                        ChatColor.BOLD + EasyLanguages.GetServerLanguage(Main.getInstance()).getString(
+                                        "actionbarPausedMessage")));
+                    } else if (getTime() == 0 && isBackwards()) {
+                        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(
+                                ChatColor.valueOf(Main.getInstance().getConfig().getString("timerColor")).toString() +
+                                        ChatColor.BOLD + EasyLanguages.GetServerLanguage(Main.getInstance()).getString(
+                                        "actionbarTimeOverMessage")));
+                        player.sendMessage(Main.getInstance().getPrefix() + ChatColor.RED + EasyLanguages.GetServerLanguage(Main.getInstance()).getString("timeOver"));
+                        player.playSound(player, Sound.ENTITY_ZOMBIE_HURT, 100, 1);
+                        setBackwards(false);
+                        setRunning(false);
+
+                    } else {
+
+
+
+                        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(
+                                ChatColor.valueOf(Main.getInstance().getConfig().getString("timerColor")).toString() +
+                                        ChatColor.BOLD + getTimeString()));
+                    }
+                }
+            }
+
 
     }
 
