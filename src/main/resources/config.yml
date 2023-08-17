@@ -19,3 +19,7 @@ errorColor: "RED"
 successColor: "GREEN"
 timerColor: "DARK_PURPLE"
 hologramTimerColor: "WHITE"
+
+# Sound Config
+positiveSound: "ENTITY_EXPERIENCE_ORB_PICKUP"
+negativeSound: "ENTITY_ZOMBIE_HURT"

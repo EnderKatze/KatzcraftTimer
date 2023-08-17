@@ -197,7 +197,7 @@ public class Timer {
                                         ChatColor.BOLD + EasyLanguages.GetServerLanguage(Main.getInstance()).getString(
                                         "actionbarTimeOverMessage")));
                         player.sendMessage(Main.getInstance().getPrefix() + ChatColor.RED + EasyLanguages.GetServerLanguage(Main.getInstance()).getString("timeOver"));
-                        player.playSound(player, Sound.ENTITY_ZOMBIE_HURT, 100, 1);
+                        player.playSound(player, Sound.valueOf(Main.getInstance().getConfig().getString("negativeSound")), 100, 1);
                         setBackwards(false);
                         setRunning(false);
 

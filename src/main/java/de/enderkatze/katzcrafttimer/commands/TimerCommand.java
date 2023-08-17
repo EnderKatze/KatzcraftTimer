@@ -55,14 +55,14 @@ public class TimerCommand implements CommandExecutor, TabCompleter {
                     sender.sendMessage(Prefix + ChatColor.valueOf(errorColor) + alreadyRunningMessage);
                     if(sender instanceof Player) {
                         Player player = (Player) sender;
-                        player.playSound(player, Sound.ENTITY_ZOMBIE_HURT, 100, 1);
+                        player.playSound(player, Sound.valueOf(Main.getInstance().getConfig().getString("negativeSound")), 100, 1);
                     }
                     break;
                 }
                 timer.setRunning(true);
                 Bukkit.broadcastMessage(Prefix + ChatColor.valueOf(successColor) + startedMessage);
                 for(Player player : Bukkit.getOnlinePlayers()) {
-                    player.playSound(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 100, 2);
+                    player.playSound(player, Sound.valueOf(Main.getInstance().getConfig().getString("positiveSound")), 100, 2);
                 }
                 break;
             }
@@ -72,14 +72,14 @@ public class TimerCommand implements CommandExecutor, TabCompleter {
                     sender.sendMessage(Prefix + ChatColor.valueOf(errorColor) + alreadyPausedMessage);
                     if(sender instanceof Player) {
                         Player player = (Player) sender;
-                        player.playSound(player, Sound.ENTITY_ZOMBIE_HURT, 100, 1);
+                        player.playSound(player, Sound.valueOf(Main.getInstance().getConfig().getString("negativeSound")), 100, 1);
                     }
                     break;
                 }
                 timer.setRunning(false);
                 Bukkit.broadcastMessage(Prefix + ChatColor.valueOf(successColor) + pausedMessage);
                 for(Player player : Bukkit.getOnlinePlayers()) {
-                    player.playSound(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 100, 0);
+                    player.playSound(player, Sound.valueOf(Main.getInstance().getConfig().getString("positiveSound")), 100, 0);
                 }
                 break;
             }
@@ -88,6 +88,10 @@ public class TimerCommand implements CommandExecutor, TabCompleter {
                 Main.getInstance().reloadConfig();
 
                 sender.sendMessage(Main.getInstance().getPrefix() + EasyLanguages.GetServerLanguage(Main.getInstance()).getString("reload"));
+                if(sender instanceof Player) {
+                    Player player = (Player) sender;
+                    player.playSound(player, Sound.valueOf(Main.getInstance().getConfig().getString("positiveSound")), 100, 0);
+                }
                 break;
             }
 
@@ -100,7 +104,7 @@ public class TimerCommand implements CommandExecutor, TabCompleter {
                 Bukkit.broadcastMessage(Prefix + ChatColor.valueOf(successColor) + resetMessage);
                 if(sender instanceof Player) {
                     Player player = (Player) sender;
-                    player.playSound(player, Sound.ENTITY_ZOMBIE_HURT, 100, 1);
+                    player.playSound(player, Sound.valueOf(Main.getInstance().getConfig().getString("positiveSound")), 100, 1);
 
                 }
 
@@ -145,7 +149,7 @@ public class TimerCommand implements CommandExecutor, TabCompleter {
                     sender.sendMessage(Prefix + ChatColor.valueOf(errorColor) + noneMessage);
                     if(sender instanceof Player) {
                         Player player = (Player) sender;
-                        player.playSound(player, Sound.ENTITY_ZOMBIE_HURT, 100, 1);
+                        player.playSound(player, Sound.valueOf(Main.getInstance().getConfig().getString("negativeSound")), 100, 1);
                     }
                     return true;
                 } else {
@@ -154,11 +158,15 @@ public class TimerCommand implements CommandExecutor, TabCompleter {
                         timer.setBackwards(true);
                         timer.setRunning(true);
                         sender.sendMessage(Prefix + ChatColor.GREEN + EasyLanguages.GetServerLanguage(Main.getInstance()).getString("countdownStarted"));
+                        if(sender instanceof Player) {
+                            Player player = (Player) sender;
+                            player.playSound(player, Sound.valueOf(Main.getInstance().getConfig().getString("positiveSound")), 100, 0);
+                        }
                     } catch (NumberFormatException e) {
                         sender.sendMessage(Prefix + ChatColor.valueOf(errorColor) + notNumberMessage);
                         if(sender instanceof Player) {
                             Player player = (Player) sender;
-                            player.playSound(player, Sound.ENTITY_ZOMBIE_HURT, 100, 1);
+                            player.playSound(player, Sound.valueOf(Main.getInstance().getConfig().getString("negativeSound")), 100, 1);
                         }
                     }
                 }
@@ -229,7 +237,7 @@ public class TimerCommand implements CommandExecutor, TabCompleter {
                 if(args.length != 3) {
                     sender.sendMessage(Prefix + ChatColor.valueOf(errorColor) + noneMessage);
                     for(Player player : Bukkit.getOnlinePlayers()) {
-                        player.playSound(player, Sound.ENTITY_ZOMBIE_HURT, 100, 1);
+                        player.playSound(player, Sound.valueOf(Main.getInstance().getConfig().getString("negativeSound")), 100, 1);
                     }
                     return true;
                 } else {
@@ -245,7 +253,7 @@ public class TimerCommand implements CommandExecutor, TabCompleter {
 
                                 if(sender instanceof Player) {
                                     Player player = (Player) sender;
-                                    player.playSound(player, Sound.ENTITY_ZOMBIE_HURT, 100, 1);
+                                    player.playSound(player, Sound.valueOf(Main.getInstance().getConfig().getString("negativeSound")), 100, 1);
                                 }
                             }
                             break;
@@ -260,7 +268,7 @@ public class TimerCommand implements CommandExecutor, TabCompleter {
 
                                 if(sender instanceof Player) {
                                     Player player = (Player) sender;
-                                    player.playSound(player, Sound.ENTITY_ZOMBIE_HURT, 100, 1);
+                                    player.playSound(player, Sound.valueOf(Main.getInstance().getConfig().getString("negativeSound")), 100, 1);
                                 }
                             }
                             break;
@@ -275,7 +283,7 @@ public class TimerCommand implements CommandExecutor, TabCompleter {
 
                                 if(sender instanceof Player) {
                                     Player player = (Player) sender;
-                                    player.playSound(player, Sound.ENTITY_ZOMBIE_HURT, 100, 1);
+                                    player.playSound(player, Sound.valueOf(Main.getInstance().getConfig().getString("negativeSound")), 100, 1);
                                 }
                             }
                             break;
