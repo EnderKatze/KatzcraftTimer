@@ -1,4 +1,4 @@
-package de.enderkatze.katzcrafttimer.Utility;
+package de.enderkatze.katzcrafttimer.utitlity;
 
 import de.enderkatze.katzcrafttimer.Main;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;

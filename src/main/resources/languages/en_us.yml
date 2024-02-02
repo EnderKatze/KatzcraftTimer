@@ -14,7 +14,7 @@ reload: "Reloaded!"
 
 reset: "Timer reset!"
 
-# Will be showed as timeNotValid: reason
+# Will be shown as timeNotValid: reason
 timeNotValid: "Time not valid:"
 
 noValue: "No value!"
@@ -28,5 +28,8 @@ actionbarTimeOverMessage: "Time is over!"
 
 updateChecker:
   noUpdate: "No updates available"
-  update: "There's a new update available"
-  unableToCheck: "Unable to check for updates: "
+
+  # {newVer} is replaced with the version found on spigot
+  # {error} is replaced with the error message
+  update: "Found newer version on spigot: {newVer}"
+  unableToCheck: "Unable to check for updates: {error}"

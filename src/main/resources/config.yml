@@ -1,11 +1,12 @@
-# used to store the data on server shutdown
-# Don't change if you don't know what you're doing!
-time: 0
-currentlyBackwards: false
-
 # General Settings
 saveTime: true
 pauseOnRestart: false
+
+# Enter the command you want to execute if the countdown hits 0 here
+# e.g. "/kill @a". Needs to be in Quotation Marks
+countdownFinishedCommand: null
+
+language: "en_us"
 
 # Prefix Configuration
 # Will be shown as [prefix]

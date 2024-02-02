@@ -1,6 +1,6 @@
 package de.enderkatze.katzcrafttimer.timer;
 
-import de.enderkatze.easylanguages.EasyLanguages;
+
 import de.enderkatze.katzcrafttimer.Main;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -189,14 +189,14 @@ public class Timer {
 
                         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(
                                 ChatColor.valueOf(Main.getInstance().getConfig().getString("timerColor")).toString() +
-                                        ChatColor.BOLD + EasyLanguages.GetServerLanguage(Main.getInstance()).getString(
+                                        ChatColor.BOLD +Main.getInstance().getLanguage().getString(
                                         "actionbarPausedMessage")));
                     } else if (getTime() == 0 && isBackwards()) {
                         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(
                                 ChatColor.valueOf(Main.getInstance().getConfig().getString("timerColor")).toString() +
-                                        ChatColor.BOLD + EasyLanguages.GetServerLanguage(Main.getInstance()).getString(
+                                        ChatColor.BOLD + Main.getInstance().getLanguage().getString(
                                         "actionbarTimeOverMessage")));
-                        player.sendMessage(Main.getInstance().getPrefix() + ChatColor.RED + EasyLanguages.GetServerLanguage(Main.getInstance()).getString("timeOver"));
+                        player.sendMessage(Main.getInstance().getPrefix() + ChatColor.valueOf(Main.getInstance().getConfig().getString("errorColor")) + Main.getInstance().getLanguage().getString("timeOver"));
                         player.playSound(player, Sound.valueOf(Main.getInstance().getConfig().getString("negativeSound")), 100, 1);
                         setBackwards(false);
                         setRunning(false);

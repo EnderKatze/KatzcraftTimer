@@ -13,4 +13,3 @@ commands:
     permission: katzcrafttimer.timer
 
 softdepend: [PlaceholderAPI]
-depend: [EasyLanguages]

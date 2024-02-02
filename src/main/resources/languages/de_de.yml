@@ -14,7 +14,7 @@ reload: "Neu geladen!"
 
 reset: "Timer zurückgesetzt!"
 
-# Will be showed as timeNotValid: reason
+# Will be shown as timeNotValid: reason
 timeNotValid: "Zeit ungültig:"
 
 noValue: "Kein Wert!"

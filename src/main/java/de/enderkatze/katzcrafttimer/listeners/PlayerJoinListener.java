@@ -1,6 +1,5 @@
 package de.enderkatze.katzcrafttimer.listeners;
 
-import de.enderkatze.easylanguages.EasyLanguages;
 import de.enderkatze.katzcrafttimer.Main;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,7 +12,7 @@ public class PlayerJoinListener implements Listener {
 
         if(Main.getInstance().updateAvailable && event.getPlayer().isOp()) {
 
-            event.getPlayer().sendMessage(Main.getInstance().getPrefix() + EasyLanguages.GetServerLanguage(Main.getInstance()).getString("updateChecker.update"));
+            event.getPlayer().sendMessage(Main.getInstance().getPrefix() + Main.getInstance().getLanguage().getString("updateChecker.update"));
         }
     }
 }
