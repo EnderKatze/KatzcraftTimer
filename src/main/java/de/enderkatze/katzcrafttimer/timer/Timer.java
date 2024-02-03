@@ -2,6 +2,7 @@ package de.enderkatze.katzcrafttimer.timer;
 
 
 import de.enderkatze.katzcrafttimer.Main;
+import de.enderkatze.katzcrafttimer.events.CountdownEndEvent;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
@@ -191,16 +192,6 @@ public class Timer {
                                 ChatColor.valueOf(Main.getInstance().getConfig().getString("timerColor")).toString() +
                                         ChatColor.BOLD +Main.getInstance().getLanguage().getString(
                                         "actionbarPausedMessage")));
-                    } else if (getTime() == 0 && isBackwards()) {
-                        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(
-                                ChatColor.valueOf(Main.getInstance().getConfig().getString("timerColor")).toString() +
-                                        ChatColor.BOLD + Main.getInstance().getLanguage().getString(
-                                        "actionbarTimeOverMessage")));
-                        player.sendMessage(Main.getInstance().getPrefix() + ChatColor.valueOf(Main.getInstance().getConfig().getString("errorColor")) + Main.getInstance().getLanguage().getString("timeOver"));
-                        player.playSound(player, Sound.valueOf(Main.getInstance().getConfig().getString("negativeSound")), 100, 1);
-                        setBackwards(false);
-                        setRunning(false);
-
                     } else {
 
 
@@ -227,6 +218,11 @@ public class Timer {
 
                 if(isBackwards()) { setTime(getTime() - 1); }
                 else { setTime(getTime() + 1); }
+
+                if(getBackwards() && (getTime() <= 0)) {
+                    CountdownEndEvent countdownEndEvent = new CountdownEndEvent();
+                    Main.getInstance().getServer().getPluginManager().callEvent(countdownEndEvent);
+                }
 
             }
         }.runTaskTimer(Main.getInstance(), 20, 20);

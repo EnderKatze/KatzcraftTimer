@@ -1,5 +1,6 @@
 package de.enderkatze.katzcrafttimer;
 
+import de.enderkatze.katzcrafttimer.listeners.CountdownEndListener;
 import de.enderkatze.katzcrafttimer.utitlity.LanguageHandler;
 import de.enderkatze.katzcrafttimer.utitlity.TimerExpansion;
 import de.enderkatze.katzcrafttimer.utitlity.UpdateChecker;
@@ -78,6 +79,7 @@ public final class Main extends JavaPlugin {
 
         // Register events
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(), this);
+        Bukkit.getPluginManager().registerEvents(new CountdownEndListener(), this);
 
         saveDefaultConfig();
         reloadConfig();

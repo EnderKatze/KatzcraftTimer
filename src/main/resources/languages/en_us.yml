@@ -24,7 +24,7 @@ invalidArgument: "You need to enter valid values!"
 playerNotFound: "That player doesn't exist"
 
 actionbarPausedMessage: "Timer paused"
-actionbarTimeOverMessage: "Time is over!"
+actionbarTimeOverMessage: "Time is up!"
 
 updateChecker:
   noUpdate: "No updates available"

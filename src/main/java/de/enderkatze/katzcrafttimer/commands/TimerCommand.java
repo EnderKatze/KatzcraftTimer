@@ -2,6 +2,8 @@ package de.enderkatze.katzcrafttimer.commands;
 
 import de.enderkatze.katzcrafttimer.Main;
 import de.enderkatze.katzcrafttimer.Utils;
+import de.enderkatze.katzcrafttimer.events.TimerPauseEvent;
+import de.enderkatze.katzcrafttimer.events.TimerResumeEvent;
 import de.enderkatze.katzcrafttimer.timer.Timer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -63,6 +65,9 @@ public class TimerCommand implements CommandExecutor, TabCompleter {
                 for(Player player : Bukkit.getOnlinePlayers()) {
                     player.playSound(player, Sound.valueOf(Main.getInstance().getConfig().getString("positiveSound")), 100, 2);
                 }
+                TimerResumeEvent timerResumeEvent = new TimerResumeEvent(timer.getTime(), timer.isBackwards());
+                Main.getInstance().getServer().getPluginManager().callEvent(timerResumeEvent);
+
                 break;
             }
             case "pause": {
@@ -80,6 +85,10 @@ public class TimerCommand implements CommandExecutor, TabCompleter {
                 for(Player player : Bukkit.getOnlinePlayers()) {
                     player.playSound(player, Sound.valueOf(Main.getInstance().getConfig().getString("positiveSound")), 100, 0);
                 }
+
+                TimerPauseEvent timerPauseEvent = new TimerPauseEvent(timer.getTime(), timer.isBackwards());
+                Main.getInstance().getServer().getPluginManager().callEvent(timerPauseEvent);
+
                 break;
             }
             case "reload": {
@@ -106,6 +115,9 @@ public class TimerCommand implements CommandExecutor, TabCompleter {
                     player.playSound(player, Sound.valueOf(Main.getInstance().getConfig().getString("positiveSound")), 100, 1);
 
                 }
+
+                TimerPauseEvent timerPauseEvent = new TimerPauseEvent(timer.getTime(), false);
+                Main.getInstance().getServer().getPluginManager().callEvent(timerPauseEvent);
 
                 break;
             }
