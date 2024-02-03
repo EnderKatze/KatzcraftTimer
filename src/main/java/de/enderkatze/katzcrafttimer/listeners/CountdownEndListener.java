@@ -14,5 +14,10 @@ public class CountdownEndListener implements Listener {
         Main.getInstance().getTimer().setRunning(false);
         Main.getInstance().getTimer().setBackwards(false);
         Bukkit.broadcastMessage(Main.getInstance().getPrefix() + Main.getInstance().getLanguage().getString("actionbarTimeOverMessage"));
+
+        if(Main.getInstance().getConfig().getString("countdownFinishedCommand") != null) {
+
+            Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), Main.getInstance().getConfig().getString("countdownFinishedCommand"));
+        }
     }
 }
