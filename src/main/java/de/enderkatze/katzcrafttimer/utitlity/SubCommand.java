@@ -4,15 +4,13 @@ import de.enderkatze.katzcrafttimer.commands.TimerCommand;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
+import java.util.List;
+
 public interface SubCommand {
 
     void execute(CommandSender sender, String[] args);
 
-    String name = null;
+    String getName();
 
-    default String getName() {
-        return name;
-    }
-
-    void execute();
+    List<SubCommand> getSubcommands();
 }

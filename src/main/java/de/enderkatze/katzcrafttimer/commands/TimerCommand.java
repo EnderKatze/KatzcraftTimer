@@ -56,6 +56,19 @@ public class TimerCommand implements CommandExecutor, TabCompleter {
             sender.sendMessage(Prefix + ChatColor.valueOf(errorColor) + usageMessage);
             return true;
         }
+
+        String subcommandName = args[0].toLowerCase();
+        SubCommand subcommand = subcommands.get(subcommandName);
+
+        if(subcommand != null) {
+
+            subcommand.execute(sender, args);
+            return true;
+        } else {
+            sender.sendMessage(Main.getInstance().getPrefix() + "Unknown subcommand: " + subcommandName);
+            return true;
+        }
+
         switch (args[0].toLowerCase()) {
             case "resume": {
                 Timer timer = Main.getInstance().getTimer();
