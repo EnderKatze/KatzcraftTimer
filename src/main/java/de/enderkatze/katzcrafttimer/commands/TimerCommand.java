@@ -5,6 +5,7 @@ import de.enderkatze.katzcrafttimer.Utils;
 import de.enderkatze.katzcrafttimer.events.TimerPauseEvent;
 import de.enderkatze.katzcrafttimer.events.TimerResumeEvent;
 import de.enderkatze.katzcrafttimer.timer.Timer;
+import de.enderkatze.katzcrafttimer.utitlity.SubCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
@@ -15,11 +16,17 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class TimerCommand implements CommandExecutor, TabCompleter {
+
+    private final Map<String, SubCommand> subcommands = new HashMap<>();
+
+
+    public void registerSubcommand(SubCommand subcommand) {
+        subcommands.put(subcommand.getName(), subcommand);
+    }
+
     String Prefix = Main.getInstance().getPrefix();
 
     String successColor = Main.getInstance().getConfig().getString("successColor");
