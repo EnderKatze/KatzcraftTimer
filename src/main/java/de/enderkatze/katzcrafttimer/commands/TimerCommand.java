@@ -56,8 +56,10 @@ public class TimerCommand implements CommandExecutor, TabCompleter {
             sender.sendMessage(Prefix + ChatColor.valueOf(errorColor) + usageMessage);
             return true;
         }
-
         String subcommandName = args[0].toLowerCase();
+        handleSubcommand(subcommands.get(subcommandName), sender, args);
+
+
         SubCommand subcommand = subcommands.get(subcommandName);
 
         if(subcommand != null) {
@@ -293,6 +295,9 @@ public class TimerCommand implements CommandExecutor, TabCompleter {
         }
 
         return true;
+    }
+
+    private void handleSubcommand(SubCommand subCommand, CommandSender sender, String[] args) {
     }
 
     @Override
