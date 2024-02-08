@@ -62,64 +62,27 @@ public class TimerCommand implements CommandExecutor, TabCompleter {
 
         if(subcommand != null) {
 
-            subcommand.execute(sender, args);
-            return true;
+            if(subcommand.getSubcommands() == null) {
+                subcommand.execute(sender, args);
+            } else {
+                if(args.length < 2) {
+                    subcommand.execute(sender, args);
+                }
+            }
         } else {
             sender.sendMessage(Main.getInstance().getPrefix() + "Unknown subcommand: " + subcommandName);
-            return true;
         }
 
         switch (args[0].toLowerCase()) {
             case "resume": {
-                Timer timer = Main.getInstance().getTimer();
-                if (timer.isRunning()) {
-                    sender.sendMessage(Prefix + ChatColor.valueOf(errorColor) + alreadyRunningMessage);
-                    if(sender instanceof Player) {
-                        Player player = (Player) sender;
-                        player.playSound(player, Sound.valueOf(Main.getInstance().getConfig().getString("negativeSound")), 100, 1);
-                    }
-                    break;
-                }
-                timer.setRunning(true);
-                Bukkit.broadcastMessage(Prefix + ChatColor.valueOf(successColor) + startedMessage);
-                for(Player player : Bukkit.getOnlinePlayers()) {
-                    player.playSound(player, Sound.valueOf(Main.getInstance().getConfig().getString("positiveSound")), 100, 2);
-                }
-                TimerResumeEvent timerResumeEvent = new TimerResumeEvent(timer.getTime(), timer.isBackwards());
-                Main.getInstance().getServer().getPluginManager().callEvent(timerResumeEvent);
-
                 break;
             }
             case "pause": {
-                Timer timer = Main.getInstance().getTimer();
-                if (!timer.isRunning()) {
-                    sender.sendMessage(Prefix + ChatColor.valueOf(errorColor) + alreadyPausedMessage);
-                    if(sender instanceof Player) {
-                        Player player = (Player) sender;
-                        player.playSound(player, Sound.valueOf(Main.getInstance().getConfig().getString("negativeSound")), 100, 1);
-                    }
-                    break;
-                }
-                timer.setRunning(false);
-                Bukkit.broadcastMessage(Prefix + ChatColor.valueOf(successColor) + pausedMessage);
-                for(Player player : Bukkit.getOnlinePlayers()) {
-                    player.playSound(player, Sound.valueOf(Main.getInstance().getConfig().getString("positiveSound")), 100, 0);
-                }
-
-                TimerPauseEvent timerPauseEvent = new TimerPauseEvent(timer.getTime(), timer.isBackwards());
-                Main.getInstance().getServer().getPluginManager().callEvent(timerPauseEvent);
-
                 break;
             }
             case "reload": {
 
-                Main.getInstance().reloadConfig();
 
-                sender.sendMessage(Main.getInstance().getPrefix() + Main.getInstance().getLanguage().getString("reload"));
-                if(sender instanceof Player) {
-                    Player player = (Player) sender;
-                    player.playSound(player, Sound.valueOf(Main.getInstance().getConfig().getString("positiveSound")), 100, 0);
-                }
                 break;
             }
 

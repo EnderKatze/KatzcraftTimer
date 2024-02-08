@@ -1,7 +1,9 @@
 package de.enderkatze.katzcrafttimer;
 
+import de.enderkatze.katzcrafttimer.commands.subcommands.ResumeCommand;
 import de.enderkatze.katzcrafttimer.listeners.CountdownEndListener;
 import de.enderkatze.katzcrafttimer.utitlity.LanguageHandler;
+import de.enderkatze.katzcrafttimer.utitlity.Metrics;
 import de.enderkatze.katzcrafttimer.utitlity.TimerExpansion;
 import de.enderkatze.katzcrafttimer.utitlity.UpdateChecker;
 import de.enderkatze.katzcrafttimer.commands.TimerCommand;
@@ -19,6 +21,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
 import java.util.logging.Level;
 
 public final class Main extends JavaPlugin {
@@ -32,8 +35,8 @@ public final class Main extends JavaPlugin {
 
     private NamespacedKey hologramKey;
 
-    private File data = new File(this.getDataFolder(), "data.yml");
-    private FileConfiguration dataConfig = YamlConfiguration.loadConfiguration(data);
+    private final File data = new File(this.getDataFolder(), "data.yml");
+    private final FileConfiguration dataConfig = YamlConfiguration.loadConfiguration(data);
 
     @Override
     public void onLoad() {
@@ -59,20 +62,11 @@ public final class Main extends JavaPlugin {
                 getLogger().info(getLanguage().getString("updateChecker.noUpdate"));
                 updateAvailable = false;
             } else {
-                getLogger().info(getLanguage().getString("updateChecker.update").replaceAll("\\{newVer}", version.toString()));
+                getLogger().info(getLanguage().getString("updateChecker.update").replaceAll("\\{newVer}", version));
                 updateAvailable = true;
 
             }
         });
-
-
-        // We create a file to store the data (like time)
-        if(!data.exists()) {
-            Bukkit.getLogger().log(Level.INFO, "Data file doesn't exist, creating one");
-            Bukkit.getLogger().log(Level.FINEST, "Created data file");
-            saveData();
-
-        }
 
         // Does nothing if there is already data
         InitialiseData();
@@ -81,10 +75,26 @@ public final class Main extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(), this);
         Bukkit.getPluginManager().registerEvents(new CountdownEndListener(), this);
 
+
         saveDefaultConfig();
         reloadConfig();
 
         setupTimer();
+
+        // Register timer command and subcommands
+        TimerCommand timerCommand = new TimerCommand();
+
+        timerCommand.registerSubcommand(new ResumeCommand());
+
+        getCommand("timer").setExecutor(timerCommand);
+        getCommand("timer").setTabCompleter(timerCommand);
+
+        // PlaceholderAPI hook
+        if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            new TimerExpansion().register();
+        }
+
+        Metrics metrics = new Metrics(this, 	20951);
     }
 
     @Override
@@ -150,15 +160,16 @@ public final class Main extends JavaPlugin {
 
         timer.setBackwards(dataConfig.getBoolean("currentlyBackwards"));
 
-        getCommand("timer").setExecutor(new TimerCommand());
-        getCommand("timer").setTabCompleter(new TimerCommand());
-
-        if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            new TimerExpansion().register();
-        }
     }
 
     private void InitialiseData() {
+
+        if(!data.exists()) {
+            Bukkit.getLogger().log(Level.INFO, "Data file doesn't exist, creating one");
+            Bukkit.getLogger().log(Level.FINEST, "Created data file");
+            saveData();
+
+        }
 
         if(!dataConfig.contains("time")) {
 
