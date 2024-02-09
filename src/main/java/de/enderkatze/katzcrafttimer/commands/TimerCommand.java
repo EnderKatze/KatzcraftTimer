@@ -57,53 +57,20 @@ public class TimerCommand implements CommandExecutor, TabCompleter {
             return true;
         }
         String subcommandName = args[0].toLowerCase();
-        handleSubcommand(subcommands.get(subcommandName), sender, args);
+        boolean didExecuteCommand = handleSubcommand(subcommands.get(subcommandName), sender, args, 0, "katzcrafttimer");
 
-
-        SubCommand subcommand = subcommands.get(subcommandName);
-
-        if(subcommand != null) {
-
-            if(subcommand.getSubcommands() == null) {
-                subcommand.execute(sender, args);
-            } else {
-                if(args.length < 2) {
-                    subcommand.execute(sender, args);
-                }
-            }
-        } else {
-            sender.sendMessage(Main.getInstance().getPrefix() + "Unknown subcommand: " + subcommandName);
+        if(didExecuteCommand) {
+            sender.sendMessage(Prefix + Main.getInstance().getLanguage().getString("usage"));
         }
 
+
         switch (args[0].toLowerCase()) {
-            case "resume": {
-                break;
-            }
-            case "pause": {
-                break;
-            }
-            case "reload": {
+            case "resume":
+            case "pause":
+            case "reload":
+            case "reset":
 
-
-                break;
-            }
-
-            case "reset": {
-                Timer timer = Main.getInstance().getTimer();
-
-                timer.setRunning(false);
-                timer.setBackwards(false);
-                timer.setTime(0);
-                Bukkit.broadcastMessage(Prefix + ChatColor.valueOf(successColor) + resetMessage);
-                if(sender instanceof Player) {
-                    Player player = (Player) sender;
-                    player.playSound(player, Sound.valueOf(Main.getInstance().getConfig().getString("positiveSound")), 100, 1);
-
-                }
-
-                TimerPauseEvent timerPauseEvent = new TimerPauseEvent(timer.getTime(), false);
-                Main.getInstance().getServer().getPluginManager().callEvent(timerPauseEvent);
-
+            case "set_display": {
                 break;
             }
             case "hologram": {
@@ -166,65 +133,6 @@ public class TimerCommand implements CommandExecutor, TabCompleter {
                         }
                     }
                 }
-                break;
-            }
-
-            case "set_display": {
-
-                if(args.length < 3) {
-                    sender.sendMessage(Main.getInstance().getPrefix() + Main.getInstance().getConfig().getString("noValue"));
-                }
-
-                else if(Objects.equals(args[2], "false")) {
-
-                    List<Player> players = Main.getInstance().getToggledActionbarPlayers();
-
-                    if (Objects.equals(args[1], "@a")) {
-
-                        try {
-
-                            players.addAll(Bukkit.getOnlinePlayers());
-
-                        } catch (NumberFormatException e) {
-
-                            sender.sendMessage(Prefix + Main.getInstance().getLanguage().getString("invalidArgument"));
-                        }
-                    } else {
-
-                        try {
-                            players.add(Bukkit.getPlayer(args[1]));
-                        } catch (NumberFormatException e) {
-                            sender.sendMessage(Prefix + Main.getInstance().getLanguage().getString("invalidArgument"));
-                        }
-                    }
-
-                    Main.getInstance().setToggledActionbarPlayers(players);
-                } else if(Objects.equals(args[2], "true")) {
-
-                    List<Player> players = Main.getInstance().getToggledActionbarPlayers();
-
-                    if(Objects.equals(args[1], "@a")) {
-
-                        players.clear();
-                    }
-
-                    else {
-                        try {
-                            players.remove(Bukkit.getPlayer(args[1]));
-                        } catch (Exception e) {
-                            sender.sendMessage(Prefix + Main.getInstance().getLanguage().getString("playerNotFound"));
-                        }
-                    }
-
-                    Main.getInstance().setToggledActionbarPlayers(players);
-                }
-
-                else {
-
-                    sender.sendMessage(Main.getInstance().getPrefix() + Main.getInstance().getLanguage().getString("playerNotFound"));
-                }
-
-
                 break;
             }
 
@@ -297,7 +205,40 @@ public class TimerCommand implements CommandExecutor, TabCompleter {
         return true;
     }
 
-    private void handleSubcommand(SubCommand subCommand, CommandSender sender, String[] args) {
+    private boolean handleSubcommand(SubCommand subCommand, CommandSender sender, String[] args, int depth, String topLevelPermission) {
+
+        if(subCommand != null) {
+
+            String subcommandPermission = topLevelPermission + "." + subCommand.getName();
+
+            List<SubCommand> subSubCommands = subCommand.getSubcommands();
+            if(subSubCommands != null) {
+
+                if(args.length >=depth+1) {
+                    for (SubCommand subSubCommand : subSubCommands) {
+                        if (Objects.equals(subSubCommand.getName(), args[depth+1])) {
+
+                            return handleSubcommand(subSubCommand, sender, args, depth + 1, subcommandPermission);
+
+                        }
+                    }
+                    sender.sendMessage(Main.getInstance().getPrefix() + Main.getInstance().getLanguage().getString("invalidArgument"));
+                } else {
+                    if(sender.hasPermission(subcommandPermission)) {
+                        subCommand.execute(sender, args);
+                    }
+                }
+                return true;
+
+            } else {
+                if(sender.hasPermission(subcommandPermission)) {
+                    subCommand.execute(sender, args);
+                }
+                return true;
+            }
+        } else {
+            return false;
+        }
     }
 
     @Override

@@ -1,6 +1,9 @@
 package de.enderkatze.katzcrafttimer;
 
+import de.enderkatze.katzcrafttimer.commands.subcommands.PauseCommand;
+import de.enderkatze.katzcrafttimer.commands.subcommands.ReloadCommand;
 import de.enderkatze.katzcrafttimer.commands.subcommands.ResumeCommand;
+import de.enderkatze.katzcrafttimer.commands.subcommands.ToggleDisplayCommand;
 import de.enderkatze.katzcrafttimer.listeners.CountdownEndListener;
 import de.enderkatze.katzcrafttimer.utitlity.LanguageHandler;
 import de.enderkatze.katzcrafttimer.utitlity.Metrics;
@@ -21,7 +24,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
 import java.util.logging.Level;
 
 public final class Main extends JavaPlugin {
@@ -85,6 +87,9 @@ public final class Main extends JavaPlugin {
         TimerCommand timerCommand = new TimerCommand();
 
         timerCommand.registerSubcommand(new ResumeCommand());
+        timerCommand.registerSubcommand(new PauseCommand());
+        timerCommand.registerSubcommand(new ReloadCommand());
+        timerCommand.registerSubcommand(new ToggleDisplayCommand());
 
         getCommand("timer").setExecutor(timerCommand);
         getCommand("timer").setTabCompleter(timerCommand);
@@ -122,6 +127,9 @@ public final class Main extends JavaPlugin {
     }
 
     public Timer getTimer() {
+        if(timer == null) {
+            setupTimer();
+        }
         return timer;
     }
 
