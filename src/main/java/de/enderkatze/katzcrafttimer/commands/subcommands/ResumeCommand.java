@@ -32,7 +32,7 @@ public class ResumeCommand implements SubCommand {
             return;
         }
         timer.setRunning(true);
-        Bukkit.broadcastMessage(Prefix + ChatColor.valueOf(Main.getInstance().getConfig().getString("errorColor")) + language.getString("startedMessage"));
+        Bukkit.broadcastMessage(Prefix + ChatColor.valueOf(Main.getInstance().getConfig().getString("successColor")) + language.getString("startedMessage"));
         for(Player player : Bukkit.getOnlinePlayers()) {
             player.playSound(player, Sound.valueOf(Main.getInstance().getConfig().getString("positiveSound")), 100, 2);
         }

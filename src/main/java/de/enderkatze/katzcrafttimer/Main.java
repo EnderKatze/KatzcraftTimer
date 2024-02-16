@@ -1,9 +1,6 @@
 package de.enderkatze.katzcrafttimer;
 
-import de.enderkatze.katzcrafttimer.commands.subcommands.PauseCommand;
-import de.enderkatze.katzcrafttimer.commands.subcommands.ReloadCommand;
-import de.enderkatze.katzcrafttimer.commands.subcommands.ResumeCommand;
-import de.enderkatze.katzcrafttimer.commands.subcommands.ToggleDisplayCommand;
+import de.enderkatze.katzcrafttimer.commands.subcommands.*;
 import de.enderkatze.katzcrafttimer.listeners.CountdownEndListener;
 import de.enderkatze.katzcrafttimer.utitlity.LanguageHandler;
 import de.enderkatze.katzcrafttimer.utitlity.Metrics;
@@ -72,6 +69,7 @@ public final class Main extends JavaPlugin {
 
         // Does nothing if there is already data
         InitialiseData();
+        setupTimer();
 
         // Register events
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(), this);
@@ -81,14 +79,17 @@ public final class Main extends JavaPlugin {
         saveDefaultConfig();
         reloadConfig();
 
-        setupTimer();
 
         // Register timer command and subcommands
         TimerCommand timerCommand = new TimerCommand();
 
-        timerCommand.registerSubcommand(new ResumeCommand());
+        timerCommand.registerSubcommand(new CountdownCommand());
+        timerCommand.registerSubcommand(new HologramCommand());
         timerCommand.registerSubcommand(new PauseCommand());
         timerCommand.registerSubcommand(new ReloadCommand());
+        timerCommand.registerSubcommand(new ResetCommand());
+        timerCommand.registerSubcommand(new ResumeCommand());
+        timerCommand.registerSubcommand(new TimeCommand());
         timerCommand.registerSubcommand(new ToggleDisplayCommand());
 
         getCommand("timer").setExecutor(timerCommand);

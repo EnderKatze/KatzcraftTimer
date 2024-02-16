@@ -17,6 +17,11 @@ public class TimerResumeEvent extends Event {
         return handlers;
     }
 
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
+
     public TimerResumeEvent(int time, boolean isBackwards) {
 
         this.time = time;
