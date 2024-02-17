@@ -40,6 +40,6 @@ public class LanguageHandler {
     }
 
     public FileConfiguration getSelectedLanguage() {
-        return languageConfig;
+        return this.languageConfig;
     }
 }

@@ -19,7 +19,7 @@ public class CountdownCommand implements SubCommand {
         Timer timer = Main.getInstance().getTimer();
         String errorColor = Main.getInstance().getConfig().getString("errorColor");
         if(args.length != 2) {
-            sender.sendMessage(Prefix + ChatColor.valueOf(errorColor) + Main.getInstance().getLanguage().getString("noneMessage"));
+            sender.sendMessage(Prefix + ChatColor.valueOf(errorColor) + Main.getInstance().getLanguage().getString("noValue"));
             if(sender instanceof Player) {
                 Player player = (Player) sender;
                 player.playSound(player, Sound.valueOf(Main.getInstance().getConfig().getString("negativeSound")), 100, 1);
@@ -35,7 +35,7 @@ public class CountdownCommand implements SubCommand {
                     player.playSound(player, Sound.valueOf(Main.getInstance().getConfig().getString("positiveSound")), 100, 0);
                 }
             } catch (NumberFormatException e) {
-                sender.sendMessage(Prefix + ChatColor.valueOf(errorColor) + Main.getInstance().getLanguage().getString("notNumberMessage"));
+                sender.sendMessage(Prefix + ChatColor.valueOf(errorColor) + Main.getInstance().getLanguage().getString("notANumber"));
                 if(sender instanceof Player) {
                     Player player = (Player) sender;
                     player.playSound(player, Sound.valueOf(Main.getInstance().getConfig().getString("negativeSound")), 100, 1);

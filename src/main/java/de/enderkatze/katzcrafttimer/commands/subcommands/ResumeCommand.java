@@ -24,7 +24,7 @@ public class ResumeCommand implements SubCommand {
 
         Timer timer = Main.getInstance().getTimer();
         if (timer.isRunning()) {
-            sender.sendMessage(Prefix + ChatColor.valueOf(Main.getInstance().getConfig().getString("errorColor")) + language.getString("alreadyRunningMessage"));
+            sender.sendMessage(Prefix + ChatColor.valueOf(Main.getInstance().getConfig().getString("errorColor")) + language.getString("alreadyRunning"));
             if(sender instanceof Player) {
                 Player player = (Player) sender;
                 player.playSound(player, Sound.valueOf(Main.getInstance().getConfig().getString("negativeSound")), 100, 1);
@@ -32,7 +32,7 @@ public class ResumeCommand implements SubCommand {
             return;
         }
         timer.setRunning(true);
-        Bukkit.broadcastMessage(Prefix + ChatColor.valueOf(Main.getInstance().getConfig().getString("successColor")) + language.getString("startedMessage"));
+        Bukkit.broadcastMessage(Prefix + ChatColor.valueOf(Main.getInstance().getConfig().getString("successColor")) + language.getString("started"));
         for(Player player : Bukkit.getOnlinePlayers()) {
             player.playSound(player, Sound.valueOf(Main.getInstance().getConfig().getString("positiveSound")), 100, 2);
         }

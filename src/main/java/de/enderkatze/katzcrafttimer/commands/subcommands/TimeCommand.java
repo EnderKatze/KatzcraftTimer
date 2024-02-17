@@ -47,7 +47,7 @@ public class TimeCommand implements SubCommand {
 
     @Override
     public String getName() {
-        return null;
+        return "time";
     }
 
     @Override

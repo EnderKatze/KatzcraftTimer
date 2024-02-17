@@ -23,7 +23,7 @@ public class PauseCommand implements SubCommand {
 
         Timer timer = Main.getInstance().getTimer();
         if (!timer.isRunning()) {
-            sender.sendMessage(Prefix + ChatColor.valueOf(Main.getInstance().getConfig().getString("errorColor")) + language.getString("alreadyPausedMessage"));
+            sender.sendMessage(Prefix + ChatColor.valueOf(Main.getInstance().getConfig().getString("errorColor")) + language.getString("alreadyPaused"));
             if(sender instanceof Player) {
                 Player player = (Player) sender;
                 player.playSound(player, Sound.valueOf(Main.getInstance().getConfig().getString("negativeSound")), 100, 1);
@@ -31,7 +31,7 @@ public class PauseCommand implements SubCommand {
             return;
         }
         timer.setRunning(false);
-        Bukkit.broadcastMessage(Prefix + ChatColor.valueOf(Main.getInstance().getConfig().getString("successColor")) + language.getString("pausedMessage"));
+        Bukkit.broadcastMessage(Prefix + ChatColor.valueOf(Main.getInstance().getConfig().getString("successColor")) + language.getString("paused"));
         for(Player player : Bukkit.getOnlinePlayers()) {
             player.playSound(player, Sound.valueOf(Main.getInstance().getConfig().getString("positiveSound")), 100, 0);
         }
