@@ -26,7 +26,7 @@ public class ReloadCommand implements SubCommand {
     }
 
     @Override
-    public List<SubCommand> getSubcommands() {
+    public List<String> getOptions() {
         return null;
     }
 }

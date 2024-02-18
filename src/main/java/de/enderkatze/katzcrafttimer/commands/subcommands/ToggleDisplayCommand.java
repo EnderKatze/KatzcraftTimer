@@ -6,6 +6,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ToggleDisplayCommand implements SubCommand {
@@ -41,7 +43,12 @@ public class ToggleDisplayCommand implements SubCommand {
     }
 
     @Override
-    public List<SubCommand> getSubcommands() {
-        return null;
+    public List<String> getOptions() {
+        List<String> playerNames = new ArrayList<>();
+        for (Player player : Bukkit.getServer().getOnlinePlayers()) {
+            playerNames.add(player.getName());
+        }
+
+        return playerNames;
     }
 }

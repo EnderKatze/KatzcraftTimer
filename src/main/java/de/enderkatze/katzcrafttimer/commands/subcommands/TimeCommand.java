@@ -5,6 +5,7 @@ import de.enderkatze.katzcrafttimer.timer.Timer;
 import de.enderkatze.katzcrafttimer.utitlity.SubCommand;
 import org.bukkit.command.CommandSender;
 
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -51,7 +52,7 @@ public class TimeCommand implements SubCommand {
     }
 
     @Override
-    public List<SubCommand> getSubcommands() {
-        return null;
+    public List<String> getOptions() {
+        return Arrays.asList("+30", "30", "-30");
     }
 }

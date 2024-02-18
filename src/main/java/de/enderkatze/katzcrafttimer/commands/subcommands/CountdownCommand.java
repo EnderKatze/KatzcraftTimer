@@ -8,6 +8,7 @@ import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class CountdownCommand implements SubCommand {
@@ -50,7 +51,7 @@ public class CountdownCommand implements SubCommand {
     }
 
     @Override
-    public List<SubCommand> getSubcommands() {
-        return null;
+    public List<String> getOptions() {
+        return Arrays.asList("30", "60", "3600");
     }
 }

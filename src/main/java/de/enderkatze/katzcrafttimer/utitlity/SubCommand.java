@@ -11,5 +11,5 @@ public interface SubCommand {
 
     String getName();
 
-    List<SubCommand> getSubcommands();
+    List<String> getOptions();
 }

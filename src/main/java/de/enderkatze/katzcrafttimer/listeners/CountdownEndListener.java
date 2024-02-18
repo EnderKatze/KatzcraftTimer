@@ -17,7 +17,13 @@ public class CountdownEndListener implements Listener {
 
         if(Main.getInstance().getConfig().getString("countdownFinishedCommand") != null) {
 
-            Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), Main.getInstance().getConfig().getString("countdownFinishedCommand"));
+            String command = Main.getInstance().getConfig().getString("countdownFinishedCommand");
+
+            if(command.startsWith("/")) {
+                command = command.replace("/", "");
+            }
+
+            Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), command);
         }
     }
 }
