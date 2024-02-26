@@ -9,6 +9,8 @@ import de.enderkatze.katzcrafttimer.utitlity.UpdateChecker;
 import de.enderkatze.katzcrafttimer.commands.TimerCommand;
 import de.enderkatze.katzcrafttimer.listeners.PlayerJoinListener;
 import de.enderkatze.katzcrafttimer.timer.Timer;
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
@@ -27,11 +29,16 @@ public final class Main extends JavaPlugin {
 
     public boolean updateAvailable = false;
 
+    @Getter
     private static Main instance;
+
     private Timer timer;
 
+    @Getter
+    @Setter
     private List<Player> toggledActionbarPlayers = new ArrayList<>();
 
+    @Getter
     private NamespacedKey hologramKey;
 
     private final File data = new File(this.getDataFolder(), "data.yml");
@@ -118,15 +125,6 @@ public final class Main extends JavaPlugin {
 
     }
 
-    public static Main getInstance() {
-        return instance;
-    }
-
-    public NamespacedKey getHologramKey() {
-
-        return hologramKey;
-    }
-
     public Timer getTimer() {
         if(timer == null) {
             setupTimer();
@@ -134,23 +132,16 @@ public final class Main extends JavaPlugin {
         return timer;
     }
 
-    public String getPrefix() {
+    @Getter(lazy=true) private final String prefix = setPrefix();
+
+    private String setPrefix() {
         String text = getConfig().getString("prefix");
         return "[" + text + ChatColor.RESET + "] ";
     }
 
-    public List<Player> getToggledActionbarPlayers() {
-
-        return toggledActionbarPlayers;
-    }
 
     public FileConfiguration getLanguage() {
         return LanguageHandler.getInstance().getSelectedLanguage();
-    }
-
-    public void setToggledActionbarPlayers(List<Player>inputToggledActionbarPlayers) {
-
-        toggledActionbarPlayers = inputToggledActionbarPlayers;
     }
 
     private void setupTimer() {
