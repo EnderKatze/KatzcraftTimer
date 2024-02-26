@@ -10,6 +10,7 @@ import de.enderkatze.katzcrafttimer.commands.TimerCommand;
 import de.enderkatze.katzcrafttimer.listeners.PlayerJoinListener;
 import de.enderkatze.katzcrafttimer.timer.Timer;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -42,8 +43,8 @@ public final class Main extends JavaPlugin {
     private NamespacedKey hologramKey;
 
     private final File data = new File(this.getDataFolder(), "data.yml");
+    @NonNull
     private final FileConfiguration dataConfig = YamlConfiguration.loadConfiguration(data);
-
     @Override
     public void onLoad() {
         instance = this;
@@ -55,7 +56,7 @@ public final class Main extends JavaPlugin {
 
             dataConfig.save(data);
         } catch (IOException e) {
-            e.printStackTrace();
+            this.getLogger().log(Level.SEVERE ,e.getMessage());
         }
     }
 
@@ -132,9 +133,7 @@ public final class Main extends JavaPlugin {
         return timer;
     }
 
-    @Getter(lazy=true) private final String prefix = setPrefix();
-
-    private String setPrefix() {
+    public String getPrefix() {
         String text = getConfig().getString("prefix");
         return "[" + text + ChatColor.RESET + "] ";
     }

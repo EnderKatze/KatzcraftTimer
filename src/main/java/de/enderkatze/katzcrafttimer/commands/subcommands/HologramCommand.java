@@ -2,6 +2,7 @@ package de.enderkatze.katzcrafttimer.commands.subcommands;
 
 import de.enderkatze.katzcrafttimer.Main;
 import de.enderkatze.katzcrafttimer.Utils;
+import de.enderkatze.katzcrafttimer.utitlity.Hologram;
 import de.enderkatze.katzcrafttimer.utitlity.SubCommand;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.ArmorStand;
@@ -19,6 +20,8 @@ public class HologramCommand implements SubCommand {
             Player player = (Player) sender;
 
             Utils utils = new Utils();
+
+            Hologram hologram = new Hologram(((Player) sender).getLocation(), args[0]);
 
 
             ArmorStand titleHologram = utils.createHologram(player.getWorld(), player.getLocation().add(0, -.3, 0), "none");
