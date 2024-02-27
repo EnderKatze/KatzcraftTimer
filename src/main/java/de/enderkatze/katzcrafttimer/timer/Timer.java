@@ -3,6 +3,9 @@ package de.enderkatze.katzcrafttimer.timer;
 
 import de.enderkatze.katzcrafttimer.Main;
 import de.enderkatze.katzcrafttimer.events.CountdownEndEvent;
+import de.enderkatze.katzcrafttimer.utitlity.Hologram;
+import lombok.Getter;
+import lombok.Setter;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
@@ -22,8 +25,12 @@ import java.util.List;
 
 public class Timer {
 
+    @Setter
     private boolean running;
+    @Getter
+    @Setter
     private boolean backwards;
+    @Getter
     private int time;
     private boolean displayActionbar;
 
@@ -35,29 +42,6 @@ public class Timer {
         return running;
     }
 
-    public boolean isBackwards() {
-        return backwards;
-    }
-
-    public boolean isDisplayActionbar() {return this.displayActionbar;}
-
-    public void setRunning(boolean running) {
-        this.running = running;
-    }
-
-    public void setBackwards(boolean backwards) {
-
-        this.backwards = backwards;
-    }
-
-    public void setDisplayActionbar(boolean display) {
-
-        this.displayActionbar = display;
-    }
-
-    public int getTime() {
-        return time;
-    }
 
     public boolean getBackwards() {
 
@@ -81,6 +65,10 @@ public class Timer {
     }
 
     public void updateHolograms() {
+
+        // TODO rewrite to use Hologram object
+
+        List<Hologram> hologramList = Main.getInstance().getHolograms();
 
         List<ArmorStand> holograms = new ArrayList<>();
 
@@ -216,7 +204,7 @@ public class Timer {
                     return;
                 }
 
-                if(isBackwards()) { setTime(getTime() - 1); }
+                if(getBackwards()) { setTime(getTime() - 1); }
                 else { setTime(getTime() + 1); }
 
                 if(getBackwards() && (getTime() <= 0)) {

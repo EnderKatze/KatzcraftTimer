@@ -12,10 +12,10 @@ import java.util.Arrays;
 import java.util.List;
 
 
-// TODO rework how holograms are stored
 public class HologramCommand implements SubCommand {
     @Override
     public void execute(CommandSender sender, String[] args) {
+        // TODO Update command to use new Hologram object
         if(sender instanceof Player) {
             Player player = (Player) sender;
 

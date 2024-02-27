@@ -43,6 +43,7 @@ public class Hologram {
             lines.add(line);
         }
 
+        Main.getInstance().addHologram(this);
         saveToFile();
     }
 

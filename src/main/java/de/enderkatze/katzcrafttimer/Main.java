@@ -2,10 +2,7 @@ package de.enderkatze.katzcrafttimer;
 
 import de.enderkatze.katzcrafttimer.commands.subcommands.*;
 import de.enderkatze.katzcrafttimer.listeners.CountdownEndListener;
-import de.enderkatze.katzcrafttimer.utitlity.LanguageHandler;
-import de.enderkatze.katzcrafttimer.utitlity.Metrics;
-import de.enderkatze.katzcrafttimer.utitlity.TimerExpansion;
-import de.enderkatze.katzcrafttimer.utitlity.UpdateChecker;
+import de.enderkatze.katzcrafttimer.utitlity.*;
 import de.enderkatze.katzcrafttimer.commands.TimerCommand;
 import de.enderkatze.katzcrafttimer.listeners.PlayerJoinListener;
 import de.enderkatze.katzcrafttimer.timer.Timer;
@@ -15,6 +12,7 @@ import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -23,6 +21,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -41,6 +40,16 @@ public final class Main extends JavaPlugin {
 
     @Getter
     private NamespacedKey hologramKey;
+
+    private Metrics metrics;
+
+    @Getter
+    private List<Hologram> holograms;
+    public void addHologram(Hologram h) {
+        holograms.add(h);
+        metrics.addCustomChart(new Metrics.SimplePie("holograms_per_server", () -> {return String.valueOf(holograms.size());}));
+    }
+
 
     private final File data = new File(this.getDataFolder(), "data.yml");
     @NonNull
@@ -109,7 +118,20 @@ public final class Main extends JavaPlugin {
             new TimerExpansion().register();
         }
 
-        Metrics metrics = new Metrics(this, 	20951);
+        metrics = new Metrics(this, 	20951);
+
+        loadHolograms();
+    }
+
+    private void loadHolograms() {
+
+        ConfigurationSection hologramSection = dataConfig.getConfigurationSection("holograms");
+
+        List<String> uuids = new ArrayList<String>(hologramSection.getKeys(true));
+
+        for(String uuid : uuids) {
+            holograms.add(new Hologram(uuid));
+        }
     }
 
     @Override
