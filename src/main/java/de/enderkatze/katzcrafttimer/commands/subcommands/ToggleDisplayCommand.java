@@ -15,6 +15,7 @@ public class ToggleDisplayCommand implements SubCommand {
     public void execute(CommandSender sender, String[] args) {
         if(args.length < 2) {
             sender.sendMessage(Main.getInstance().getPrefix() + Main.getInstance().getLanguage().getString("noValue"));
+            return;
         }
 
         List<Player> players = Main.getInstance().getToggledActionbarPlayers();

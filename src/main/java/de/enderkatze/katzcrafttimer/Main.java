@@ -44,6 +44,7 @@ public final class Main extends JavaPlugin {
 
     private final File data = new File(this.getDataFolder(), "data.yml");
     @NonNull
+    @Getter
     private final FileConfiguration dataConfig = YamlConfiguration.loadConfiguration(data);
     @Override
     public void onLoad() {
@@ -51,7 +52,7 @@ public final class Main extends JavaPlugin {
         hologramKey = new NamespacedKey(Main.getInstance(), "timerHologram");
     }
 
-    private void saveData() {
+    public void saveData() {
         try{
 
             dataConfig.save(data);

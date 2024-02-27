@@ -74,7 +74,9 @@ public class TimerCommand implements CommandExecutor, TabCompleter {
         if(args.length >= 2) {
             if(subcommands.containsKey(args[0])) {
                 SubCommand selected = subcommands.get(args[0]);
-                list = new ArrayList<String>(selected.getOptions());
+                if(selected.getOptions() != null) {
+                    list = new ArrayList<String>(selected.getOptions());
+                }
 
             }
         }
