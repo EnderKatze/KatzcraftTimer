@@ -44,9 +44,13 @@ public final class Main extends JavaPlugin {
     private Metrics metrics;
 
     @Getter
-    private List<Hologram> holograms;
+    private List<Hologram> holograms = new ArrayList<>();
     public void addHologram(Hologram h) {
         holograms.add(h);
+        metrics.addCustomChart(new Metrics.SimplePie("holograms_per_server", () -> {return String.valueOf(holograms.size());}));
+    }
+    public void removeHologram(Hologram h) {
+        holograms.remove(h);
         metrics.addCustomChart(new Metrics.SimplePie("holograms_per_server", () -> {return String.valueOf(holograms.size());}));
     }
 
@@ -131,7 +135,9 @@ public final class Main extends JavaPlugin {
 
         for(String uuid : uuids) {
             holograms.add(new Hologram(uuid));
+            
         }
+
     }
 
     @Override

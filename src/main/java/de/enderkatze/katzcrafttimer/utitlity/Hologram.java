@@ -11,6 +11,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
+import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -23,8 +24,12 @@ public class Hologram {
 
     @Getter private final ArmorStand title;
 
-    // First line is the title
+    /**
+     * -- GETTER --
+     * Returns a list of ArmorStands, each representing a line in the hologram. These are sorted top to bottom line
+     */
     @Getter private List<ArmorStand> lines = new ArrayList<>();
+
 
     public Hologram(@NotNull Location location, String title) {
         this.location = location;
@@ -32,6 +37,7 @@ public class Hologram {
         if(title == null) {
             this.title = createLine(this.location.add(0, lineSpacing, 0), true);
             this.title.setCustomName(Main.getInstance().getConfig().getString("defaultHologramTitle"));
+            this.title.getPersistentDataContainer().set(Main.getInstance().getHologramKey(), PersistentDataType.STRING, HologramLineType.TITLE.toString());
         } else {
             this.title = createLine(this.location.add(0, lineSpacing, 0), true);
             this.title.setCustomName(title);
@@ -40,6 +46,7 @@ public class Hologram {
 
         for(int i = 0; i <= 3; i++) {
             ArmorStand line = this.location.getWorld().spawn(this.location.add(0, lineSpacing * (i+2), 0), ArmorStand.class);
+            line.getPersistentDataContainer().set(Main.getInstance().getHologramKey(), PersistentDataType.STRING, HologramLineType.LINE.toString());
             lines.add(line);
         }
 
@@ -104,18 +111,21 @@ public class Hologram {
 
     public void removeHologram() {
         if(this.title != null && !this.lines.isEmpty()) {
+
+            Main.getInstance().removeHologram(this);
+
+            FileConfiguration data = Main.getInstance().getDataConfig();
+            data.set("hologram." + this.title.getUniqueId(), null);
+
             this.title.remove();
 
             for(ArmorStand line : this.lines) {
                 line.remove();
             }
 
-            FileConfiguration data = Main.getInstance().getDataConfig();
-
-            ConfigurationSection hologramsSection = data.getConfigurationSection("holograms");
-
-
+            this.lines.clear();
         }
+
     }
 
     private ArmorStand getTitleById(String id) {
@@ -130,3 +140,4 @@ public class Hologram {
         return null;
     }
 }
+
