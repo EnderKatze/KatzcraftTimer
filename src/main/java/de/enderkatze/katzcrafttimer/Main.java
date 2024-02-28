@@ -21,7 +21,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -131,11 +130,13 @@ public final class Main extends JavaPlugin {
 
         ConfigurationSection hologramSection = dataConfig.getConfigurationSection("holograms");
 
-        List<String> uuids = new ArrayList<String>(hologramSection.getKeys(true));
+        if(hologramSection != null) {
+            List<String> uuids = new ArrayList<String>(hologramSection.getKeys(true));
 
-        for(String uuid : uuids) {
-            holograms.add(new Hologram(uuid));
-            
+            for (String uuid : uuids) {
+                holograms.add(new Hologram(uuid));
+
+            }
         }
 
     }
@@ -148,7 +149,7 @@ public final class Main extends JavaPlugin {
             dataConfig.set("time", timer.getTime());
         }
 
-        dataConfig.set("currentlyBackwards", timer.getBackwards());
+        dataConfig.set("currentlyBackwards", timer.isBackwards());
 
         saveData();
         saveConfig();

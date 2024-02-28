@@ -15,37 +15,27 @@ import java.util.List;
 public class HologramCommand implements SubCommand {
     @Override
     public void execute(CommandSender sender, String[] args) {
-        // TODO Update command to use new Hologram object
         if(sender instanceof Player) {
             Player player = (Player) sender;
 
-            Utils utils = new Utils();
-
-            Hologram hologram = new Hologram(((Player) sender).getLocation(), args[0]);
-
-
-            ArmorStand titleHologram = utils.createHologram(player.getWorld(), player.getLocation().add(0, -.3, 0), "none");
-
+            String title;
             if(args.length > 1) {
 
-                StringBuilder title = new StringBuilder();
+                StringBuilder titleBuilder = new StringBuilder();
 
 
                 for (int i = 1; i < args.length; i++) {
 
-                    title.append(" ").append(args[i]);
+                    titleBuilder.append(" ").append(args[i]);
                 }
 
 
-                titleHologram.setCustomName(title.toString().replace('&', '§'));
+                title = titleBuilder.toString();
             } else {
-                titleHologram.setCustomName(Main.getInstance().getConfig().getString("defaultHologramTitle"));
+                title = Main.getInstance().getConfig().getString("defaultHologramTitle");
             }
 
-            utils.createHologram(player.getWorld(), player.getLocation().add(0, -.6, 0), "days");
-            utils.createHologram(player.getWorld(), player.getLocation().add(0, -.9, 0), "hours");
-            utils.createHologram(player.getWorld(), player.getLocation().add(0, -1.2, 0), "minutes");
-            utils.createHologram(player.getWorld(), player.getLocation().add(0, -1.5, 0), "seconds");
+            Hologram hologram = new Hologram(((Player) sender).getLocation(), title);
         }
     }
 

@@ -6,6 +6,7 @@ import de.enderkatze.katzcrafttimer.events.CountdownEndEvent;
 import de.enderkatze.katzcrafttimer.utitlity.Hologram;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.var;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
@@ -25,6 +26,7 @@ import java.util.List;
 
 public class Timer {
 
+    @Getter
     @Setter
     private boolean running;
     @Getter
@@ -33,20 +35,6 @@ public class Timer {
     @Getter
     private int time;
     private boolean displayActionbar;
-
-    private int seconds;
-    private int minutes;
-    private int hours;
-
-    public boolean isRunning() {
-        return running;
-    }
-
-
-    public boolean getBackwards() {
-
-        return backwards;
-    }
 
     public int setTime(int time) {
         this.time = Math.abs(time);
@@ -65,65 +53,33 @@ public class Timer {
     }
 
     public void updateHolograms() {
-
-        // TODO rewrite to use Hologram object
-
         List<Hologram> hologramList = Main.getInstance().getHolograms();
 
-        List<ArmorStand> holograms = new ArrayList<>();
+        for(Hologram hologram : hologramList) {
 
-        for(World world : Bukkit.getWorlds()) {
+            List<ArmorStand> lines = hologram.getLines();
 
-            for(ArmorStand stand : world.getEntitiesByClass(ArmorStand.class)) {
+            String daysString = String.valueOf((getTime()/60/60) / 24);
+            lines.get(0).setCustomName(daysString + " Days");
 
-                if(stand.getPersistentDataContainer().has(Main.getInstance().getHologramKey(), PersistentDataType.STRING)) {
-
-                    String colour = Main.getInstance().getConfig().getString("hologramTimerColor");
-
-                    switch (stand.getPersistentDataContainer().get(Main.getInstance().getHologramKey(), PersistentDataType.STRING)) {
-
-                        case "days":
-
-                            String daysString = String.valueOf((getTime()/60/60) / 24);
-
-                            stand.setCustomName(ChatColor.valueOf(colour) + daysString + " Days");
-                            break;
-
-                        case "hours":
-                            String hoursString = String.valueOf((getTime()/60/60) % 24);
-
-                            if((Integer.parseInt(hoursString) < 10)) {
-                                hoursString = "0" + String.valueOf(hoursString);
-                            }
-
-                            stand.setCustomName(ChatColor.valueOf(colour) + hoursString + " Hours");
-                            break;
-
-                        case "minutes":
-                            String minutesString = String.valueOf((getTime() / 60) % 60);
-
-                            if((Integer.parseInt(minutesString) < 10)) {
-                                minutesString = "0" + String.valueOf(minutesString);
-                            }
-
-                            stand.setCustomName(ChatColor.valueOf(colour) + minutesString + " Minutes");
-                            break;
-
-                        case "seconds":
-                            String secondsString = String.valueOf((getTime()%60));
-
-                            if((Integer.parseInt(secondsString) < 10)) {
-                                secondsString = "0" + String.valueOf(secondsString);
-                            }
-
-                            stand.setCustomName(ChatColor.valueOf(colour) + secondsString + " Seconds");
-                            break;
-
-                        default:
-                            break;
-                    }
-                }
+            String hoursString = String.valueOf((getTime()/60/60) % 24);
+            if((Integer.parseInt(hoursString) < 10)) {
+                hoursString = "0" + String.valueOf(hoursString);
             }
+            lines.get(1).setCustomName(hoursString + " Hours");
+
+            String minutesString = String.valueOf((getTime() / 60) % 60);
+            if((Integer.parseInt(minutesString) < 10)) {
+                minutesString = "0" + String.valueOf(minutesString);
+            }
+            lines.get(2).setCustomName(minutesString + " Minutes");
+
+            String secondsString = String.valueOf((getTime()%60));
+            if((Integer.parseInt(secondsString) < 10)) {
+                secondsString = "0" + String.valueOf(secondsString);
+            }
+            lines.get(3).setCustomName(secondsString + " Seconds");
+
         }
     }
 
@@ -144,9 +100,9 @@ public class Timer {
 
         String timeString = "";
 
-        seconds = getTime() % 60;
-        minutes = (getTime() / 60) % 60;
-        hours = getTime() / 60 / 60;
+        int seconds = getTime() % 60;
+        int minutes = (getTime() / 60) % 60;
+        int hours = getTime() / 60 / 60;
 
         String secondsStr = String.valueOf(seconds);
         String minutesStr = String.valueOf(minutes);
@@ -204,10 +160,10 @@ public class Timer {
                     return;
                 }
 
-                if(getBackwards()) { setTime(getTime() - 1); }
+                if(isBackwards()) { setTime(getTime() - 1); }
                 else { setTime(getTime() + 1); }
 
-                if(getBackwards() && (getTime() <= 0)) {
+                if(isBackwards() && (getTime() <= 0)) {
                     CountdownEndEvent countdownEndEvent = new CountdownEndEvent();
                     Main.getInstance().getServer().getPluginManager().callEvent(countdownEndEvent);
                 }

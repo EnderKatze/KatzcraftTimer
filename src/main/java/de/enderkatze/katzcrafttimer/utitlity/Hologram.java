@@ -35,17 +35,16 @@ public class Hologram {
         this.location = location;
         double lineSpacing = -.3;
         if(title == null) {
-            this.title = createLine(this.location.add(0, lineSpacing, 0), true);
+            this.title = createLine(this.location.add(0, 0, 0), true);
             this.title.setCustomName(Main.getInstance().getConfig().getString("defaultHologramTitle"));
             this.title.getPersistentDataContainer().set(Main.getInstance().getHologramKey(), PersistentDataType.STRING, HologramLineType.TITLE.toString());
         } else {
-            this.title = createLine(this.location.add(0, lineSpacing, 0), true);
+            this.title = createLine(this.location.add(0, 0, 0), true);
             this.title.setCustomName(title);
         }
-        lines.add(this.title);
 
         for(int i = 0; i <= 3; i++) {
-            ArmorStand line = this.location.getWorld().spawn(this.location.add(0, lineSpacing * (i+2), 0), ArmorStand.class);
+            ArmorStand line = createLine(location.add(0, 0, 0), false);
             line.getPersistentDataContainer().set(Main.getInstance().getHologramKey(), PersistentDataType.STRING, HologramLineType.LINE.toString());
             lines.add(line);
         }
@@ -64,13 +63,15 @@ public class Hologram {
             FileConfiguration data = Main.getInstance().getDataConfig();
             ConfigurationSection hologramSection = data.getConfigurationSection("hologram." + id + ".lines");
 
-            for (String key : hologramSection.getKeys(false)) {
-                String lineId = hologramSection.getString(key);
+            if(hologramSection != null) {
+                for (String key : hologramSection.getKeys(false)) {
+                    String lineId = hologramSection.getString(key);
 
-                ArmorStand line = (ArmorStand) Bukkit.getEntity(UUID.fromString(lineId));
+                    ArmorStand line = (ArmorStand) Bukkit.getEntity(UUID.fromString(lineId));
 
-                if (line != null) {
-                    this.lines.add(line);
+                    if (line != null) {
+                        this.lines.add(line);
+                    }
                 }
             }
 
@@ -101,7 +102,7 @@ public class Hologram {
             for (int i = 1; i < this.lines.size() - 1; i++) {
 
                 ArmorStand line = this.lines.get(i);
-                data.set("holograms." + this.title.getUniqueId() + ".lines." + i, line.getEntityId());
+                data.set("holograms." + this.title.getUniqueId() + ".lines." + i, line.getUniqueId());
 
 
             }
