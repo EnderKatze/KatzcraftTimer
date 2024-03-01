@@ -35,16 +35,16 @@ public class Hologram {
         this.location = location;
         double lineSpacing = -.3;
         if(title == null) {
-            this.title = createLine(this.location.add(0, 0, 0), true);
+            this.title = createLine(this.location.clone().add(0, lineSpacing, 0), true);
             this.title.setCustomName(Main.getInstance().getConfig().getString("defaultHologramTitle"));
             this.title.getPersistentDataContainer().set(Main.getInstance().getHologramKey(), PersistentDataType.STRING, HologramLineType.TITLE.toString());
         } else {
-            this.title = createLine(this.location.add(0, 0, 0), true);
+            this.title = createLine(this.location.clone().add(0, lineSpacing, 0), true);
             this.title.setCustomName(title);
         }
 
-        for(int i = 0; i <= 3; i++) {
-            ArmorStand line = createLine(location.add(0, 0, 0), false);
+        for(int i = 0; i < 4; i++) {
+            ArmorStand line = createLine(location.clone().add(0, (i+2) * lineSpacing, 0), false);
             line.getPersistentDataContainer().set(Main.getInstance().getHologramKey(), PersistentDataType.STRING, HologramLineType.LINE.toString());
             lines.add(line);
         }
@@ -58,7 +58,7 @@ public class Hologram {
         this.title  = getTitleById(id);
 
         if(this.title != null) {
-            this.location = title.getLocation().add(0, .3, 0);
+            this.location = title.getLocation().clone().add(0, .3, 0);
 
             FileConfiguration data = Main.getInstance().getDataConfig();
             ConfigurationSection hologramSection = data.getConfigurationSection("hologram." + id + ".lines");
@@ -87,6 +87,7 @@ public class Hologram {
         line.setCustomNameVisible(true);
         line.setMarker(!hasHitbox);
         line.setInvulnerable(true);
+        line.setGravity(false);
         return line;
     }
 
