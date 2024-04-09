@@ -1,22 +1,18 @@
 package de.enderkatze.katzcrafttimer.utitlity;
 
 import de.enderkatze.katzcrafttimer.Main;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 public class Hologram {
@@ -81,8 +77,8 @@ public class Hologram {
 
     }
 
-    private ArmorStand createLine(Location location, Boolean hasHitbox) {
-        ArmorStand line = location.getWorld().spawn(location, ArmorStand.class);
+    private ArmorStand createLine(@NotNull Location location, @NotNull Boolean hasHitbox) {
+        ArmorStand line = (ArmorStand) location.getWorld().spawnEntity(location, EntityType.ARMOR_STAND);
         line.setVisible(false);
         line.setCustomNameVisible(true);
         line.setMarker(!hasHitbox);
