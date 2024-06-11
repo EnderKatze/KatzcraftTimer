@@ -1,7 +1,5 @@
 package de.enderkatze.katzcrafttimer.utitlity;
 
-import lombok.Getter;
-
 public enum HologramLineType {
 
     TITLE("title"), LINE("line");
