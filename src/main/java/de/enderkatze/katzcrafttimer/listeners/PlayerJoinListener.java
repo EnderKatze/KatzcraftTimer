@@ -12,7 +12,7 @@ public class PlayerJoinListener implements Listener {
 
         if(Main.getInstance().updateAvailable && event.getPlayer().isOp()) {
 
-            event.getPlayer().sendMessage(Main.getInstance().getPrefix() + Main.getInstance().getLanguage().getString("updateChecker.update"));
+            event.getPlayer().sendMessage(Main.getInstance().getPrefix() + Main.getInstance().getLanguage().getString("updateChecker.update").replace("{newVer}", Main.getInstance().getNewestVersion()));
         }
     }
 }

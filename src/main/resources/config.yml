@@ -1,6 +1,7 @@
 # General Settings
 saveTime: true
 pauseOnRestart: false
+displayTimeOnPause: true
 
 # Enter the command you want to execute if the countdown hits 0 here
 # e.g. "kill @a". Needs to be in Quotation Marks

@@ -30,6 +30,7 @@ public class Timer {
     private int seconds;
     private int minutes;
     private int hours;
+    private boolean displayTimeOnPause;
 
     public boolean isRunning() {
         return running;
@@ -70,12 +71,13 @@ public class Timer {
         return this.time;
     }
 
-    public Timer(boolean running, int time, boolean backwards, boolean displayActionbar) {
+    public Timer(boolean running, int time, boolean backwards, boolean displayActionbar, boolean displayTimeOnPause) {
         this.running = running;
         this.time = time;
         this.backwards = backwards;
 
         this.displayActionbar = displayActionbar;
+        this.displayTimeOnPause = displayTimeOnPause;
 
         run();
     }
@@ -187,11 +189,17 @@ public class Timer {
 
                 if(!Main.getInstance().getToggledActionbarPlayers().contains(player)) {
                     if (!isRunning()) {
+                        if(!displayTimeOnPause) {
 
-                        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(
-                                ChatColor.valueOf(Main.getInstance().getConfig().getString("timerColor")).toString() +
-                                        ChatColor.BOLD +Main.getInstance().getLanguage().getString(
-                                        "actionbarPausedMessage")));
+                            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(
+                                    ChatColor.valueOf(Main.getInstance().getConfig().getString("timerColor")).toString() +
+                                            ChatColor.BOLD + Main.getInstance().getLanguage().getString(
+                                            "actionbarPausedMessage")));
+                        } else {
+                            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(
+                                    ChatColor.valueOf(Main.getInstance().getConfig().getString("timerColor")).toString() +
+                                            ChatColor.ITALIC + ChatColor.BOLD + getTimeString()));
+                        }
                     } else {
 
 

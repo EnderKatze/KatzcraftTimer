@@ -26,6 +26,8 @@ import java.util.logging.Level;
 public final class Main extends JavaPlugin {
 
     public boolean updateAvailable = false;
+    private String newestVersion;
+    public String getNewestVersion() {return newestVersion;}
 
     private static Main instance;
     private Timer timer;
@@ -55,13 +57,18 @@ public final class Main extends JavaPlugin {
     @Override
     public void onEnable() {
 
+        newestVersion = this.getDescription().getVersion();
+
         // Check for updates and send messages
         new UpdateChecker(this, 104380).getVersion(version -> {
             if (this.getDescription().getVersion().equals(version)) {
                 getLogger().info(getLanguage().getString("updateChecker.noUpdate"));
                 updateAvailable = false;
             } else {
-                getLogger().info(getLanguage().getString("updateChecker.update").replaceAll("\\{newVer}", version));
+                String updateMessage = getLanguage().getString("updateChecker.update");
+                newestVersion = version;
+                updateMessage = updateMessage.replace("{newVer}", newestVersion);
+                getLogger().info(updateMessage);
                 updateAvailable = true;
 
             }
@@ -155,7 +162,7 @@ public final class Main extends JavaPlugin {
 
     private void setupTimer() {
 
-        timer = new Timer(false, 0, false, true);
+        timer = new Timer(false, 0, false, true, getConfig().getBoolean("displayTimeOnPause"));
 
 
 

@@ -27,6 +27,9 @@ actionbarPausedMessage: "Timer pausiert"
 actionbarTimeOverMessage: "Zeit ist um!"
 
 updateChecker:
-  noUpdate: "Keine Updates verfügbar"
-  update: "Ein neues Update ist verfügbar"
-  unableToCheck: "Kann nicht nach updates suchen: "
+  noUpdate: "Kein Update verfügbar"
+
+  # {newVer} is replaced with the version found on spigot
+  # {error} is replaced with the error message
+  update: "Neuere Version auf Spigot gefunden: {newVer}"
+  unableToCheck: "Kann nicht nach updates suchen: {error}"

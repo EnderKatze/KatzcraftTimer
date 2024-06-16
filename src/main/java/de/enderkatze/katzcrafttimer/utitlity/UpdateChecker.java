@@ -27,7 +27,7 @@ public class UpdateChecker {
                     consumer.accept(scanner.next());
                 }
             } catch (IOException exception) {
-                plugin.getLogger().info(Main.getInstance().getLanguage().getString("updateChecker.unableToCheck").replace("\\{error}", exception.getMessage()));
+                plugin.getLogger().info(Main.getInstance().getLanguage().getString("updateChecker.unableToCheck").replace("{error}", exception.getMessage()));
             }
         });
     }
