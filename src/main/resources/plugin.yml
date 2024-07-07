@@ -1,5 +1,5 @@
 name: KatzcraftTimer
-version: '1.10.2'
+version: '1.10.3'
 main: de.enderkatze.katzcrafttimer.Main
 api-version: 1.19
 authors: [EnderKatze]
