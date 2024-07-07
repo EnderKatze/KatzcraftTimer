@@ -9,6 +9,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.World;
+import org.bukkit.boss.BarColor;
+import org.bukkit.boss.BarStyle;
+import org.bukkit.boss.BossBar;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataType;
@@ -26,6 +29,8 @@ public class Timer {
     private boolean backwards;
     private int time;
     private boolean displayActionbar;
+
+    BossBar bossBar = Bukkit.createBossBar("", BarColor.valueOf(Main.getInstance().getConfig().getString("bossBarColor")), BarStyle.SOLID);
 
     private int seconds;
     private int minutes;
@@ -214,11 +219,45 @@ public class Timer {
 
     }
 
+    public void sendBossBar(){
+
+
+        for (Player player : Bukkit.getOnlinePlayers()) {
+
+            UpdateScoreboard(player);
+
+            if(!Main.getInstance().getToggledActionbarPlayers().contains(player)) {
+                if (!isRunning()) {
+                    if(!displayTimeOnPause) {
+
+                        bossBar.setTitle(ChatColor.valueOf(Main.getInstance().getConfig().getString("timerColor")).toString() +
+                                ChatColor.BOLD + Main.getInstance().getLanguage().getString(
+                                "actionbarPausedMessage"));
+                    } else {
+
+                        bossBar.setTitle(ChatColor.valueOf(Main.getInstance().getConfig().getString("timerColor")).toString() +
+                                ChatColor.ITALIC + ChatColor.BOLD + getTimeString());
+                    }
+                } else {
+
+                    bossBar.setTitle(ChatColor.valueOf(Main.getInstance().getConfig().getString("timerColor")).toString() +
+                            ChatColor.BOLD + getTimeString());
+                }
+                if(!bossBar.getPlayers().contains(player)) {bossBar.addPlayer(player);}
+
+            }
+        }
+    }
+
     private void run() {
         new BukkitRunnable(){
             @Override
             public void run() {
-                sendActionBar();
+                if (Main.getInstance().getConfig().getBoolean("bossbarInsteadofActionbar")) {
+                    sendBossBar();
+                } else {
+                    sendActionBar();
+                }
                 updateHolograms();
                 if(!isRunning()) {
                     return;

@@ -2,6 +2,7 @@
 saveTime: true
 pauseOnRestart: false
 displayTimeOnPause: true
+bossbarInsteadofActionbar: true
 
 # Enter the command you want to execute if the countdown hits 0 here
 # e.g. "kill @a". Needs to be in Quotation Marks
@@ -23,6 +24,7 @@ errorColor: "RED"
 successColor: "GREEN"
 timerColor: "DARK_PURPLE"
 hologramTimerColor: "WHITE"
+bossBarColor: "PURPLE"
 
 # Sound Config
 positiveSound: "ENTITY_EXPERIENCE_ORB_PICKUP"
