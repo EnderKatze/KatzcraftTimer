@@ -245,6 +245,8 @@ public class Timer {
                 }
                 if(!bossBar.getPlayers().contains(player)) {bossBar.addPlayer(player);}
 
+            } else {
+                bossBar.removePlayer(player);
             }
         }
     }
@@ -273,5 +275,9 @@ public class Timer {
 
             }
         }.runTaskTimer(Main.getInstance(), 20, 20);
+    }
+
+    public void removeAllPlayersFromBossBar() {
+        bossBar.removeAll();
     }
 }

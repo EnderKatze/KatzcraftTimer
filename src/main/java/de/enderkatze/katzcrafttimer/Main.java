@@ -114,6 +114,8 @@ public final class Main extends JavaPlugin {
     public void onDisable() {
         // Plugin shutdown logic
 
+        timer.removeAllPlayersFromBossBar();
+
         if(getConfig().getBoolean("saveTime")) {
             dataConfig.set("time", timer.getTime());
         }
@@ -121,7 +123,7 @@ public final class Main extends JavaPlugin {
         dataConfig.set("currentlyBackwards", timer.getBackwards());
 
         saveData();
-        saveConfig();
+
 
     }
 

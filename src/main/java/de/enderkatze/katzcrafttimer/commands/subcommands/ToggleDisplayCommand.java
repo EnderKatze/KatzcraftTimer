@@ -13,13 +13,11 @@ import java.util.List;
 public class ToggleDisplayCommand implements SubCommand {
     @Override
     public void execute(CommandSender sender, String[] args) {
-        if(args.length < 2) {
-            sender.sendMessage(Main.getInstance().getPrefix() + Main.getInstance().getLanguage().getString("noValue"));
-        }
+
 
         List<Player> players = Main.getInstance().getToggledActionbarPlayers();
 
-        Player selected = Bukkit.getPlayer(args[1]);
+        Player selected = args.length >= 2? Bukkit.getPlayer(args[1]) : (sender instanceof Player ? (Player) sender : null);
 
         if(selected != null) {
             if (players.contains(selected)) {
