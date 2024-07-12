@@ -1,8 +1,12 @@
 # General Settings
 saveTime: true
 pauseOnRestart: false
-displayTimeOnPause: true
-bossbarInsteadofActionbar: true
+# Options:
+  #"TIME", displays the time
+  #"MESSAGE", shows the actionbarPausedMessage
+  #"HIDE" hides the action-/bossbar
+pauseDisplaySetting: "TIME"
+bossbarInsteadofActionbar: false
 
 # Enter the command you want to execute if the countdown hits 0 here
 # e.g. "kill @a". Needs to be in Quotation Marks

@@ -3,6 +3,7 @@ package de.enderkatze.katzcrafttimer.timer;
 
 import de.enderkatze.katzcrafttimer.Main;
 import de.enderkatze.katzcrafttimer.events.CountdownEndEvent;
+import de.enderkatze.katzcrafttimer.utitlity.enums.pausedDisplaySettings;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
@@ -194,20 +195,33 @@ public class Timer {
 
                 if(!Main.getInstance().getToggledActionbarPlayers().contains(player)) {
                     if (!isRunning()) {
-                        if(!displayTimeOnPause) {
 
-                            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(
-                                    ChatColor.valueOf(Main.getInstance().getConfig().getString("timerColor")).toString() +
-                                            ChatColor.BOLD + Main.getInstance().getLanguage().getString(
-                                            "actionbarPausedMessage")));
-                        } else {
-                            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(
-                                    ChatColor.valueOf(Main.getInstance().getConfig().getString("timerColor")).toString() +
-                                            ChatColor.ITALIC + ChatColor.BOLD + getTimeString()));
+                        pausedDisplaySettings setting;
+
+                        try {
+                            setting = pausedDisplaySettings.
+                                    valueOf(Main.getInstance().getConfig().getString("pauseDisplaySetting").toUpperCase());
+                        } catch (IllegalArgumentException e) {
+                            setting = pausedDisplaySettings.TIME;
+                        }
+
+                        switch (setting) {
+                            case TIME:
+                                player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(
+                                        ChatColor.valueOf(Main.getInstance().getConfig().getString("timerColor")).toString() +
+                                                ChatColor.ITALIC + ChatColor.BOLD + getTimeString()));
+                                break;
+
+                            case MESSAGE:
+                                player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(
+                                        ChatColor.valueOf(Main.getInstance().getConfig().getString("timerColor")).toString() +
+                                                ChatColor.BOLD + Main.getInstance().getLanguage().getString(
+                                                "actionbarPausedMessage")));
+                                break;
+                            case HIDE:
+                                break;
                         }
                     } else {
-
-
 
                         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(
                                 ChatColor.valueOf(Main.getInstance().getConfig().getString("timerColor")).toString() +
@@ -226,24 +240,43 @@ public class Timer {
 
             UpdateScoreboard(player);
 
+            if(!bossBar.getPlayers().contains(player)) {bossBar.addPlayer(player);}
+
             if(!Main.getInstance().getToggledActionbarPlayers().contains(player)) {
+                // paused
                 if (!isRunning()) {
-                    if(!displayTimeOnPause) {
 
-                        bossBar.setTitle(ChatColor.valueOf(Main.getInstance().getConfig().getString("timerColor")).toString() +
-                                ChatColor.BOLD + Main.getInstance().getLanguage().getString(
-                                "actionbarPausedMessage"));
-                    } else {
 
-                        bossBar.setTitle(ChatColor.valueOf(Main.getInstance().getConfig().getString("timerColor")).toString() +
-                                ChatColor.ITALIC + ChatColor.BOLD + getTimeString());
+                    pausedDisplaySettings setting;
+
+                    try {
+                        setting = pausedDisplaySettings.
+                                valueOf(Main.getInstance().getConfig().getString("pauseDisplaySetting").toUpperCase());
+                    } catch (IllegalArgumentException e) {
+                        setting = pausedDisplaySettings.TIME;
                     }
+
+                    switch (setting) {
+                        case TIME:
+                            bossBar.setTitle(ChatColor.valueOf(Main.getInstance().getConfig().getString("timerColor")).toString() +
+                                    ChatColor.ITALIC + ChatColor.BOLD + getTimeString());
+                            break;
+
+                        case MESSAGE:
+                            bossBar.setTitle(ChatColor.valueOf(Main.getInstance().getConfig().getString("timerColor")).toString() +
+                                    ChatColor.BOLD + Main.getInstance().getLanguage().getString(
+                                    "actionbarPausedMessage"));
+                            break;
+                        case HIDE:
+                            bossBar.removePlayer(player);
+                            break;
+                    }
+                // running
                 } else {
 
                     bossBar.setTitle(ChatColor.valueOf(Main.getInstance().getConfig().getString("timerColor")).toString() +
                             ChatColor.BOLD + getTimeString());
                 }
-                if(!bossBar.getPlayers().contains(player)) {bossBar.addPlayer(player);}
 
             } else {
                 bossBar.removePlayer(player);
