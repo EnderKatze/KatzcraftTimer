@@ -2,7 +2,7 @@ package de.enderkatze.katzcrafttimer.commands.subcommands;
 
 import de.enderkatze.katzcrafttimer.Main;
 import de.enderkatze.katzcrafttimer.events.TimerResumeEvent;
-import de.enderkatze.katzcrafttimer.timer.Timer;
+import de.enderkatze.katzcrafttimer.timer.deprecated.TimerOld;
 import de.enderkatze.katzcrafttimer.utitlity.SubCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -10,7 +10,6 @@ import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-import org.checkerframework.checker.units.qual.Prefix;
 
 import java.util.List;
 
@@ -22,7 +21,7 @@ public class ResumeCommand implements SubCommand {
 
         FileConfiguration language = Main.getInstance().getLanguage();
 
-        Timer timer = Main.getInstance().getTimer();
+        TimerOld timer = Main.getInstance().getTimer();
         if (timer.isRunning()) {
             sender.sendMessage(Prefix + ChatColor.valueOf(Main.getInstance().getConfig().getString("errorColor")) + language.getString("alreadyRunning"));
             if(sender instanceof Player) {

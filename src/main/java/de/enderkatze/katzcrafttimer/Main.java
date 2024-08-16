@@ -1,6 +1,8 @@
 package de.enderkatze.katzcrafttimer;
 
+import com.google.inject.Injector;
 import de.enderkatze.katzcrafttimer.commands.subcommands.*;
+import de.enderkatze.katzcrafttimer.core.framework.SimpleBinderModule;
 import de.enderkatze.katzcrafttimer.listeners.CountdownEndListener;
 import de.enderkatze.katzcrafttimer.utitlity.LanguageHandler;
 import de.enderkatze.katzcrafttimer.utitlity.Metrics;
@@ -8,7 +10,7 @@ import de.enderkatze.katzcrafttimer.utitlity.TimerExpansion;
 import de.enderkatze.katzcrafttimer.utitlity.UpdateChecker;
 import de.enderkatze.katzcrafttimer.commands.TimerCommand;
 import de.enderkatze.katzcrafttimer.listeners.PlayerJoinListener;
-import de.enderkatze.katzcrafttimer.timer.Timer;
+import de.enderkatze.katzcrafttimer.timer.deprecated.TimerOld;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
@@ -30,7 +32,7 @@ public final class Main extends JavaPlugin {
     public String getNewestVersion() {return newestVersion;}
 
     private static Main instance;
-    private Timer timer;
+    private TimerOld timer;
 
     private List<Player> toggledActionbarPlayers = new ArrayList<>();
 
@@ -56,6 +58,10 @@ public final class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
+
+        SimpleBinderModule module = new SimpleBinderModule(this);
+        Injector injector = module.createInjector();
+        injector.injectMembers(this);
 
         newestVersion = this.getDescription().getVersion();
 
@@ -136,7 +142,7 @@ public final class Main extends JavaPlugin {
         return hologramKey;
     }
 
-    public Timer getTimer() {
+    public TimerOld getTimer() {
         if(timer == null) {
             setupTimer();
         }
@@ -164,7 +170,7 @@ public final class Main extends JavaPlugin {
 
     private void setupTimer() {
 
-        timer = new Timer(false, 0, false, true, getConfig().getBoolean("displayTimeOnPause"));
+        timer = new TimerOld(false, 0, false, true, getConfig().getBoolean("displayTimeOnPause"));
 
 
 

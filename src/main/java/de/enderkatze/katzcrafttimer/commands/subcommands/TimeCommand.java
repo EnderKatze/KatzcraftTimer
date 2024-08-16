@@ -1,7 +1,7 @@
 package de.enderkatze.katzcrafttimer.commands.subcommands;
 
 import de.enderkatze.katzcrafttimer.Main;
-import de.enderkatze.katzcrafttimer.timer.Timer;
+import de.enderkatze.katzcrafttimer.timer.deprecated.TimerOld;
 import de.enderkatze.katzcrafttimer.utitlity.SubCommand;
 import org.bukkit.command.CommandSender;
 
@@ -15,7 +15,7 @@ public class TimeCommand implements SubCommand {
         if(args.length >= 2) {
             String amount = args[1];
 
-            Timer timer = Main.getInstance().getTimer();
+            TimerOld timer = Main.getInstance().getTimer();
 
             String errorMessage = Main.getInstance().getPrefix() + Main.getInstance().getLanguage().getString("timeNotValid") + " " + Main.getInstance().getLanguage().getString("notANumber");
 

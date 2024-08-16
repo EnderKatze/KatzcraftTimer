@@ -1,6 +1,13 @@
 package de.enderkatze.katzcrafttimer.timer
 
-class TimerNew {
+class TimerNew: Timer {
 
-    var time: Int = 0;
+    override var time: Int = 0
+
+    override var running: Boolean = false;
+
+    fun runTimer() {
+
+    }
+
 }

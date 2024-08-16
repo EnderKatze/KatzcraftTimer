@@ -1,7 +1,7 @@
 package de.enderkatze.katzcrafttimer.commands.subcommands;
 
 import de.enderkatze.katzcrafttimer.Main;
-import de.enderkatze.katzcrafttimer.timer.Timer;
+import de.enderkatze.katzcrafttimer.timer.deprecated.TimerOld;
 import de.enderkatze.katzcrafttimer.utitlity.SubCommand;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
@@ -17,7 +17,7 @@ public class CountdownCommand implements SubCommand {
 
         String Prefix = Main.getInstance().getPrefix();
 
-        Timer timer = Main.getInstance().getTimer();
+        TimerOld timer = Main.getInstance().getTimer();
         String errorColor = Main.getInstance().getConfig().getString("errorColor");
         if(args.length != 2) {
             sender.sendMessage(Prefix + ChatColor.valueOf(errorColor) + Main.getInstance().getLanguage().getString("noValue"));

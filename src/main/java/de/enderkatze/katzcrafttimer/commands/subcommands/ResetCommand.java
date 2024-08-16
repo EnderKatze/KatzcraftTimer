@@ -2,7 +2,7 @@ package de.enderkatze.katzcrafttimer.commands.subcommands;
 
 import de.enderkatze.katzcrafttimer.Main;
 import de.enderkatze.katzcrafttimer.events.TimerPauseEvent;
-import de.enderkatze.katzcrafttimer.timer.Timer;
+import de.enderkatze.katzcrafttimer.timer.deprecated.TimerOld;
 import de.enderkatze.katzcrafttimer.utitlity.SubCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -15,7 +15,7 @@ import java.util.List;
 public class ResetCommand implements SubCommand {
     @Override
     public void execute(CommandSender sender, String[] args) {
-        Timer timer = Main.getInstance().getTimer();
+        TimerOld timer = Main.getInstance().getTimer();
 
         String Prefix = Main.getInstance().getPrefix();
 

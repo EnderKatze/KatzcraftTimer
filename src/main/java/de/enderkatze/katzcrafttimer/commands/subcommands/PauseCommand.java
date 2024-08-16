@@ -2,7 +2,7 @@ package de.enderkatze.katzcrafttimer.commands.subcommands;
 
 import de.enderkatze.katzcrafttimer.Main;
 import de.enderkatze.katzcrafttimer.events.TimerPauseEvent;
-import de.enderkatze.katzcrafttimer.timer.Timer;
+import de.enderkatze.katzcrafttimer.timer.deprecated.TimerOld;
 import de.enderkatze.katzcrafttimer.utitlity.SubCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -21,7 +21,7 @@ public class PauseCommand implements SubCommand {
 
         FileConfiguration language = Main.getInstance().getLanguage();
 
-        Timer timer = Main.getInstance().getTimer();
+        TimerOld timer = Main.getInstance().getTimer();
         if (!timer.isRunning()) {
             sender.sendMessage(Prefix + ChatColor.valueOf(Main.getInstance().getConfig().getString("errorColor")) + language.getString("alreadyPaused"));
             if(sender instanceof Player) {
