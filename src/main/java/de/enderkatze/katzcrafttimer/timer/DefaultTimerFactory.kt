@@ -1,8 +1,13 @@
 package de.enderkatze.katzcrafttimer.timer
 
-class DefaultTimerFactory: TimerFactory {
+import com.google.inject.Inject
+import com.google.inject.Provider
+
+class DefaultTimerFactory @Inject constructor(
+    private val timerNormalProvider: Provider<TimerNormal>
+): TimerFactory {
     override fun createNormalTimer(): Timer {
-        TODO("Not yet implemented")
+        return timerNormalProvider.get()
     }
 
     override fun createCountdownTimer(): Timer {

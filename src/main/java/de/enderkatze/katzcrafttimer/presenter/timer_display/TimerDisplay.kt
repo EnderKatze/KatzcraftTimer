@@ -1,15 +1,9 @@
 package de.enderkatze.katzcrafttimer.presenter.timer_display
 
-import com.google.inject.Inject
-import de.enderkatze.katzcrafttimer.Main
-import org.bukkit.Bukkit
-import org.bukkit.entity.Player
+import org.bukkit.event.Event
+import org.bukkit.event.Listener
 
-class TimerDisplay @Inject constructor(private val plugin: Main) : TimerDisplayInterface {
+interface TimerDisplay : Listener{
 
-    override fun displayTime() {
-        for(player: Player in Bukkit.getOnlinePlayers()) {
-            continue
-        }
-    }
+    fun displayTime(event: Event): Unit
 }

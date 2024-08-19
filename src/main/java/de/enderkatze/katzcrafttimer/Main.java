@@ -5,6 +5,7 @@ import de.enderkatze.katzcrafttimer.commands.subcommands.*;
 import de.enderkatze.katzcrafttimer.core.framework.MainBinderModule;
 import de.enderkatze.katzcrafttimer.listeners.CountdownEndListener;
 import de.enderkatze.katzcrafttimer.timer.DefaultTimerManager;
+import de.enderkatze.katzcrafttimer.timer.TimerFactory;
 import de.enderkatze.katzcrafttimer.timer.TimerManager;
 import de.enderkatze.katzcrafttimer.timer.TimerNormal;
 import de.enderkatze.katzcrafttimer.utitlity.LanguageHandler;
@@ -39,6 +40,8 @@ public final class Main extends JavaPlugin {
 
     @Getter private static Main instance;
 
+    @Getter private TimerFactory timerFactory;
+
     private TimerOld timer;
 
     @Getter private TimerManager timerManager;
@@ -56,6 +59,12 @@ public final class Main extends JavaPlugin {
     public void onLoad() {
         instance = this;
         hologramKey = new NamespacedKey(Main.getInstance(), "timerHologram");
+
+        MainBinderModule module = new MainBinderModule(this);
+        Injector injector = module.createInjector();
+        injector.injectMembers(this);
+
+        timerFactory = injector.getInstance(TimerFactory.class);
     }
 
     private void saveData() {
@@ -69,10 +78,6 @@ public final class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
-
-        MainBinderModule module = new MainBinderModule(this);
-        Injector injector = module.createInjector();
-        injector.injectMembers(this);
 
         newestVersion = this.getDescription().getVersion();
 

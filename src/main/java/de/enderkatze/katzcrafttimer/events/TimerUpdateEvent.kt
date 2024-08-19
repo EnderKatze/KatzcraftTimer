@@ -3,7 +3,7 @@ package de.enderkatze.katzcrafttimer.events
 import org.bukkit.event.Event
 import org.bukkit.event.HandlerList
 
-class TimerUpdateEvent(val time: Int, val isPrimary: Boolean) : Event(){
+class TimerUpdateEvent(val time: Int, val isPrimaryTimer: Boolean) : Event(){
 
     companion object {
 
