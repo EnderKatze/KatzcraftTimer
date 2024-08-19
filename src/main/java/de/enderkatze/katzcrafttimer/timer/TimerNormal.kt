@@ -4,6 +4,7 @@ import com.google.inject.Inject
 import de.enderkatze.katzcrafttimer.Main
 import org.bukkit.Bukkit
 import org.bukkit.scheduler.BukkitTask
+import java.util.UUID
 
 class TimerNormal
 @Inject constructor(
@@ -12,6 +13,7 @@ class TimerNormal
 ): Timer {
 
     override var time: Int = 0
+    override val id: String = UUID.randomUUID().toString()
 
     private var running: Boolean = false
     private var task: BukkitTask? = null
