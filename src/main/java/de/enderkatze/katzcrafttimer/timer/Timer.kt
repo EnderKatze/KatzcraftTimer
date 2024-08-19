@@ -1,21 +1,19 @@
 package de.enderkatze.katzcrafttimer.timer
 
 interface Timer {
-    var running: Boolean
 
     var time: Int
 
+    fun start()
+    fun stop()
+    fun isRunning(): Boolean
+    fun toMap(): Map<String, Any?>
+
     fun reset() {
         time = 0
-        running = false
+        stop()
     }
 
-    companion object {
-        var timers: MutableList<Timer> = arrayListOf()
-        var primaryTimerIndex: Int = 0
+    fun isPrimaryTimer(): Boolean;
 
-        fun getPrimaryTimer(): Timer? {
-            return this.timers.getOrNull(primaryTimerIndex)
-        }
-    }
 }

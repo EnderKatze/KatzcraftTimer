@@ -1,22 +1,23 @@
 package de.enderkatze.katzcrafttimer.timer
 
-object DefaultTimerManager {
+class DefaultTimerManager: TimerManager{
+
     private val timers: MutableList<Timer> = arrayListOf()
     var primaryTimerIndex: Int = 0
 
-    fun addTimer(timer: Timer) {
+    override fun addTimer(timer: Timer) {
         timers.add(timer)
     }
 
-    fun removeTimer(timer: Timer) {
+    override fun removeTimer(timer: Timer) {
         timers.remove(timer)
     }
 
-    fun getPrimaryTimer(): Timer? {
+    override fun getPrimaryTimer(): Timer? {
         return timers.getOrNull(primaryTimerIndex)
     }
 
-    fun setPrimaryTimerIndex(index: Int) {
+    override fun setPrimaryTimer(index: Int) {
         if (index in timers.indices) {
             primaryTimerIndex = index
         } else {
@@ -24,19 +25,20 @@ object DefaultTimerManager {
         }
     }
 
-    fun startAll() {
+    override fun startAll() {
         for (timer: Timer in timers) {
-            timer.running = true
+            timer.start()
         }
     }
 
-    fun stopAll() {
+    override fun stopAllAndSave() {
         for (timer: Timer in timers) {
-            timer.running = false
+            timer.stop()
+            var timerData: Map<String, Any?>  = timer.toMap()
         }
     }
 
-    fun resetAll() {
+    override fun resetAll() {
         for (timer: Timer in timers) {
             timer.reset()
         }

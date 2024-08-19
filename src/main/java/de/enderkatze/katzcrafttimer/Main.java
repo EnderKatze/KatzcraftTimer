@@ -2,8 +2,11 @@ package de.enderkatze.katzcrafttimer;
 
 import com.google.inject.Injector;
 import de.enderkatze.katzcrafttimer.commands.subcommands.*;
-import de.enderkatze.katzcrafttimer.core.framework.SimpleBinderModule;
+import de.enderkatze.katzcrafttimer.core.framework.MainBinderModule;
 import de.enderkatze.katzcrafttimer.listeners.CountdownEndListener;
+import de.enderkatze.katzcrafttimer.timer.DefaultTimerManager;
+import de.enderkatze.katzcrafttimer.timer.TimerManager;
+import de.enderkatze.katzcrafttimer.timer.TimerNormal;
 import de.enderkatze.katzcrafttimer.utitlity.LanguageHandler;
 import de.enderkatze.katzcrafttimer.utitlity.Metrics;
 import de.enderkatze.katzcrafttimer.utitlity.TimerExpansion;
@@ -11,6 +14,8 @@ import de.enderkatze.katzcrafttimer.utitlity.UpdateChecker;
 import de.enderkatze.katzcrafttimer.commands.TimerCommand;
 import de.enderkatze.katzcrafttimer.listeners.PlayerJoinListener;
 import de.enderkatze.katzcrafttimer.timer.deprecated.TimerOld;
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
@@ -21,6 +26,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -28,15 +34,20 @@ import java.util.logging.Level;
 public final class Main extends JavaPlugin {
 
     public boolean updateAvailable = false;
+    @Getter
     private String newestVersion;
-    public String getNewestVersion() {return newestVersion;}
 
-    private static Main instance;
+    @Getter private static Main instance;
+
     private TimerOld timer;
 
+    @Getter private TimerManager timerManager;
+
+    @Setter
+    @Getter
     private List<Player> toggledActionbarPlayers = new ArrayList<>();
 
-    private NamespacedKey hologramKey;
+    @Getter private NamespacedKey hologramKey;
 
     private final File data = new File(this.getDataFolder(), "data.yml");
     private final FileConfiguration dataConfig = YamlConfiguration.loadConfiguration(data);
@@ -59,7 +70,7 @@ public final class Main extends JavaPlugin {
     @Override
     public void onEnable() {
 
-        SimpleBinderModule module = new SimpleBinderModule(this);
+        MainBinderModule module = new MainBinderModule(this);
         Injector injector = module.createInjector();
         injector.injectMembers(this);
 
@@ -133,14 +144,6 @@ public final class Main extends JavaPlugin {
 
     }
 
-    public static Main getInstance() {
-        return instance;
-    }
-
-    public NamespacedKey getHologramKey() {
-
-        return hologramKey;
-    }
 
     public TimerOld getTimer() {
         if(timer == null) {
@@ -154,18 +157,8 @@ public final class Main extends JavaPlugin {
         return "[" + text + ChatColor.RESET + "] ";
     }
 
-    public List<Player> getToggledActionbarPlayers() {
-
-        return toggledActionbarPlayers;
-    }
-
     public FileConfiguration getLanguage() {
         return LanguageHandler.getInstance().getSelectedLanguage();
-    }
-
-    public void setToggledActionbarPlayers(List<Player>inputToggledActionbarPlayers) {
-
-        toggledActionbarPlayers = inputToggledActionbarPlayers;
     }
 
     private void setupTimer() {

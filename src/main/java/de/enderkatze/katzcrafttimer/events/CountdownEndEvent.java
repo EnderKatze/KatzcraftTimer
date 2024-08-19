@@ -17,7 +17,6 @@ public class CountdownEndEvent extends Event {
 
     public CountdownEndEvent() {
 
-
     }
 
     @NotNull
