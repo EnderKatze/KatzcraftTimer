@@ -1,9 +1,12 @@
 package de.enderkatze.katzcrafttimer.core.framework
 
 import com.google.inject.AbstractModule
-import com.google.inject.Guice
-import com.google.inject.Injector
+import com.google.inject.Scopes
 import de.enderkatze.katzcrafttimer.Main
+import de.enderkatze.katzcrafttimer.core.data.globaldata_config.DefaultGlobalDataConfig
+import de.enderkatze.katzcrafttimer.core.data.globaldata_config.GlobalDataConfig
+import de.enderkatze.katzcrafttimer.core.data.timer_config.DefaultTimerConfig
+import de.enderkatze.katzcrafttimer.core.data.timer_config.TimerConfig
 import de.enderkatze.katzcrafttimer.presenter.timer_display.DefaultTimerDisplay
 import de.enderkatze.katzcrafttimer.presenter.timer_display.TimerDisplay
 import de.enderkatze.katzcrafttimer.timer.DefaultTimerFactory
@@ -19,12 +22,11 @@ class MainBinderModule(private val plugin: Main): AbstractModule() {
         bind(Main::class.java).toInstance(this.plugin)
 
         // Interface Binds
-        bind(TimerManager::class.java).to(DefaultTimerManager::class.java)
-        bind(TimerFactory::class.java).to(DefaultTimerFactory::class.java)
-        bind(TimerDisplay::class.java).to(DefaultTimerDisplay::class.java)
-    }
+        bind(TimerManager::class.java).to(DefaultTimerManager::class.java).`in`(Scopes.SINGLETON)
+        bind(TimerFactory::class.java).to(DefaultTimerFactory::class.java).`in`(Scopes.SINGLETON)
+        bind(TimerDisplay::class.java).to(DefaultTimerDisplay::class.java).`in`(Scopes.SINGLETON)
 
-    fun createInjector(): Injector {
-        return Guice.createInjector(this)
+        bind(TimerConfig::class.java).to(DefaultTimerConfig::class.java).`in`(Scopes.SINGLETON)
+        bind(GlobalDataConfig::class.java).to(DefaultGlobalDataConfig::class.java).`in`(Scopes.SINGLETON)
     }
 }

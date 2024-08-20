@@ -1,5 +1,6 @@
 package de.enderkatze.katzcrafttimer;
 
+import com.google.inject.Guice;
 import com.google.inject.Injector;
 import de.enderkatze.katzcrafttimer.commands.subcommands.*;
 import de.enderkatze.katzcrafttimer.core.framework.MainBinderModule;
@@ -61,7 +62,7 @@ public final class Main extends JavaPlugin {
         hologramKey = new NamespacedKey(Main.getInstance(), "timerHologram");
 
         MainBinderModule module = new MainBinderModule(this);
-        Injector injector = module.createInjector();
+        Injector injector = Guice.createInjector(module);
         injector.injectMembers(this);
 
         timerFactory = injector.getInstance(TimerFactory.class);
