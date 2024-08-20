@@ -1,4 +1,4 @@
-package de.enderkatze.katzcrafttimer.core.data
+package de.enderkatze.katzcrafttimer.core.data.config
 
 import org.bukkit.configuration.file.FileConfiguration
 

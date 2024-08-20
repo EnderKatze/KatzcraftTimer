@@ -4,6 +4,7 @@ interface Timer {
 
     var time: Int
     val id: String
+    val timerType: TimerType
 
     fun start()
     fun stop()

@@ -3,10 +3,12 @@ package de.enderkatze.katzcrafttimer.core.framework
 import com.google.inject.AbstractModule
 import com.google.inject.Scopes
 import de.enderkatze.katzcrafttimer.Main
-import de.enderkatze.katzcrafttimer.core.data.globaldata_config.DefaultGlobalDataConfig
-import de.enderkatze.katzcrafttimer.core.data.globaldata_config.GlobalDataConfig
-import de.enderkatze.katzcrafttimer.core.data.timer_config.DefaultTimerConfig
-import de.enderkatze.katzcrafttimer.core.data.timer_config.TimerConfig
+import de.enderkatze.katzcrafttimer.core.data.DataManager
+import de.enderkatze.katzcrafttimer.core.data.DefaultDataManager
+import de.enderkatze.katzcrafttimer.core.data.config.DefaultGlobalDataConfig
+import de.enderkatze.katzcrafttimer.core.data.config.GlobalDataConfig
+import de.enderkatze.katzcrafttimer.core.data.config.DefaultTimerConfig
+import de.enderkatze.katzcrafttimer.core.data.config.TimerConfig
 import de.enderkatze.katzcrafttimer.presenter.timer_display.DefaultTimerDisplay
 import de.enderkatze.katzcrafttimer.presenter.timer_display.TimerDisplay
 import de.enderkatze.katzcrafttimer.timer.DefaultTimerFactory
@@ -28,5 +30,6 @@ class MainBinderModule(private val plugin: Main): AbstractModule() {
 
         bind(TimerConfig::class.java).to(DefaultTimerConfig::class.java).`in`(Scopes.SINGLETON)
         bind(GlobalDataConfig::class.java).to(DefaultGlobalDataConfig::class.java).`in`(Scopes.SINGLETON)
+        bind(DataManager::class.java).to(DefaultDataManager::class.java).`in`(Scopes.SINGLETON)
     }
 }

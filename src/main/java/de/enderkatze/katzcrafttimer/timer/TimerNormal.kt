@@ -2,7 +2,9 @@ package de.enderkatze.katzcrafttimer.timer
 
 import com.google.inject.Inject
 import de.enderkatze.katzcrafttimer.Main
+import de.enderkatze.katzcrafttimer.events.TimerUpdateEvent
 import org.bukkit.Bukkit
+import org.bukkit.event.Event
 import org.bukkit.scheduler.BukkitTask
 import java.util.UUID
 
@@ -14,6 +16,7 @@ class TimerNormal
 
     override var time: Int = 0
     override val id: String = UUID.randomUUID().toString()
+    override val timerType: TimerType = TimerType.NORMAL
 
     private var running: Boolean = false
     private var task: BukkitTask? = null
@@ -40,6 +43,7 @@ class TimerNormal
             "time" to time,
             "running" to running,
             "isPrimary" to (this.timerManager.getPrimaryTimer()?.equals(this) ?: false),
+            "timerType" to timerType
         )
     }
 
@@ -52,9 +56,8 @@ class TimerNormal
         task = Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, Runnable {
             if (running) {
                 time++
-                if(isPrimaryTimer()) {
-                    // HOw should the TimerDisplay be notified of the state of the timer without exposing too much?
-                }
+                val event: Event = TimerUpdateEvent(time, isPrimaryTimer())
+                Bukkit.getServer().pluginManager.callEvent(event)
             }
         }, 0L, 20L)
     }

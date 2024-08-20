@@ -72,6 +72,7 @@ public final class Main extends JavaPlugin {
         try{
 
             dataConfig.save(data);
+
         } catch (IOException e) {
             e.printStackTrace();
         }

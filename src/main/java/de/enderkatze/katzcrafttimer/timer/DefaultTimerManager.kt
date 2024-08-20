@@ -17,6 +17,10 @@ class DefaultTimerManager: TimerManager{
         return timers.getOrNull(primaryTimerIndex)
     }
 
+    override fun getTimers(): List<Timer> {
+        return timers
+    }
+
     override fun setPrimaryTimer(index: Int) {
         if (index in timers.indices) {
             primaryTimerIndex = index

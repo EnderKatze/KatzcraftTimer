@@ -1,17 +1,17 @@
-package de.enderkatze.katzcrafttimer.core.data.timer_config
+package de.enderkatze.katzcrafttimer.core.data.config
 
 import com.google.inject.Inject
 import de.enderkatze.katzcrafttimer.Main
-import de.enderkatze.katzcrafttimer.core.data.CustomConfig
 import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.configuration.file.YamlConfiguration
 import java.io.File
 import java.io.IOException
 
-class DefaultTimerConfig @Inject constructor(
-    private val plugin: Main,
-    private val configFile: File = File(plugin.dataFolder, "data/timers.yml")
-) : TimerConfig {
+class DefaultGlobalDataConfig @Inject constructor(
+
+private val plugin: Main,
+private val configFile: File = File(plugin.dataFolder, "data/globaldata.yml")
+) : GlobalDataConfig {
 
     private var config: FileConfiguration? = null
 
