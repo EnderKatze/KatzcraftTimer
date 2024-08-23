@@ -1,5 +1,6 @@
 package de.enderkatze.katzcrafttimer.commands;
 
+import com.google.inject.Inject;
 import de.enderkatze.katzcrafttimer.Main;
 import de.enderkatze.katzcrafttimer.utitlity.SubCommand;
 import org.bukkit.ChatColor;
@@ -12,33 +13,43 @@ import java.util.*;
 
 public class TimerCommand implements CommandExecutor, TabCompleter {
 
+    final Main plugin;
+    final String prefix;
+
+    final String successColor;
+    final String errorColor;
+    final String usageMessage;
+
+
     private final Map<String, SubCommand> subcommands = new HashMap<>();
 
+    @Inject
+    TimerCommand(Main plugin) {
+        this.plugin = plugin;
+        this.prefix = this.plugin.getPrefix();
+
+        this.successColor = plugin.getConfig().getString("successColor");
+        this.errorColor = plugin.getConfig().getString("errorColor");
+        this.usageMessage = plugin.getLanguage().getString("usage");
+    }
 
     public void registerSubcommand(SubCommand subcommand) {
         subcommands.put(subcommand.getName(), subcommand);
     }
-
-    String Prefix = Main.getInstance().getPrefix();
-
-    String successColor = Main.getInstance().getConfig().getString("successColor");
-    String errorColor = Main.getInstance().getConfig().getString("errorColor");
-
-    String usageMessage = Main.getInstance().getLanguage().getString("usage");
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
         if(args.length == 0) {
 
-            sender.sendMessage(Prefix + ChatColor.valueOf(errorColor) + usageMessage);
+            sender.sendMessage(prefix + ChatColor.valueOf(errorColor) + usageMessage);
             return true;
         }
         String subcommandName = args[0].toLowerCase();
         boolean didExecuteCommand = handleSubcommand(subcommands.get(subcommandName), sender, args, 0, "katzcrafttimer");
 
         if(!didExecuteCommand) {
-            sender.sendMessage(Prefix + Main.getInstance().getLanguage().getString("usage"));
+            sender.sendMessage(prefix + Main.getInstance().getLanguage().getString("usage"));
         }
 
 
@@ -60,6 +71,8 @@ public class TimerCommand implements CommandExecutor, TabCompleter {
         return false;
     }
 
+
+    // TODO fix github issue #1
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         ArrayList<String> list = new ArrayList<>();

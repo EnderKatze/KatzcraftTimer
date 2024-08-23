@@ -1,14 +1,13 @@
 package de.enderkatze.katzcrafttimer;
 
 import com.google.inject.Guice;
+import com.google.inject.Inject;
 import com.google.inject.Injector;
 import de.enderkatze.katzcrafttimer.commands.subcommands.*;
 import de.enderkatze.katzcrafttimer.core.framework.MainBinderModule;
 import de.enderkatze.katzcrafttimer.listeners.CountdownEndListener;
-import de.enderkatze.katzcrafttimer.timer.DefaultTimerManager;
 import de.enderkatze.katzcrafttimer.timer.TimerFactory;
 import de.enderkatze.katzcrafttimer.timer.TimerManager;
-import de.enderkatze.katzcrafttimer.timer.TimerNormal;
 import de.enderkatze.katzcrafttimer.utitlity.LanguageHandler;
 import de.enderkatze.katzcrafttimer.utitlity.Metrics;
 import de.enderkatze.katzcrafttimer.utitlity.TimerExpansion;
@@ -28,7 +27,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -36,16 +34,18 @@ import java.util.logging.Level;
 public final class Main extends JavaPlugin {
 
     public boolean updateAvailable = false;
+
     @Getter
     private String newestVersion;
 
     @Getter private static Main instance;
 
-    @Getter private TimerFactory timerFactory;
+    @Inject private TimerFactory timerFactory;
+    @Inject private TimerManager timerManager;
 
     private TimerOld timer;
 
-    @Getter private TimerManager timerManager;
+    @Inject private TimerCommand timerCommand;
 
     @Setter
     @Getter
@@ -65,7 +65,6 @@ public final class Main extends JavaPlugin {
         Injector injector = Guice.createInjector(module);
         injector.injectMembers(this);
 
-        timerFactory = injector.getInstance(TimerFactory.class);
     }
 
     private void saveData() {
@@ -106,13 +105,10 @@ public final class Main extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(), this);
         Bukkit.getPluginManager().registerEvents(new CountdownEndListener(), this);
 
-
         saveDefaultConfig();
         reloadConfig();
 
-
         // Register timer command and subcommands
-        TimerCommand timerCommand = new TimerCommand();
 
         timerCommand.registerSubcommand(new CountdownCommand());
         timerCommand.registerSubcommand(new HologramCommand());

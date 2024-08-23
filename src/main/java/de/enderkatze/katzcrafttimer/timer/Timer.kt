@@ -6,6 +6,7 @@ interface Timer {
     val id: String
     val timerType: TimerType
 
+
     fun start()
     fun stop()
     fun isRunning(): Boolean
@@ -18,4 +19,16 @@ interface Timer {
 
     fun isPrimaryTimer(): Boolean;
 
+
+    companion object {
+        private val registry = mutableMapOf<TimerType, (Map<String, Any?>) -> Timer>()
+
+        fun fromMap(map: Map<String, Any?>): Timer {
+            val timerType = map["timerType"] as? TimerType
+                ?: throw IllegalArgumentException("timerType is missing or invalid")
+            val fromMapFunction = registry[timerType]
+                ?: throw IllegalArgumentException("No registered Timer for timerType: $timerType")
+            return fromMapFunction(map)
+        }
+    }
 }
