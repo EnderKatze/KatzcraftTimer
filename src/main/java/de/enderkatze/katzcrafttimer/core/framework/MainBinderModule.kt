@@ -3,16 +3,16 @@ package de.enderkatze.katzcrafttimer.core.framework
 import com.google.inject.AbstractModule
 import com.google.inject.Scopes
 import de.enderkatze.katzcrafttimer.Main
-import de.enderkatze.katzcrafttimer.core.data.config.globaldata_config.DefaultGlobalDataConfig
-import de.enderkatze.katzcrafttimer.core.data.config.globaldata_config.GlobalDataConfig
-import de.enderkatze.katzcrafttimer.core.data.config.timer_config.DefaultTimerConfig
-import de.enderkatze.katzcrafttimer.core.data.config.timer_config.TimerConfig
-import de.enderkatze.katzcrafttimer.presenter.timer_display.DefaultTimerDisplay
-import de.enderkatze.katzcrafttimer.presenter.timer_display.TimerDisplay
-import de.enderkatze.katzcrafttimer.timer.DefaultTimerFactory
-import de.enderkatze.katzcrafttimer.timer.DefaultTimerManager
-import de.enderkatze.katzcrafttimer.timer.TimerFactory
-import de.enderkatze.katzcrafttimer.timer.TimerManager
+import de.enderkatze.katzcrafttimer.core.data.globaldata.DefaultGlobalDataConfig
+import de.enderkatze.katzcrafttimer.core.framework.data.GlobalDataConfig
+import de.enderkatze.katzcrafttimer.core.data.timerdata.DefaultTimerConfig
+import de.enderkatze.katzcrafttimer.core.framework.data.TimerConfig
+import de.enderkatze.katzcrafttimer.core.presenter.timer_display.DefaultTimerDisplay
+import de.enderkatze.katzcrafttimer.core.presenter.timer_display.TimerDisplay
+import de.enderkatze.katzcrafttimer.core.timer.DefaultTimerFactory
+import de.enderkatze.katzcrafttimer.core.timer.DefaultTimerManager
+import de.enderkatze.katzcrafttimer.core.framework.timer.TimerFactory
+import de.enderkatze.katzcrafttimer.core.framework.timer.TimerManager
 
 
 class MainBinderModule(private val plugin: Main): AbstractModule() {
