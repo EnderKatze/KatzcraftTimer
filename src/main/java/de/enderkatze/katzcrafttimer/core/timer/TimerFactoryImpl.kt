@@ -5,7 +5,7 @@ import com.google.inject.Provider
 import de.enderkatze.katzcrafttimer.api.framework.timer.Timer
 import de.enderkatze.katzcrafttimer.core.framework.timer.TimerFactory
 
-class DefaultTimerFactory @Inject constructor(
+class TimerFactoryImpl @Inject constructor(
     private val timerNormalProvider: Provider<TimerNormal>
 ): TimerFactory {
     override fun createNormalTimer(): Timer {

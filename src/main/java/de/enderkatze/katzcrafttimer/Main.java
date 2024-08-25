@@ -4,7 +4,7 @@ import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import de.enderkatze.katzcrafttimer.core.commands.subcommands.*;
-import de.enderkatze.katzcrafttimer.core.framework.MainBinderModule;
+import de.enderkatze.katzcrafttimer.core.MainBinderModule;
 import de.enderkatze.katzcrafttimer.core.listeners.CountdownEndListener;
 import de.enderkatze.katzcrafttimer.core.framework.timer.TimerFactory;
 import de.enderkatze.katzcrafttimer.core.framework.timer.TimerManager;
@@ -59,7 +59,7 @@ public final class Main extends JavaPlugin {
     @Override
     public void onLoad() {
         instance = this;
-        hologramKey = new NamespacedKey(Main.getInstance(), "timerHologram");
+        hologramKey = new NamespacedKey(this, "timerHologram");
 
         MainBinderModule module = new MainBinderModule(this);
         Injector injector = Guice.createInjector(module);
@@ -105,6 +105,8 @@ public final class Main extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(), this);
         Bukkit.getPluginManager().registerEvents(new CountdownEndListener(), this);
 
+
+        // Save config only if it doesn't exist and reload the config
         saveDefaultConfig();
         reloadConfig();
 

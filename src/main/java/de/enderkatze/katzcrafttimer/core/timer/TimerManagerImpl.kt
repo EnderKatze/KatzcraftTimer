@@ -3,7 +3,7 @@ package de.enderkatze.katzcrafttimer.core.timer
 import de.enderkatze.katzcrafttimer.api.framework.timer.Timer
 import de.enderkatze.katzcrafttimer.core.framework.timer.TimerManager
 
-class DefaultTimerManager: TimerManager {
+class TimerManagerImpl: TimerManager {
 
     private val timers: MutableList<Timer> = arrayListOf()
     var primaryTimerIndex: Int = 0

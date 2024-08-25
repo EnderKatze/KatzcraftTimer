@@ -8,7 +8,7 @@ import org.bukkit.configuration.file.YamlConfiguration
 import java.io.File
 import java.io.IOException
 
-class DefaultGlobalDataConfig @Inject constructor(
+class GlobalDataConfigImpl @Inject constructor(
 
 private val plugin: Main,
 private val configFile: File = File(plugin.dataFolder, "data/globaldata.yml")

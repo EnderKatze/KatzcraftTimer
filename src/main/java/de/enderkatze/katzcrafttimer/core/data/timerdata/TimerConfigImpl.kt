@@ -10,7 +10,7 @@ import org.bukkit.configuration.file.YamlConfiguration
 import java.io.File
 import java.io.IOException
 
-class DefaultTimerConfig @Inject constructor(
+class TimerConfigImpl @Inject constructor(
     private val plugin: Main,
     private val configFile: File = File(plugin.dataFolder, "data/timers.yml"),
     private val timerManager: TimerManager

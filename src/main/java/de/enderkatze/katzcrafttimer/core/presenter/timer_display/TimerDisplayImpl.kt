@@ -8,7 +8,7 @@ import org.bukkit.entity.Player
 import org.bukkit.event.Event
 import org.bukkit.event.EventHandler
 
-class DefaultTimerDisplay @Inject constructor(private val plugin: Main) : TimerDisplay {
+class TimerDisplayImpl @Inject constructor(private val plugin: Main) : TimerDisplay {
 
     override fun displayTime(event: Event) {
         for(player: Player in Bukkit.getOnlinePlayers()) {
