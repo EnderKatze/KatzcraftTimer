@@ -4,13 +4,14 @@ interface Timer {
 
     var time: Int
     val id: String
-    val timerType: TimerType
 
 
     fun start()
     fun stop()
     fun isRunning(): Boolean
     fun toMap(): Map<String, Any?>
+
+    fun copy()
 
     fun reset() {
         time = 0

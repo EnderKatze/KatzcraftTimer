@@ -1,7 +1,7 @@
 package de.enderkatze.katzcrafttimer.core.timer.deprecated;
 
 
-import de.enderkatze.katzcrafttimer.Main;
+import de.enderkatze.katzcrafttimer.KatzcraftTimer;
 import de.enderkatze.katzcrafttimer.api.events.CountdownEndEvent;
 import de.enderkatze.katzcrafttimer.core.utitlity.enums.pausedDisplaySettings;
 import net.md_5.bungee.api.ChatMessageType;
@@ -31,7 +31,7 @@ public class TimerOld {
     private int time;
     private boolean displayActionbar;
 
-    BossBar bossBar = Bukkit.createBossBar("", BarColor.valueOf(Main.getInstance().getConfig().getString("bossBarColor")), BarStyle.SOLID);
+    BossBar bossBar = Bukkit.createBossBar("", BarColor.valueOf(KatzcraftTimer.getInstance().getConfig().getString("bossBarColor")), BarStyle.SOLID);
 
     private int seconds;
     private int minutes;
@@ -96,11 +96,11 @@ public class TimerOld {
 
             for(ArmorStand stand : world.getEntitiesByClass(ArmorStand.class)) {
 
-                if(stand.getPersistentDataContainer().has(Main.getInstance().getHologramKey(), PersistentDataType.STRING)) {
+                if(stand.getPersistentDataContainer().has(KatzcraftTimer.getInstance().getHologramKey(), PersistentDataType.STRING)) {
 
-                    String colour = Main.getInstance().getConfig().getString("hologramTimerColor");
+                    String colour = KatzcraftTimer.getInstance().getConfig().getString("hologramTimerColor");
 
-                    switch (stand.getPersistentDataContainer().get(Main.getInstance().getHologramKey(), PersistentDataType.STRING)) {
+                    switch (stand.getPersistentDataContainer().get(KatzcraftTimer.getInstance().getHologramKey(), PersistentDataType.STRING)) {
 
                         case "days":
 
@@ -193,14 +193,14 @@ public class TimerOld {
 
                 UpdateScoreboard(player);
 
-                if(!Main.getInstance().getToggledActionbarPlayers().contains(player)) {
+                if(!KatzcraftTimer.getInstance().getToggledActionbarPlayers().contains(player)) {
                     if (!isRunning()) {
 
                         pausedDisplaySettings setting;
 
                         try {
                             setting = pausedDisplaySettings.
-                                    valueOf(Main.getInstance().getConfig().getString("pauseDisplaySetting").toUpperCase());
+                                    valueOf(KatzcraftTimer.getInstance().getConfig().getString("pauseDisplaySetting").toUpperCase());
                         } catch (IllegalArgumentException e) {
                             setting = pausedDisplaySettings.TIME;
                         }
@@ -208,14 +208,14 @@ public class TimerOld {
                         switch (setting) {
                             case TIME:
                                 player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(
-                                        ChatColor.valueOf(Main.getInstance().getConfig().getString("timerColor")).toString() +
+                                        ChatColor.valueOf(KatzcraftTimer.getInstance().getConfig().getString("timerColor")).toString() +
                                                 ChatColor.ITALIC + ChatColor.BOLD + getTimeString()));
                                 break;
 
                             case MESSAGE:
                                 player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(
-                                        ChatColor.valueOf(Main.getInstance().getConfig().getString("timerColor")).toString() +
-                                                ChatColor.BOLD + Main.getInstance().getLanguage().getString(
+                                        ChatColor.valueOf(KatzcraftTimer.getInstance().getConfig().getString("timerColor")).toString() +
+                                                ChatColor.BOLD + KatzcraftTimer.getInstance().getLanguage().getString(
                                                 "actionbarPausedMessage")));
                                 break;
                             case HIDE:
@@ -224,7 +224,7 @@ public class TimerOld {
                     } else {
 
                         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(
-                                ChatColor.valueOf(Main.getInstance().getConfig().getString("timerColor")).toString() +
+                                ChatColor.valueOf(KatzcraftTimer.getInstance().getConfig().getString("timerColor")).toString() +
                                         ChatColor.BOLD + getTimeString()));
                     }
                 }
@@ -242,7 +242,7 @@ public class TimerOld {
 
             if(!bossBar.getPlayers().contains(player)) {bossBar.addPlayer(player);}
 
-            if(!Main.getInstance().getToggledActionbarPlayers().contains(player)) {
+            if(!KatzcraftTimer.getInstance().getToggledActionbarPlayers().contains(player)) {
                 // paused
                 if (!isRunning()) {
 
@@ -251,20 +251,20 @@ public class TimerOld {
 
                     try {
                         setting = pausedDisplaySettings.
-                                valueOf(Main.getInstance().getConfig().getString("pauseDisplaySetting").toUpperCase());
+                                valueOf(KatzcraftTimer.getInstance().getConfig().getString("pauseDisplaySetting").toUpperCase());
                     } catch (IllegalArgumentException e) {
                         setting = pausedDisplaySettings.TIME;
                     }
 
                     switch (setting) {
                         case TIME:
-                            bossBar.setTitle(ChatColor.valueOf(Main.getInstance().getConfig().getString("timerColor")).toString() +
+                            bossBar.setTitle(ChatColor.valueOf(KatzcraftTimer.getInstance().getConfig().getString("timerColor")).toString() +
                                     ChatColor.ITALIC + ChatColor.BOLD + getTimeString());
                             break;
 
                         case MESSAGE:
-                            bossBar.setTitle(ChatColor.valueOf(Main.getInstance().getConfig().getString("timerColor")).toString() +
-                                    ChatColor.BOLD + Main.getInstance().getLanguage().getString(
+                            bossBar.setTitle(ChatColor.valueOf(KatzcraftTimer.getInstance().getConfig().getString("timerColor")).toString() +
+                                    ChatColor.BOLD + KatzcraftTimer.getInstance().getLanguage().getString(
                                     "actionbarPausedMessage"));
                             break;
                         case HIDE:
@@ -274,7 +274,7 @@ public class TimerOld {
                 // running
                 } else {
 
-                    bossBar.setTitle(ChatColor.valueOf(Main.getInstance().getConfig().getString("timerColor")).toString() +
+                    bossBar.setTitle(ChatColor.valueOf(KatzcraftTimer.getInstance().getConfig().getString("timerColor")).toString() +
                             ChatColor.BOLD + getTimeString());
                 }
 
@@ -288,7 +288,7 @@ public class TimerOld {
         new BukkitRunnable(){
             @Override
             public void run() {
-                if (Main.getInstance().getConfig().getBoolean("bossbarInsteadofActionbar")) {
+                if (KatzcraftTimer.getInstance().getConfig().getBoolean("bossbarInsteadofActionbar")) {
                     sendBossBar();
                 } else {
                     sendActionBar();
@@ -303,11 +303,11 @@ public class TimerOld {
 
                 if(getBackwards() && (getTime() <= 0)) {
                     CountdownEndEvent countdownEndEvent = new CountdownEndEvent();
-                    Main.getInstance().getServer().getPluginManager().callEvent(countdownEndEvent);
+                    KatzcraftTimer.getInstance().getServer().getPluginManager().callEvent(countdownEndEvent);
                 }
 
             }
-        }.runTaskTimer(Main.getInstance(), 20, 20);
+        }.runTaskTimer(KatzcraftTimer.getInstance(), 20, 20);
     }
 
     public void removeAllPlayersFromBossBar() {

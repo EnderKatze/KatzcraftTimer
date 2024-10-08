@@ -1,6 +1,6 @@
 package de.enderkatze.katzcrafttimer.core.utitlity;
 
-import de.enderkatze.katzcrafttimer.Main;
+import de.enderkatze.katzcrafttimer.KatzcraftTimer;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -16,13 +16,13 @@ public class LanguageHandler {
 
     private LanguageHandler() {
 
-        String language = Main.getInstance().getConfig().getString("language");
+        String language = KatzcraftTimer.getInstance().getConfig().getString("language");
         try {
 
-            File languageFile = new File(Main.getInstance().getDataFolder(), "languages/" + language + ".yml");
+            File languageFile = new File(KatzcraftTimer.getInstance().getDataFolder(), "languages/" + language + ".yml");
 
             if (!languageFile.exists()) {
-                Main.getInstance().saveResource("languages/" + language + ".yml", false);
+                KatzcraftTimer.getInstance().saveResource("languages/" + language + ".yml", false);
             }
 
             languageConfig = YamlConfiguration.loadConfiguration(languageFile);

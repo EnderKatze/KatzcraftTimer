@@ -1,6 +1,6 @@
 package de.enderkatze.katzcrafttimer.core.utitlity;
 
-import de.enderkatze.katzcrafttimer.Main;
+import de.enderkatze.katzcrafttimer.KatzcraftTimer;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -27,7 +27,7 @@ public class UpdateChecker {
                     consumer.accept(scanner.next());
                 }
             } catch (IOException exception) {
-                plugin.getLogger().info(Main.getInstance().getLanguage().getString("updateChecker.unableToCheck").replace("{error}", exception.getMessage()));
+                plugin.getLogger().info(KatzcraftTimer.getInstance().getLanguage().getString("updateChecker.unableToCheck").replace("{error}", exception.getMessage()));
             }
         });
     }

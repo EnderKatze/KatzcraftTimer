@@ -1,10 +1,9 @@
 package de.enderkatze.katzcrafttimer.core.timer
 
 import com.google.inject.Inject
-import de.enderkatze.katzcrafttimer.Main
+import de.enderkatze.katzcrafttimer.KatzcraftTimer
 import de.enderkatze.katzcrafttimer.api.framework.timer.Timer
-import de.enderkatze.katzcrafttimer.core.framework.timer.TimerManager
-import de.enderkatze.katzcrafttimer.api.framework.timer.TimerType
+import de.enderkatze.katzcrafttimer.api.framework.timer.TimerManager
 import de.enderkatze.katzcrafttimer.api.events.TimerUpdateEvent
 import org.bukkit.Bukkit
 import org.bukkit.event.Event
@@ -13,13 +12,12 @@ import java.util.UUID
 
 class TimerNormal
 @Inject constructor(
-    private val plugin: Main,
+    private val plugin: KatzcraftTimer,
     private val timerManager: TimerManager
 ): Timer {
 
     override var time: Int = 0
     override val id: String = UUID.randomUUID().toString()
-    override val timerType: TimerType = TimerType("normal")
 
     private var running: Boolean = false
     private var task: BukkitTask? = null
@@ -34,6 +32,8 @@ class TimerNormal
     override fun stop() {
         if(running) {
             running = false
+            task?.cancel()
+            task = null
         }
     }
 
@@ -46,7 +46,6 @@ class TimerNormal
             "time" to time,
             "running" to running,
             "isPrimary" to (this.timerManager.getPrimaryTimer()?.equals(this) ?: false),
-            "timerType" to timerType
         )
     }
 
@@ -63,6 +62,10 @@ class TimerNormal
                 Bukkit.getServer().pluginManager.callEvent(event)
             }
         }, 0L, 20L)
+    }
+
+    override fun copy() {
+        TODO("Not yet implemented")
     }
 
 }

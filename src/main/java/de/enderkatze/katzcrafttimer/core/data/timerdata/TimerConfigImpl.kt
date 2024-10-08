@@ -1,17 +1,17 @@
 package de.enderkatze.katzcrafttimer.core.data.timerdata
 
 import com.google.inject.Inject
-import de.enderkatze.katzcrafttimer.Main
+import de.enderkatze.katzcrafttimer.KatzcraftTimer
 import de.enderkatze.katzcrafttimer.core.framework.data.TimerConfig
 import de.enderkatze.katzcrafttimer.api.framework.timer.Timer
-import de.enderkatze.katzcrafttimer.core.framework.timer.TimerManager
+import de.enderkatze.katzcrafttimer.api.framework.timer.TimerManager
 import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.configuration.file.YamlConfiguration
 import java.io.File
 import java.io.IOException
 
 class TimerConfigImpl @Inject constructor(
-    private val plugin: Main,
+    private val plugin: KatzcraftTimer,
     private val configFile: File = File(plugin.dataFolder, "data/timers.yml"),
     private val timerManager: TimerManager
 ) : TimerConfig {

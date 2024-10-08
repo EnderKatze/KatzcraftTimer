@@ -1,6 +1,4 @@
-package de.enderkatze.katzcrafttimer.core.framework.timer
-
-import de.enderkatze.katzcrafttimer.api.framework.timer.Timer
+package de.enderkatze.katzcrafttimer.api.framework.timer
 
 interface TimerManager {
     fun addTimer(timer: Timer)

@@ -1,7 +1,7 @@
 package de.enderkatze.katzcrafttimer.core.commands.subcommands;
 
 import de.enderkatze.katzcrafttimer.core.presenter.timer_display.ArmorstandManagerOld;
-import de.enderkatze.katzcrafttimer.Main;
+import de.enderkatze.katzcrafttimer.KatzcraftTimer;
 import de.enderkatze.katzcrafttimer.core.utitlity.SubCommand;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.ArmorStand;
@@ -36,7 +36,7 @@ public class HologramCommand implements SubCommand {
 
                 titleHologram.setCustomName(title.toString().replace('&', '§'));
             } else {
-                titleHologram.setCustomName(Main.getInstance().getConfig().getString("defaultHologramTitle"));
+                titleHologram.setCustomName(KatzcraftTimer.getInstance().getConfig().getString("defaultHologramTitle"));
             }
 
             armorstandManagerOld.createHologram(player.getWorld(), player.getLocation().add(0, -.6, 0), "days");

@@ -1,7 +1,7 @@
 package de.enderkatze.katzcrafttimer.core.data.globaldata
 
 import com.google.inject.Inject
-import de.enderkatze.katzcrafttimer.Main
+import de.enderkatze.katzcrafttimer.KatzcraftTimer
 import de.enderkatze.katzcrafttimer.core.framework.data.GlobalDataConfig
 import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.configuration.file.YamlConfiguration
@@ -10,8 +10,8 @@ import java.io.IOException
 
 class GlobalDataConfigImpl @Inject constructor(
 
-private val plugin: Main,
-private val configFile: File = File(plugin.dataFolder, "data/globaldata.yml")
+    private val plugin: KatzcraftTimer,
+    private val configFile: File = File(plugin.dataFolder, "data/globaldata.yml")
 ) : GlobalDataConfig {
 
     private var config: FileConfiguration? = null

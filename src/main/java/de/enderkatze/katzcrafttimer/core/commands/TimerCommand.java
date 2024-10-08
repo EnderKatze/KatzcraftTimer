@@ -1,7 +1,7 @@
 package de.enderkatze.katzcrafttimer.core.commands;
 
 import com.google.inject.Inject;
-import de.enderkatze.katzcrafttimer.Main;
+import de.enderkatze.katzcrafttimer.KatzcraftTimer;
 import de.enderkatze.katzcrafttimer.core.utitlity.SubCommand;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -13,7 +13,7 @@ import java.util.*;
 
 public class TimerCommand implements CommandExecutor, TabCompleter {
 
-    final Main plugin;
+    final KatzcraftTimer plugin;
     final String prefix;
 
     final String successColor;
@@ -24,7 +24,7 @@ public class TimerCommand implements CommandExecutor, TabCompleter {
     private final Map<String, SubCommand> subcommands = new HashMap<>();
 
     @Inject
-    TimerCommand(Main plugin) {
+    TimerCommand(KatzcraftTimer plugin) {
         this.plugin = plugin;
         this.prefix = this.plugin.getPrefix();
 
@@ -49,7 +49,7 @@ public class TimerCommand implements CommandExecutor, TabCompleter {
         boolean didExecuteCommand = handleSubcommand(subcommands.get(subcommandName), sender, args, 0, "katzcrafttimer");
 
         if(!didExecuteCommand) {
-            sender.sendMessage(prefix + Main.getInstance().getLanguage().getString("usage"));
+            sender.sendMessage(prefix + KatzcraftTimer.getInstance().getLanguage().getString("usage"));
         }
 
 

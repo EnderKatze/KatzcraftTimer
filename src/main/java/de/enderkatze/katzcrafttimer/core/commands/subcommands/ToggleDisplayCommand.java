@@ -1,6 +1,6 @@
 package de.enderkatze.katzcrafttimer.core.commands.subcommands;
 
-import de.enderkatze.katzcrafttimer.Main;
+import de.enderkatze.katzcrafttimer.KatzcraftTimer;
 import de.enderkatze.katzcrafttimer.core.utitlity.SubCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -14,7 +14,7 @@ public class ToggleDisplayCommand implements SubCommand {
     public void execute(CommandSender sender, String[] args) {
 
 
-        List<Player> players = Main.getInstance().getToggledActionbarPlayers();
+        List<Player> players = KatzcraftTimer.getInstance().getToggledActionbarPlayers();
 
         Player selected = args.length >= 2? Bukkit.getPlayer(args[1]) : (sender instanceof Player ? (Player) sender : null);
 
@@ -27,10 +27,10 @@ public class ToggleDisplayCommand implements SubCommand {
         }
         else {
 
-            sender.sendMessage(Main.getInstance().getPrefix() + Main.getInstance().getLanguage().getString("playerNotFound"));
+            sender.sendMessage(KatzcraftTimer.getInstance().getPrefix() + KatzcraftTimer.getInstance().getLanguage().getString("playerNotFound"));
         }
 
-        Main.getInstance().setToggledActionbarPlayers(players);
+        KatzcraftTimer.getInstance().setToggledActionbarPlayers(players);
 
     }
 

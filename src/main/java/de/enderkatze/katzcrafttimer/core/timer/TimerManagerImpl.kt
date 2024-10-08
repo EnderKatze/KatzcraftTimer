@@ -1,7 +1,7 @@
 package de.enderkatze.katzcrafttimer.core.timer
 
 import de.enderkatze.katzcrafttimer.api.framework.timer.Timer
-import de.enderkatze.katzcrafttimer.core.framework.timer.TimerManager
+import de.enderkatze.katzcrafttimer.api.framework.timer.TimerManager
 
 class TimerManagerImpl: TimerManager {
 
