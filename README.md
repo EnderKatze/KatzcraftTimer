@@ -11,7 +11,7 @@ My code is a bit messy, and I hope making it public will help me organize it a b
 - Modify the time in some ways
 - Toggle the actionbar display
 
-In development
+## In development
 - [X] complete new presenter system modules
 - [ ] Implement new timer system ui/gui
 - [ ] dynamically create PlaceholderAPI hooks for timers
