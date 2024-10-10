@@ -58,7 +58,7 @@ class TimerNormal
         task = Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, Runnable {
             if (running) {
                 time++
-                val event: Event = TimerUpdateEvent(time, isPrimaryTimer())
+                val event: Event = TimerUpdateEvent(time, isPrimaryTimer(), this)
                 Bukkit.getServer().pluginManager.callEvent(event)
             }
         }, 0L, 20L)

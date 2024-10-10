@@ -7,6 +7,6 @@ interface TimerManager {
     fun getTimers(): List<Timer>
     fun setPrimaryTimer(index: Int)
     fun startAll()
-    fun stopAllAndSave()
+    fun stopAll()
     fun resetAll()
 }

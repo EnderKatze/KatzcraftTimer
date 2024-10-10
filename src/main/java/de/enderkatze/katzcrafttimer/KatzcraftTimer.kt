@@ -10,6 +10,8 @@ import de.enderkatze.katzcrafttimer.core.commands.TimerCommand
 import de.enderkatze.katzcrafttimer.core.commands.subcommands.*
 import de.enderkatze.katzcrafttimer.core.listeners.CountdownEndListener
 import de.enderkatze.katzcrafttimer.core.listeners.PlayerJoinListener
+import de.enderkatze.katzcrafttimer.core.listeners.TimerUpdateListener
+import de.enderkatze.katzcrafttimer.core.presenter.timer_display.TimerDisplay
 import de.enderkatze.katzcrafttimer.core.timer.TimerNormal
 import de.enderkatze.katzcrafttimer.core.timer.deprecated.TimerOld
 import de.enderkatze.katzcrafttimer.core.utitlity.LanguageHandler
@@ -42,6 +44,9 @@ class KatzcraftTimer : JavaPlugin() {
     @Inject
     private val timerRegistry: TimerRegistry? = null
 
+    @Inject
+    private val timerDisplay: TimerDisplay? = null
+
     private var timer: TimerOld? = null
 
     @Inject
@@ -49,6 +54,12 @@ class KatzcraftTimer : JavaPlugin() {
 
     @Inject
     private val timerCommand: TimerCommand? = null
+
+    @Inject
+    private val countdownEndListener: CountdownEndListener? = null;
+
+    @Inject
+    private val timerUpdateListener: TimerUpdateListener? = null;
 
     @Setter
     @Getter
@@ -102,7 +113,8 @@ class KatzcraftTimer : JavaPlugin() {
 
         // Register events
         Bukkit.getPluginManager().registerEvents(PlayerJoinListener(), this)
-        Bukkit.getPluginManager().registerEvents(CountdownEndListener(), this)
+        if (countdownEndListener != null) { Bukkit.getPluginManager().registerEvents(countdownEndListener, this) }
+        if (timerUpdateListener != null) { Bukkit.getPluginManager().registerEvents(timerUpdateListener, this) }
 
         // Register default timers
         timerRegistry!!.registerTimerType("normal") { timerNormal!! }

@@ -1,9 +1,10 @@
 package de.enderkatze.katzcrafttimer.api.events
 
+import de.enderkatze.katzcrafttimer.api.framework.timer.Timer
 import org.bukkit.event.Event
 import org.bukkit.event.HandlerList
 
-class TimerUpdateEvent(val time: Int, val isPrimaryTimer: Boolean) : Event(){
+class TimerUpdateEvent(val time: Int, val isPrimaryTimer: Boolean, val timer: Timer) : Event(){
 
     companion object {
 

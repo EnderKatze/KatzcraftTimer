@@ -147,6 +147,7 @@ public class TimerOld {
         }
     }
 
+    @Deprecated
     void UpdateScoreboard(Player player) {
 
         Scoreboard scoreboard = player.getScoreboard();
@@ -187,6 +188,7 @@ public class TimerOld {
         return timeString;
     }
 
+    @Deprecated
     public void sendActionBar() {
 
             for (Player player : Bukkit.getOnlinePlayers()) {
@@ -233,6 +235,7 @@ public class TimerOld {
 
     }
 
+    @Deprecated
     public void sendBossBar(){
 
 

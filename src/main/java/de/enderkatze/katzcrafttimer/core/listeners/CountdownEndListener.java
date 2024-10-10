@@ -1,5 +1,6 @@
 package de.enderkatze.katzcrafttimer.core.listeners;
 
+import com.google.inject.Inject;
 import de.enderkatze.katzcrafttimer.KatzcraftTimer;
 import de.enderkatze.katzcrafttimer.api.events.CountdownEndEvent;
 import org.bukkit.Bukkit;
@@ -11,14 +12,21 @@ import java.util.logging.Level;
 
 public class CountdownEndListener implements Listener {
 
+    private final KatzcraftTimer instance;
+
+    @Inject
+    public CountdownEndListener(KatzcraftTimer instance) {
+        this.instance = instance;
+    }
+
     @EventHandler
     public void onCountdownEnd(CountdownEndEvent event) {
 
-        KatzcraftTimer.getInstance().getTimer().setRunning(false);
-        KatzcraftTimer.getInstance().getTimer().setBackwards(false);
-        Bukkit.broadcastMessage(KatzcraftTimer.getInstance().getPrefix() + KatzcraftTimer.getInstance().getLanguage().getString("actionbarTimeOverMessage"));
+        instance.getTimer().setRunning(false);
+        instance.getTimer().setBackwards(false);
+        Bukkit.broadcastMessage(instance.getPrefix() + instance.getLanguage().getString("actionbarTimeOverMessage"));
 
-        List<String> commands = KatzcraftTimer.getInstance().getConfig().getStringList("countdownFinishedCommands");
+        List<String> commands = instance.getConfig().getStringList("countdownFinishedCommands");
 
         for (String command : commands) {
             if (command.startsWith("/")) {

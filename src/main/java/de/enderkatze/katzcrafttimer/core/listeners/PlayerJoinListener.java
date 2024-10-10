@@ -5,6 +5,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
+
+// TODO Introduce dependency injection to fix
 public class PlayerJoinListener implements Listener {
 
     @EventHandler

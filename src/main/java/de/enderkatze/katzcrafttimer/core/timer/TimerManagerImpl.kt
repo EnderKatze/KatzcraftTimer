@@ -1,12 +1,15 @@
 package de.enderkatze.katzcrafttimer.core.timer
 
+import com.google.inject.Inject
 import de.enderkatze.katzcrafttimer.api.framework.timer.Timer
 import de.enderkatze.katzcrafttimer.api.framework.timer.TimerManager
+import de.enderkatze.katzcrafttimer.core.framework.data.TimerConfig
 
 class TimerManagerImpl: TimerManager {
 
     private val timers: MutableList<Timer> = arrayListOf()
     var primaryTimerIndex: Int = 0
+        private set
 
     override fun addTimer(timer: Timer) {
         timers.add(timer)
@@ -38,7 +41,7 @@ class TimerManagerImpl: TimerManager {
         }
     }
 
-    override fun stopAllAndSave() {
+    override fun stopAll() {
         for (timer: Timer in timers) {
             timer.stop()
             var timerData: Map<String, Any?>  = timer.toMap()

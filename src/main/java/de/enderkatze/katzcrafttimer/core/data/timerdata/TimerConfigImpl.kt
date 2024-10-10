@@ -33,6 +33,7 @@ class TimerConfigImpl @Inject constructor(
                 val timerMap = timerSection.getConfigurationSection(key)?.getValues(false)
                 if (timerMap != null) {
                     // TODO Implement adding timer from map
+                    // TODO add timer to timerManager object
                 }
             }
         }
