@@ -1,10 +1,10 @@
-package de.enderkatze.katzcrafttimer.core.presenter.timer_display
+package de.enderkatze.katzcrafttimer.core.presenter.display
 
 import com.google.inject.Inject
 import de.enderkatze.katzcrafttimer.api.events.TimerUpdateEvent
-import de.enderkatze.katzcrafttimer.api.framework.data.playerdata.SettingsManager
-import de.enderkatze.katzcrafttimer.core.presenter.timer_display.display_handlers.ActionbarDisplayHandler
-import de.enderkatze.katzcrafttimer.core.presenter.timer_display.display_handlers.BossbarDisplayHandler
+import de.enderkatze.katzcrafttimer.domain.contracts.data.SettingsManager
+import de.enderkatze.katzcrafttimer.core.presenter.display.display_handlers.ActionbarDisplayHandler
+import de.enderkatze.katzcrafttimer.core.presenter.display.display_handlers.BossbarDisplayHandler
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 
@@ -15,7 +15,7 @@ class TimerDisplayImpl @Inject constructor(
 ) : TimerDisplay {
 
     override fun displayTime(event: TimerUpdateEvent) {
-        if(event.isPrimaryTimer) {
+        if(event.timer.isPrimaryTimer()) {
             for (player: Player in Bukkit.getOnlinePlayers()) {
                 val type: TimerDisplayType = settingsManager.getSetting(player)!!.timerDisplayType
                 when (type) {

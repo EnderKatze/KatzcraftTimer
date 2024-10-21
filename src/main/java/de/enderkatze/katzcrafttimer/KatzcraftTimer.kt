@@ -2,17 +2,16 @@ package de.enderkatze.katzcrafttimer
 
 import com.google.inject.Guice
 import com.google.inject.Inject
+import com.google.inject.name.Named
 import de.enderkatze.katzcrafttimer.api.KatzcraftTimerAPI
+import de.enderkatze.katzcrafttimer.api.framework.timer.Timer
 import de.enderkatze.katzcrafttimer.api.framework.timer.TimerManager
-import de.enderkatze.katzcrafttimer.api.framework.timer.TimerRegistry
 import de.enderkatze.katzcrafttimer.core.MainBinderModule
 import de.enderkatze.katzcrafttimer.core.commands.TimerCommand
 import de.enderkatze.katzcrafttimer.core.commands.subcommands.*
 import de.enderkatze.katzcrafttimer.core.listeners.CountdownEndListener
 import de.enderkatze.katzcrafttimer.core.listeners.PlayerJoinListener
 import de.enderkatze.katzcrafttimer.core.listeners.TimerUpdateListener
-import de.enderkatze.katzcrafttimer.core.presenter.timer_display.TimerDisplay
-import de.enderkatze.katzcrafttimer.core.timer.TimerNormal
 import de.enderkatze.katzcrafttimer.core.timer.deprecated.TimerOld
 import de.enderkatze.katzcrafttimer.core.utitlity.LanguageHandler
 import de.enderkatze.katzcrafttimer.core.utitlity.Metrics
@@ -35,35 +34,28 @@ class KatzcraftTimer : JavaPlugin() {
     @JvmField
     var updateAvailable: Boolean = false
 
-    @Getter
-    private var newestVersion: String? = null
+    var newestVersion: String? = null
+        private set
 
     @Inject
-    private val timerManager: TimerManager? = null
-
-    @Inject
-    private val timerRegistry: TimerRegistry? = null
-
-    @Inject
-    private val timerDisplay: TimerDisplay? = null
+    private lateinit var timerManager: TimerManager
 
     private var timer: TimerOld? = null
 
     @Inject
-    private val timerNormal: TimerNormal? = null
+    @Named("timer.normal")
+    private lateinit var timerNormal: Timer
 
     @Inject
-    private val timerCommand: TimerCommand? = null
+    private lateinit var timerCommand: TimerCommand
 
     @Inject
-    private val countdownEndListener: CountdownEndListener? = null;
+    private lateinit var countdownEndListener: CountdownEndListener
 
     @Inject
-    private val timerUpdateListener: TimerUpdateListener? = null;
+    private lateinit var timerUpdateListener: TimerUpdateListener
 
-    @Setter
-    @Getter
-    private val toggledActionbarPlayers: List<Player> = ArrayList()
+    var toggledActionbarPlayers: List<Player> = ArrayList()
 
     @Getter
     private var hologramKey: NamespacedKey? = null
@@ -73,13 +65,14 @@ class KatzcraftTimer : JavaPlugin() {
 
     override fun onLoad() {
         instance = this
-        hologramKey = NamespacedKey(this, "timerHologram")
 
         val module = MainBinderModule(this)
         val injector = Guice.createInjector(module)
         injector.injectMembers(this)
 
-        KatzcraftTimerAPI.initialize(this, timerManager!!, timerRegistry!!)
+        hologramKey = NamespacedKey(this, "timerHologram")
+
+        KatzcraftTimerAPI.initialize(this, timerManager)
     }
 
     private fun saveData() {
@@ -113,14 +106,11 @@ class KatzcraftTimer : JavaPlugin() {
 
         // Register events
         Bukkit.getPluginManager().registerEvents(PlayerJoinListener(), this)
-        if (countdownEndListener != null) { Bukkit.getPluginManager().registerEvents(countdownEndListener, this) }
-        if (timerUpdateListener != null) { Bukkit.getPluginManager().registerEvents(timerUpdateListener, this) }
-
-        // Register default timers
-        timerRegistry!!.registerTimerType("normal") { timerNormal!! }
+        Bukkit.getPluginManager().registerEvents(countdownEndListener, this)
+        Bukkit.getPluginManager().registerEvents(timerUpdateListener, this)
 
         // Register timer command and subcommands
-        timerCommand!!.registerSubcommand(CountdownCommand())
+        timerCommand.registerSubcommand(CountdownCommand())
         timerCommand.registerSubcommand(HologramCommand())
         timerCommand.registerSubcommand(PauseCommand())
         timerCommand.registerSubcommand(ReloadCommand())
@@ -134,7 +124,7 @@ class KatzcraftTimer : JavaPlugin() {
 
         // PlaceholderAPI hook
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            TimerExpansion().register()
+            TimerExpansion(this).register()
         }
 
         val metrics = Metrics(this, 20951)

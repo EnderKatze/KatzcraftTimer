@@ -1,8 +1,8 @@
-package de.enderkatze.katzcrafttimer.core.presenter.timer_display.display_handlers
+package de.enderkatze.katzcrafttimer.core.presenter.display.display_handlers
 
 import com.google.inject.Inject
 import de.enderkatze.katzcrafttimer.KatzcraftTimer
-import de.enderkatze.katzcrafttimer.api.framework.data.playerdata.SettingsManager
+import de.enderkatze.katzcrafttimer.domain.contracts.data.SettingsManager
 import de.enderkatze.katzcrafttimer.api.framework.timer.Timer
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor

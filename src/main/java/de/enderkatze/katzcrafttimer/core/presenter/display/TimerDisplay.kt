@@ -1,8 +1,6 @@
-package de.enderkatze.katzcrafttimer.core.presenter.timer_display
+package de.enderkatze.katzcrafttimer.core.presenter.display
 
 import de.enderkatze.katzcrafttimer.api.events.TimerUpdateEvent
-import org.bukkit.event.Event
-import org.bukkit.event.Listener
 
 interface TimerDisplay{
 

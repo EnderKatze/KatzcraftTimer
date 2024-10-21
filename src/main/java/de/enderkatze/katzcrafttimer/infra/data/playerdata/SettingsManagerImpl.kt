@@ -1,6 +1,6 @@
-package de.enderkatze.katzcrafttimer.core.data.playerdata
+package de.enderkatze.katzcrafttimer.infra.data.playerdata
 
-import de.enderkatze.katzcrafttimer.api.framework.data.playerdata.SettingsManager
+import de.enderkatze.katzcrafttimer.domain.contracts.data.SettingsManager
 import de.enderkatze.katzcrafttimer.core.framework.data.GlobalDataConfig
 import javax.inject.Inject
 

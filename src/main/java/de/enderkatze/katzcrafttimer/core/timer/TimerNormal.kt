@@ -18,8 +18,9 @@ class TimerNormal
 
     override var time: Int = 0
     override val id: String = UUID.randomUUID().toString()
+    override val type: String = "normal"
+    override var running: Boolean = false
 
-    private var running: Boolean = false
     private var task: BukkitTask? = null
 
     override fun start() {
@@ -37,15 +38,13 @@ class TimerNormal
         }
     }
 
-    override fun isRunning(): Boolean {
-        return running
-    }
-
     override fun toMap(): Map<String, Any?> {
         return mapOf(
+            id to mapOf(
             "time" to time,
             "running" to running,
             "isPrimary" to (this.timerManager.getPrimaryTimer()?.equals(this) ?: false),
+            )
         )
     }
 
@@ -58,7 +57,7 @@ class TimerNormal
         task = Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, Runnable {
             if (running) {
                 time++
-                val event: Event = TimerUpdateEvent(time, isPrimaryTimer(), this)
+                val event: Event = TimerUpdateEvent(time, this)
                 Bukkit.getServer().pluginManager.callEvent(event)
             }
         }, 0L, 20L)

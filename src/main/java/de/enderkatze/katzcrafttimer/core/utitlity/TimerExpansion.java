@@ -3,9 +3,18 @@ package de.enderkatze.katzcrafttimer.core.utitlity;
 import de.enderkatze.katzcrafttimer.KatzcraftTimer;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 public class TimerExpansion extends PlaceholderExpansion {
+
+    private final KatzcraftTimer plugin;
+
+    public TimerExpansion(KatzcraftTimer plugin) {
+        super();
+        this.plugin = plugin;
+    }
+
     @Override
     public @NotNull String getIdentifier() {
         return "timer";
@@ -40,22 +49,23 @@ public class TimerExpansion extends PlaceholderExpansion {
             return "";
         }
 
+
         switch (params) {
 
             case "current":
-                return String.valueOf(KatzcraftTimer.getInstance().getTimer().getTime());
+                return String.valueOf(plugin.getTimer().getTime());
 
             case "time":
-                return KatzcraftTimer.getInstance().getTimer().getTimeString();
+                return plugin.getTimer().getTimeString();
 
             case "actionbar_visible":
-                return String.valueOf(KatzcraftTimer.getInstance().getToggledActionbarPlayers().contains(p));
+                return String.valueOf(plugin.getToggledActionbarPlayers().contains(p));
 
             case "running":
-                return String.valueOf(KatzcraftTimer.getInstance().getTimer().isRunning());
+                return String.valueOf(plugin.getTimer().isRunning());
 
             case "backwards":
-                return String.valueOf(KatzcraftTimer.getInstance().getTimer().isBackwards());
+                return String.valueOf(plugin.getTimer().isBackwards());
         }
 
         return null;

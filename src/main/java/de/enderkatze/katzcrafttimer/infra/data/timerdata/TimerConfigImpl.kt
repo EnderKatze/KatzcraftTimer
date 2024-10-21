@@ -1,4 +1,4 @@
-package de.enderkatze.katzcrafttimer.core.data.timerdata
+package de.enderkatze.katzcrafttimer.infra.data.timerdata
 
 import com.google.inject.Inject
 import de.enderkatze.katzcrafttimer.KatzcraftTimer

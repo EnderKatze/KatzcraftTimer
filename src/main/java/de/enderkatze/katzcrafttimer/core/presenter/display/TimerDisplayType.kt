@@ -1,4 +1,4 @@
-package de.enderkatze.katzcrafttimer.core.presenter.timer_display
+package de.enderkatze.katzcrafttimer.core.presenter.display
 
 enum class TimerDisplayType {
     ACTIONBAR,

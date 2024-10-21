@@ -15,6 +15,8 @@ My code is a bit messy, and I hope making it public will help me organize it a b
 - [X] complete new presenter system modules
 - [ ] Implement new timer system ui/gui
 - [ ] dynamically create PlaceholderAPI hooks for timers
-- [ ] load timers from file
 - [ ] read timers from file on startup
 - [ ] read player settings from file on startup
+- [ ] save timer settings to file on shutdown
+- [ ] save timers to file on shutdown
+- [ ] write timer registry to dynamically add timer types and load and save them
