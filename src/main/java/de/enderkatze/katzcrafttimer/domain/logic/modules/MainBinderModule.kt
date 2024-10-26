@@ -10,13 +10,13 @@ import de.enderkatze.katzcrafttimer.infra.data.globaldata.GlobalDataConfigImpl
 import de.enderkatze.katzcrafttimer.core.framework.data.GlobalDataConfig
 import de.enderkatze.katzcrafttimer.infra.data.timerdata.TimerConfigImpl
 import de.enderkatze.katzcrafttimer.core.framework.data.TimerConfig
-import de.enderkatze.katzcrafttimer.core.presenter.display.TimerDisplayImpl
-import de.enderkatze.katzcrafttimer.core.presenter.display.TimerDisplay
+import de.enderkatze.katzcrafttimer.presenter.display.TimerDisplayImpl
+import de.enderkatze.katzcrafttimer.presenter.display.TimerDisplay
 import de.enderkatze.katzcrafttimer.core.timer.TimerManagerImpl
 import de.enderkatze.katzcrafttimer.api.framework.timer.TimerManager
 import de.enderkatze.katzcrafttimer.infra.data.playerdata.SettingsManagerImpl
-import de.enderkatze.katzcrafttimer.core.presenter.display.display_handlers.ActionbarDisplayHandler
-import de.enderkatze.katzcrafttimer.core.presenter.display.display_handlers.BossbarDisplayHandler
+import de.enderkatze.katzcrafttimer.presenter.display.display_handlers.ActionbarDisplayHandler
+import de.enderkatze.katzcrafttimer.presenter.display.display_handlers.BossbarDisplayHandler
 import de.enderkatze.katzcrafttimer.core.timer.TimerNormal
 import de.enderkatze.katzcrafttimer.external.placeholderapi.TimerExpansion
 

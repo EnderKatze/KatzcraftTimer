@@ -1,10 +1,10 @@
-package de.enderkatze.katzcrafttimer.core.presenter.display.display_handlers
+package de.enderkatze.katzcrafttimer.presenter.display.display_handlers
 
 import com.google.inject.Inject
 import de.enderkatze.katzcrafttimer.KatzcraftTimer
 import de.enderkatze.katzcrafttimer.domain.contracts.data.SettingsManager
 import de.enderkatze.katzcrafttimer.api.framework.timer.Timer
-import de.enderkatze.katzcrafttimer.core.presenter.display.PausedDisplayType
+import de.enderkatze.katzcrafttimer.presenter.display.PausedDisplayType
 import net.md_5.bungee.api.ChatMessageType
 import net.md_5.bungee.api.chat.TextComponent
 import org.bukkit.ChatColor

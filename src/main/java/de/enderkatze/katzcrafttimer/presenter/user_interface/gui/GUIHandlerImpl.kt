@@ -1,4 +1,4 @@
-package de.enderkatze.katzcrafttimer.core.presenter.gui
+package de.enderkatze.katzcrafttimer.presenter.user_interface.gui
 
 import com.google.inject.Inject
 import de.enderkatze.katzcrafttimer.api.framework.presenter.gui.GUIMenu

@@ -1,4 +1,4 @@
-package de.enderkatze.katzcrafttimer.core.presenter.display.display_handlers
+package de.enderkatze.katzcrafttimer.presenter.display.display_handlers
 
 import com.google.inject.Inject
 import de.enderkatze.katzcrafttimer.KatzcraftTimer

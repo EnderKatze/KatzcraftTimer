@@ -2,7 +2,7 @@ package de.enderkatze.katzcrafttimer.core.listeners
 
 import com.google.inject.Inject
 import de.enderkatze.katzcrafttimer.api.events.TimerUpdateEvent
-import de.enderkatze.katzcrafttimer.core.presenter.display.TimerDisplay
+import de.enderkatze.katzcrafttimer.presenter.display.TimerDisplay
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 

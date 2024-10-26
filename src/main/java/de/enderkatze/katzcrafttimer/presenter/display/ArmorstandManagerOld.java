@@ -1,4 +1,4 @@
-package de.enderkatze.katzcrafttimer.core.presenter.display;
+package de.enderkatze.katzcrafttimer.presenter.display;
 
 import de.enderkatze.katzcrafttimer.KatzcraftTimer;
 import org.bukkit.Location;

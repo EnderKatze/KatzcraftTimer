@@ -1,6 +1,6 @@
 package de.enderkatze.katzcrafttimer.core.commands.subcommands;
 
-import de.enderkatze.katzcrafttimer.core.presenter.display.ArmorstandManagerOld;
+import de.enderkatze.katzcrafttimer.presenter.display.ArmorstandManagerOld;
 import de.enderkatze.katzcrafttimer.KatzcraftTimer;
 import de.enderkatze.katzcrafttimer.core.utitlity.SubCommand;
 import org.bukkit.command.CommandSender;
