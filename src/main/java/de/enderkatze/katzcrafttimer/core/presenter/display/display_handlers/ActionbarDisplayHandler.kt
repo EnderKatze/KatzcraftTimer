@@ -17,7 +17,7 @@ class ActionbarDisplayHandler @Inject constructor(
     fun display(player: Player, primaryTimer: Timer) {
         val pausedDisplaySetting = settingsManager.getSetting(player)!!.pauseDisplayType
 
-        if(primaryTimer.isRunning()) {
+        if(primaryTimer.running) {
             player.spigot().sendMessage(
                 ChatMessageType.ACTION_BAR,
                 TextComponent(

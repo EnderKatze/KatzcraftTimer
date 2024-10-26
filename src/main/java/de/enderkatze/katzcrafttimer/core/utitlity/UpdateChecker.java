@@ -12,10 +12,10 @@ import java.util.function.Consumer;
 
 public class UpdateChecker {
 
-    private final JavaPlugin plugin;
+    private final KatzcraftTimer plugin;
     private final int resourceId;
 
-    public UpdateChecker(JavaPlugin plugin, int resourceId) {
+    public UpdateChecker(KatzcraftTimer plugin, int resourceId) {
         this.plugin = plugin;
         this.resourceId = resourceId;
     }
@@ -27,7 +27,7 @@ public class UpdateChecker {
                     consumer.accept(scanner.next());
                 }
             } catch (IOException exception) {
-                plugin.getLogger().info(KatzcraftTimer.getInstance().getLanguage().getString("updateChecker.unableToCheck").replace("{error}", exception.getMessage()));
+                plugin.getLogger().info(plugin.getLanguage().getString("updateChecker.unableToCheck").replace("{error}", exception.getMessage()));
             }
         });
     }

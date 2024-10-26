@@ -14,15 +14,15 @@ public class LanguageHandler {
     private static LanguageHandler instance;
     private FileConfiguration languageConfig;
 
-    private LanguageHandler() {
+    private LanguageHandler(KatzcraftTimer plugin) {
 
-        String language = KatzcraftTimer.getInstance().getConfig().getString("language");
+        String language = plugin.getConfig().getString("language");
         try {
 
-            File languageFile = new File(KatzcraftTimer.getInstance().getDataFolder(), "languages/" + language + ".yml");
+            File languageFile = new File(plugin.getDataFolder(), "languages/" + language + ".yml");
 
             if (!languageFile.exists()) {
-                KatzcraftTimer.getInstance().saveResource("languages/" + language + ".yml", false);
+                plugin.saveResource("languages/" + language + ".yml", false);
             }
 
             languageConfig = YamlConfiguration.loadConfiguration(languageFile);
@@ -31,9 +31,9 @@ public class LanguageHandler {
         }
     }
 
-    public static LanguageHandler getInstance() {
+    public static LanguageHandler getInstance(KatzcraftTimer plugin) {
         if(instance==null) {
-            instance = new LanguageHandler();
+            instance = new LanguageHandler(plugin);
         }
 
         return instance;

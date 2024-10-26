@@ -5,6 +5,7 @@
 plugins {
     `java-library`
     `maven-publish`
+    kotlin("jvm")
 }
 
 repositories {
@@ -24,25 +25,22 @@ repositories {
     maven {
         url = uri("https://repo.maven.apache.org/maven2/")
     }
+    mavenCentral()
 }
 
 dependencies {
     api(libs.com.google.inject.guice)
     api(libs.commons.io.commons.io)
     api(libs.org.jetbrains.kotlin.kotlin.stdlib.jdk8)
-    testImplementation(libs.org.mockito.mockito.core)
-    testImplementation(libs.org.jetbrains.kotlin.kotlin.test)
-    testImplementation(libs.org.junit.jupiter.junit.jupiter)
-    testImplementation(libs.junit.junit)
     compileOnly(libs.org.spigotmc.spigot.api)
     compileOnly(libs.me.clip.placeholderapi)
     compileOnly(libs.org.projectlombok.lombok)
+    implementation(kotlin("stdlib-jdk8"))
 }
 
 group = "de.enderkatze"
 version = "1.0-SNAPSHOT"
 description = "KatzcraftTimer"
-java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 publishing {
     publications.create<MavenPublication>("maven") {
@@ -56,4 +54,7 @@ tasks.withType<JavaCompile>() {
 
 tasks.withType<Javadoc>() {
     options.encoding = "UTF-8"
+}
+kotlin {
+    jvmToolchain(8)
 }

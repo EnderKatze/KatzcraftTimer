@@ -63,7 +63,7 @@ class TimerNormal
         }, 0L, 20L)
     }
 
-    override fun copy() {
+    override fun copy(): TimerNormal {
         TODO("Not yet implemented")
     }
 

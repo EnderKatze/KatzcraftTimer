@@ -23,6 +23,10 @@ class TimerManagerImpl: TimerManager {
         return timers.getOrNull(primaryTimerIndex)
     }
 
+    override fun getTimer(id: String): Timer? {
+        return timers.firstOrNull { it.id == id }
+    }
+
     override fun getTimers(): List<Timer> {
         return timers
     }

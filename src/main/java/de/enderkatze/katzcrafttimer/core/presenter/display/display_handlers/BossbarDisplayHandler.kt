@@ -32,7 +32,7 @@ class BossbarDisplayHandler @Inject constructor(
             bossBar!!.addPlayer(player)
         }
 
-        if(timer.isRunning()) {
+        if(timer.running) {
             bossBar!!.setTitle(
                 ChatColor.valueOf(plugin.config.getString("timerColor")!!).toString()
                         + ChatColor.BOLD

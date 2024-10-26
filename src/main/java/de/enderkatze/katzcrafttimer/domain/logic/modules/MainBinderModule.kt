@@ -1,4 +1,4 @@
-package de.enderkatze.katzcrafttimer.core
+package de.enderkatze.katzcrafttimer.domain.logic.modules
 
 import com.google.inject.AbstractModule
 import com.google.inject.Scopes
@@ -18,6 +18,7 @@ import de.enderkatze.katzcrafttimer.infra.data.playerdata.SettingsManagerImpl
 import de.enderkatze.katzcrafttimer.core.presenter.display.display_handlers.ActionbarDisplayHandler
 import de.enderkatze.katzcrafttimer.core.presenter.display.display_handlers.BossbarDisplayHandler
 import de.enderkatze.katzcrafttimer.core.timer.TimerNormal
+import de.enderkatze.katzcrafttimer.external.placeholderapi.TimerExpansion
 
 
 class MainBinderModule(private val plugin: KatzcraftTimer): AbstractModule() {
@@ -42,5 +43,8 @@ class MainBinderModule(private val plugin: KatzcraftTimer): AbstractModule() {
         bind(TimerConfig::class.java).to(TimerConfigImpl::class.java).`in`(Scopes.SINGLETON)
         bind(GlobalDataConfig::class.java).to(GlobalDataConfigImpl::class.java).`in`(Scopes.SINGLETON)
         bind(SettingsManager::class.java).to(SettingsManagerImpl::class.java).`in`(Scopes.SINGLETON)
+
+        // External
+        bind(TimerExpansion::class.java).`in`(Scopes.SINGLETON)
     }
 }

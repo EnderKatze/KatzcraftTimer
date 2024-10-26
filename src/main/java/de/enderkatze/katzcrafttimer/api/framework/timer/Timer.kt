@@ -12,7 +12,7 @@ interface Timer {
     fun stop()
     fun toMap(): Map<String, Any?>
 
-    fun copy()
+    fun copy(): Timer
 
     fun reset() {
         time = 0

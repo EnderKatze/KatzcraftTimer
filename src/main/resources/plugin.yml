@@ -1,6 +1,6 @@
 name: KatzcraftTimer
 version: '1.10.4'
-main: de.enderkatze.katzcrafttimer.Main
+main: de.enderkatze.katzcrafttimer.KatzcraftTimer
 api-version: 1.19
 authors: [EnderKatze]
 description: A simple but functional timer!

@@ -6,7 +6,7 @@ import com.google.inject.name.Named
 import de.enderkatze.katzcrafttimer.api.KatzcraftTimerAPI
 import de.enderkatze.katzcrafttimer.api.framework.timer.Timer
 import de.enderkatze.katzcrafttimer.api.framework.timer.TimerManager
-import de.enderkatze.katzcrafttimer.core.MainBinderModule
+import de.enderkatze.katzcrafttimer.domain.logic.modules.MainBinderModule
 import de.enderkatze.katzcrafttimer.core.commands.TimerCommand
 import de.enderkatze.katzcrafttimer.core.commands.subcommands.*
 import de.enderkatze.katzcrafttimer.core.listeners.CountdownEndListener
@@ -15,10 +15,9 @@ import de.enderkatze.katzcrafttimer.core.listeners.TimerUpdateListener
 import de.enderkatze.katzcrafttimer.core.timer.deprecated.TimerOld
 import de.enderkatze.katzcrafttimer.core.utitlity.LanguageHandler
 import de.enderkatze.katzcrafttimer.core.utitlity.Metrics
-import de.enderkatze.katzcrafttimer.core.utitlity.TimerExpansion
+import de.enderkatze.katzcrafttimer.external.placeholderapi.TimerExpansion
 import de.enderkatze.katzcrafttimer.core.utitlity.UpdateChecker
 import lombok.Getter
-import lombok.Setter
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.NamespacedKey
@@ -54,6 +53,8 @@ class KatzcraftTimer : JavaPlugin() {
 
     @Inject
     private lateinit var timerUpdateListener: TimerUpdateListener
+
+    @Inject private lateinit var timerExpansion: TimerExpansion
 
     var toggledActionbarPlayers: List<Player> = ArrayList()
 
@@ -122,9 +123,8 @@ class KatzcraftTimer : JavaPlugin() {
         getCommand("timer")!!.setExecutor(timerCommand)
         getCommand("timer")!!.tabCompleter = timerCommand
 
-        // PlaceholderAPI hook
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            TimerExpansion(this).register()
+            timerExpansion.register()
         }
 
         val metrics = Metrics(this, 20951)
@@ -159,7 +159,7 @@ class KatzcraftTimer : JavaPlugin() {
         }
 
     val language: FileConfiguration
-        get() = LanguageHandler.getInstance().selectedLanguage
+        get() = LanguageHandler.getInstance(this).selectedLanguage
 
     private fun setupTimer() {
         timer = TimerOld(false, 0, false, true, config.getBoolean("displayTimeOnPause"))
