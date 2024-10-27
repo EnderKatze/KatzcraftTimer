@@ -111,3 +111,22 @@ buildNumber.properties
 
 # Common working directory
 run/
+/.gradle/buildOutputCleanup/buildOutputCleanup.lock
+/.gradle/buildOutputCleanup/cache.properties
+/.gradle/8.10.2/checksums/checksums.lock
+/.gradle/8.10.2/executionHistory/executionHistory.lock
+/.gradle/8.10.2/expanded/expanded.lock
+/.gradle/file-system.probe
+/.gradle/8.10.2/fileHashes/fileHashes.bin
+/.gradle/8.10.2/fileHashes/fileHashes.lock
+/.gradle/8.10.2/dependencies-accessors/gc.properties
+/.gradle/8.10.2/gc.properties
+/.gradle/vcs-1/gc.properties
+/build/classes/java/main/META-INF/katzcrafttimer.kotlin_module
+/.gradle/8.10.2/fileChanges/last-build.bin
+/.gradle/8.10.2/dependencies-accessors/d8471e6bc73aff94475ddb3590c762505d6166d2/sources/org/gradle/accessors/dm/LibrariesForLibs.java
+/.gradle/8.10.2/dependencies-accessors/d8471e6bc73aff94475ddb3590c762505d6166d2/sources/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock.java
+/.gradle/8.10.2/checksums/md5-checksums.bin
+/.gradle/8.10.2/dependencies-accessors/d8471e6bc73aff94475ddb3590c762505d6166d2/metadata.bin
+/.gradle/8.10.2/fileHashes/resourceHashesCache.bin
+/.gradle/8.10.2/checksums/sha1-checksums.bin
