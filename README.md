@@ -1,5 +1,5 @@
-Hello! This is the repo for my little timer plugin for minecraft!
-It's got some features and you can always hit me up on discord (https://discord.gg/6YEabdTEBc) if you have any ideas!
+Hello! This is the repo for my little timer plugin for Minecraft!
+It's got some features, and you can always hit me up on discord (https://discord.gg/6YEabdTEBc) if you have any ideas!
 
 
 ## Disclaimer
