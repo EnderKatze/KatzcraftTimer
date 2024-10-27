@@ -133,6 +133,8 @@ class KatzcraftTimer : JavaPlugin() {
     override fun onDisable() {
         // Plugin shutdown logic
 
+
+
         timer!!.removeAllPlayersFromBossBar()
 
         if (config.getBoolean("saveTime")) {

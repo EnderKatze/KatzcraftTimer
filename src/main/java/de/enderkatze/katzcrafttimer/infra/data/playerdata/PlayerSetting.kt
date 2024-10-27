@@ -9,5 +9,12 @@ data class PlayerSetting(
     val timerDisplayType: TimerDisplayType,
     val pauseDisplayType: PausedDisplayType
 ) {
-
+    fun toMap(): Map<String, Map<String, Any>> {
+        return mapOf(
+            player.uniqueId.toString() to mapOf(
+                "timerDisplayType" to timerDisplayType,
+                "pausedDisplayType" to pauseDisplayType
+            )
+        )
+    }
 }

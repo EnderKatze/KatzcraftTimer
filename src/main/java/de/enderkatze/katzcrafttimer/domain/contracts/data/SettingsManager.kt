@@ -6,4 +6,7 @@ import org.bukkit.entity.Player
 interface SettingsManager {
 
     fun getSetting(player: Player): PlayerSetting?
+    fun saveSettings()
+    fun saveSetting(player: Player)
+    fun loadSettings()
 }
