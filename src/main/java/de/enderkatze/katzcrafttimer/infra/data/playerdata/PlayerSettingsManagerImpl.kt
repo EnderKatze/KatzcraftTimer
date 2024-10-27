@@ -1,6 +1,6 @@
 package de.enderkatze.katzcrafttimer.infra.data.playerdata
 
-import de.enderkatze.katzcrafttimer.domain.contracts.data.SettingsManager
+import de.enderkatze.katzcrafttimer.domain.contracts.data.PlayerSettingsManager
 import de.enderkatze.katzcrafttimer.core.framework.data.GlobalDataConfig
 import de.enderkatze.katzcrafttimer.presenter.display.PausedDisplayType
 import de.enderkatze.katzcrafttimer.presenter.display.TimerDisplayType
@@ -11,9 +11,9 @@ import java.util.*
 import javax.inject.Inject
 
 
-class SettingsManagerImpl @Inject constructor(
+class PlayerSettingsManagerImpl @Inject constructor(
     val dataConfig: GlobalDataConfig
-): SettingsManager {
+): PlayerSettingsManager {
 
     private var settings: MutableList<PlayerSetting> = mutableListOf<PlayerSetting>()
 

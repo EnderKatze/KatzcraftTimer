@@ -4,7 +4,7 @@ import com.google.inject.AbstractModule
 import com.google.inject.Scopes
 import com.google.inject.name.Names
 import de.enderkatze.katzcrafttimer.KatzcraftTimer
-import de.enderkatze.katzcrafttimer.domain.contracts.data.SettingsManager
+import de.enderkatze.katzcrafttimer.domain.contracts.data.PlayerSettingsManager
 import de.enderkatze.katzcrafttimer.api.framework.timer.Timer
 import de.enderkatze.katzcrafttimer.infra.data.globaldata.GlobalDataConfigImpl
 import de.enderkatze.katzcrafttimer.core.framework.data.GlobalDataConfig
@@ -14,7 +14,7 @@ import de.enderkatze.katzcrafttimer.presenter.display.TimerDisplayImpl
 import de.enderkatze.katzcrafttimer.presenter.display.TimerDisplay
 import de.enderkatze.katzcrafttimer.core.timer.TimerManagerImpl
 import de.enderkatze.katzcrafttimer.api.framework.timer.TimerManager
-import de.enderkatze.katzcrafttimer.infra.data.playerdata.SettingsManagerImpl
+import de.enderkatze.katzcrafttimer.infra.data.playerdata.PlayerSettingsManagerImpl
 import de.enderkatze.katzcrafttimer.presenter.display.display_handlers.ActionbarDisplayHandler
 import de.enderkatze.katzcrafttimer.presenter.display.display_handlers.BossbarDisplayHandler
 import de.enderkatze.katzcrafttimer.core.timer.TimerNormal
@@ -42,7 +42,7 @@ class MainBinderModule(private val plugin: KatzcraftTimer): AbstractModule() {
         // Data
         bind(TimerConfig::class.java).to(TimerConfigImpl::class.java).`in`(Scopes.SINGLETON)
         bind(GlobalDataConfig::class.java).to(GlobalDataConfigImpl::class.java).`in`(Scopes.SINGLETON)
-        bind(SettingsManager::class.java).to(SettingsManagerImpl::class.java).`in`(Scopes.SINGLETON)
+        bind(PlayerSettingsManager::class.java).to(PlayerSettingsManagerImpl::class.java).`in`(Scopes.SINGLETON)
 
         // External
         bind(TimerExpansion::class.java).`in`(Scopes.SINGLETON)

@@ -2,7 +2,7 @@ package de.enderkatze.katzcrafttimer.presenter.display.display_handlers
 
 import com.google.inject.Inject
 import de.enderkatze.katzcrafttimer.KatzcraftTimer
-import de.enderkatze.katzcrafttimer.domain.contracts.data.SettingsManager
+import de.enderkatze.katzcrafttimer.domain.contracts.data.PlayerSettingsManager
 import de.enderkatze.katzcrafttimer.api.framework.timer.Timer
 import de.enderkatze.katzcrafttimer.presenter.display.PausedDisplayType
 import net.md_5.bungee.api.ChatMessageType
@@ -11,11 +11,11 @@ import org.bukkit.ChatColor
 import org.bukkit.entity.Player
 
 class ActionbarDisplayHandler @Inject constructor(
-    private val settingsManager: SettingsManager,
+    private val playerSettingsManager: PlayerSettingsManager,
     private val plugin: KatzcraftTimer,
 ) {
     fun display(player: Player, primaryTimer: Timer) {
-        val pausedDisplaySetting = settingsManager.getSetting(player)!!.pauseDisplayType
+        val pausedDisplaySetting = playerSettingsManager.getSetting(player)!!.pauseDisplayType
 
         if(primaryTimer.running) {
             player.spigot().sendMessage(
