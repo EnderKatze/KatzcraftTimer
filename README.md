@@ -16,6 +16,6 @@ My code is a bit messy, and I hope making it public will help me organize it a b
 - [ ] Implement new timer system ui/gui
 - [X] dynamically create PlaceholderAPI values for timers
 - [ ] read timers from file on startup
-- [ ] read player settings from file on startup
-- [ ] save timer settings to file on shutdown
+- [X] read player settings from file on startup
+- [X] save player settings to file on shutdown
 - [ ] save timers to file on shutdown
