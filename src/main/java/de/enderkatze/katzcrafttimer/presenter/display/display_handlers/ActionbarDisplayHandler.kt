@@ -3,7 +3,7 @@ package de.enderkatze.katzcrafttimer.presenter.display.display_handlers
 import com.google.inject.Inject
 import de.enderkatze.katzcrafttimer.KatzcraftTimer
 import de.enderkatze.katzcrafttimer.domain.contracts.data.PlayerSettingsManager
-import de.enderkatze.katzcrafttimer.api.framework.timer.Timer
+import de.enderkatze.katzcrafttimer.domain.contracts.timer.Timer
 import de.enderkatze.katzcrafttimer.presenter.display.PausedDisplayType
 import net.md_5.bungee.api.ChatMessageType
 import net.md_5.bungee.api.chat.TextComponent

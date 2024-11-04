@@ -2,7 +2,7 @@ package de.enderkatze.katzcrafttimer.infra.data.globaldata
 
 import com.google.inject.Inject
 import de.enderkatze.katzcrafttimer.KatzcraftTimer
-import de.enderkatze.katzcrafttimer.core.framework.data.GlobalDataConfig
+import de.enderkatze.katzcrafttimer.domain.contracts.data.GlobalDataConfig
 import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.configuration.file.YamlConfiguration
 import java.io.File

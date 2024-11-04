@@ -1,8 +1,7 @@
 package de.enderkatze.katzcrafttimer.api
 
-import com.google.inject.Inject
 import de.enderkatze.katzcrafttimer.KatzcraftTimer
-import de.enderkatze.katzcrafttimer.api.framework.timer.TimerManager
+import de.enderkatze.katzcrafttimer.domain.contracts.timer.TimerManager
 
 class KatzcraftTimerAPI private constructor(
     private val plugin: KatzcraftTimer,

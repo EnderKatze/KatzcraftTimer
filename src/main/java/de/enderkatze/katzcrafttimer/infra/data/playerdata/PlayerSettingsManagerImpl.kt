@@ -1,7 +1,8 @@
 package de.enderkatze.katzcrafttimer.infra.data.playerdata
 
 import de.enderkatze.katzcrafttimer.domain.contracts.data.PlayerSettingsManager
-import de.enderkatze.katzcrafttimer.core.framework.data.GlobalDataConfig
+import de.enderkatze.katzcrafttimer.domain.contracts.data.GlobalDataConfig
+import de.enderkatze.katzcrafttimer.domain.contracts.data.PlayerSetting
 import de.enderkatze.katzcrafttimer.presenter.display.PausedDisplayType
 import de.enderkatze.katzcrafttimer.presenter.display.TimerDisplayType
 import org.bukkit.Bukkit

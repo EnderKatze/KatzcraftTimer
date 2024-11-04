@@ -2,8 +2,8 @@ package de.enderkatze.katzcrafttimer.external.placeholderapi;
 
 import com.google.inject.Inject;
 import de.enderkatze.katzcrafttimer.KatzcraftTimer;
-import de.enderkatze.katzcrafttimer.api.framework.timer.Timer;
-import de.enderkatze.katzcrafttimer.api.framework.timer.TimerManager;
+import de.enderkatze.katzcrafttimer.domain.contracts.timer.Timer;
+import de.enderkatze.katzcrafttimer.domain.contracts.timer.TimerManager;
 import de.enderkatze.katzcrafttimer.presenter.TimeFormatter;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.entity.Player;

@@ -36,6 +36,9 @@ dependencies {
     compileOnly(libs.me.clip.placeholderapi)
     compileOnly(libs.org.projectlombok.lombok)
     implementation(kotlin("stdlib-jdk8"))
+
+    implementation("io.github.revxrsal:lamp.common:4.0.0-beta.19")
+    implementation("io.github.revxrsal:lamp.bukkit:4.0.0-beta.19")
 }
 
 group = "de.enderkatze"

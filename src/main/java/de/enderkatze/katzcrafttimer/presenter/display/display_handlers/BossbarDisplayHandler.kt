@@ -3,7 +3,7 @@ package de.enderkatze.katzcrafttimer.presenter.display.display_handlers
 import com.google.inject.Inject
 import de.enderkatze.katzcrafttimer.KatzcraftTimer
 import de.enderkatze.katzcrafttimer.domain.contracts.data.PlayerSettingsManager
-import de.enderkatze.katzcrafttimer.api.framework.timer.Timer
+import de.enderkatze.katzcrafttimer.domain.contracts.timer.Timer
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.boss.BarColor

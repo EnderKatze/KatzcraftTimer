@@ -8,7 +8,7 @@ website: https://castmax1311.github.io/katzcraft-studios-website/
 commands:
   timer:
     usage: /<command>
-    description: timer command
+    description: main timer command
     aliases: [katzcrafttimer]
     permission: katzcrafttimer.timer
 
